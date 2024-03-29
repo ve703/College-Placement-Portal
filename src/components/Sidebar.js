@@ -132,7 +132,7 @@ function ResponsiveDrawer(props) {
         </ListItem>
 
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton component={Link} to="/signup">
             <ListItemIcon>
               <ExitToAppIcon />
             </ListItemIcon>
