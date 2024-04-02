@@ -44,9 +44,7 @@ function ResponsiveDrawer(props) {
   };
 
   const handleDrawerToggle = () => {
-    if (!isClosing) {
-      setMobileOpen(!mobileOpen);
-    }
+    setMobileOpen(!mobileOpen);
   };
   const drawer = (
     <div>
@@ -151,24 +149,16 @@ function ResponsiveDrawer(props) {
     <div className="Navbar">
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
-        <AppBar
-          position="fixed"
-          sx={{
-            width: { sm: `calc(100% - ${drawerWidth}px)` },
-            ml: { sm: `${drawerWidth}px` },
-          }}
-        >
+        <AppBar position="fixed">
           <Toolbar>
             <IconButton
               color="inherit"
               aria-label="open drawer"
               edge="start"
-              onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { sm: "none" } }}
+              onClick={handleDrawerToggle} // Toggle drawer open/close on menu icon click
             >
               <MenuIcon />
             </IconButton>
-            {/* VJTI Logo */}
             <img
               src={VJTI_logo}
               alt="VJTI Logo"
@@ -179,42 +169,18 @@ function ResponsiveDrawer(props) {
             </Typography>
           </Toolbar>
         </AppBar>
-
         <Box
           component="nav"
-          sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
           aria-label="mailbox folders"
         >
-          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
           <Drawer
             container={container}
             variant="temporary"
             open={mobileOpen}
-            onTransitionEnd={handleDrawerTransitionEnd}
-            onClose={handleDrawerClose}
+            onClose={handleDrawerToggle} // Close drawer on overlay click
             ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
+              keepMounted: true,
             }}
-            sx={{
-              display: { xs: "block", sm: "none" },
-              "& .MuiDrawer-paper": {
-                boxSizing: "border-box",
-                width: drawerWidth,
-              },
-            }}
-          >
-            {drawer}
-          </Drawer>
-          <Drawer
-            variant="permanent"
-            sx={{
-              display: { xs: "none", sm: "block" },
-              "& .MuiDrawer-paper": {
-                boxSizing: "border-box",
-                width: drawerWidth,
-              },
-            }}
-            open
           >
             {drawer}
           </Drawer>
@@ -224,7 +190,6 @@ function ResponsiveDrawer(props) {
           sx={{
             flexGrow: 1,
             p: 3,
-            width: { sm: `calc(100% - ${drawerWidth}px)` },
           }}
         >
           <Toolbar />
