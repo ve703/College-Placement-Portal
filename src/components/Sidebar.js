@@ -44,6 +44,9 @@ function ResponsiveDrawer(props) {
   };
 
   const handleDrawerToggle = () => {
+    // if (!isClosing) {
+    //   setMobileOpen(!mobileOpen);
+    // }
     setMobileOpen(!mobileOpen);
   };
   const drawer = (
@@ -130,7 +133,7 @@ function ResponsiveDrawer(props) {
         </ListItem>
 
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton component={Link} to="/signup">
             <ListItemIcon>
               <ExitToAppIcon />
             </ListItemIcon>
@@ -149,16 +152,24 @@ function ResponsiveDrawer(props) {
     <div className="Navbar">
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
-        <AppBar position="fixed">
+        <AppBar
+          position="fixed"
+          // sx={{
+          //   width: { sm: `calc(100% - ${drawerWidth}px)` },
+          //   ml: { sm: `${drawerWidth}px` },
+          // }}
+        >
           <Toolbar>
             <IconButton
               color="inherit"
               aria-label="open drawer"
               edge="start"
-              onClick={handleDrawerToggle} // Toggle drawer open/close on menu icon click
+              onClick={handleDrawerToggle}
+              // sx={{ mr: 2, display: { sm: "none" } }}
             >
               <MenuIcon />
             </IconButton>
+            {/* VJTI Logo */}
             <img
               src={VJTI_logo}
               alt="VJTI Logo"
@@ -169,18 +180,29 @@ function ResponsiveDrawer(props) {
             </Typography>
           </Toolbar>
         </AppBar>
+
         <Box
           component="nav"
+          // sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
           aria-label="mailbox folders"
         >
+          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
           <Drawer
             container={container}
             variant="temporary"
             open={mobileOpen}
-            onClose={handleDrawerToggle} // Close drawer on overlay click
+            // onTransitionEnd={handleDrawerTransitionEnd}
+            onClose={handleDrawerToggle}
             ModalProps={{
-              keepMounted: true,
+              keepMounted: true, // Better open performance on mobile.
             }}
+            // sx={{
+            //   display: { xs: "block", sm: "none" },
+            //   "& .MuiDrawer-paper": {
+            //     boxSizing: "border-box",
+            //     width: drawerWidth,
+            //   },
+            // }}
           >
             {drawer}
           </Drawer>
@@ -190,6 +212,7 @@ function ResponsiveDrawer(props) {
           sx={{
             flexGrow: 1,
             p: 3,
+            // width: { sm: `calc(100% - ${drawerWidth}px)` },
           }}
         >
           <Toolbar />
