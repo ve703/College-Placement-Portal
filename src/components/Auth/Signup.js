@@ -14,6 +14,8 @@ import Link from "@mui/material/Link";
 import Avatar from "@mui/material/Avatar";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useNavigate } from "react-router-dom";
+import CircularProgress from "@mui/material/CircularProgress";
+import { message } from "antd";
 
 function Copyright(props) {
   return (
@@ -37,6 +39,7 @@ function SignUp() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
+  
     userName: "",
     // firstName: "",
     // lastName: "",
@@ -45,6 +48,7 @@ function SignUp() {
     userType: "",
   });
 
+  const [loading, setLoading] = useState(false);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -56,6 +60,23 @@ function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
+      const response = await fetch("http://localhost:5000/api/v1/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const r = await response.json();
+      console.log(r.msgType);
+      if (r.msgType === "success") {
+        message.success(r.msg);
+        navigate("/login");
+      } else {
+        message.warning(r.msg);
+      }
+      setLoading(false);
       console.log(formData);
       navigate("/login");
     } catch (error) {
@@ -65,6 +86,14 @@ function SignUp() {
 
   return (
     <Container component="main" maxWidth="xs">
+      {loading && (
+        <div className="spinner">
+          <Box sx={{ display: "flex" }}>
+            <CircularProgress />
+          </Box>
+        </div>
+      )}
+
       <Box
         sx={{
           // marginTop: 2,
@@ -113,6 +142,8 @@ function SignUp() {
             <TextField
               variant="outlined"
               label="User Name"
+              name="username"
+
               name="userName"
               value={formData.firstName}
               onChange={handleChange}

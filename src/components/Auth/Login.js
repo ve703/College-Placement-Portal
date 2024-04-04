@@ -14,6 +14,8 @@ import {
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useNavigate } from "react-router-dom";
+import { message } from "antd";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function Copyright(props) {
   return (
@@ -35,6 +37,8 @@ function Copyright(props) {
 
 function Login() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
 
   const [formData, setFormData] = useState({
     email: "",
@@ -50,6 +54,29 @@ function Login() {
     }));
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const response = await fetch("http://localhost:5000/api/v1/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+    const r = await response.json();
+    if (r.msgType === "success") {
+      message.success(r.msg);
+      if (r.userType === 0) {
+        navigate("/student-dashboard");
+      } else if (r.userType === "1") {
+        navigate("/admin-dashboard");
+      }
+    } else {
+      message.warning(r.msg);
+    }
+    setLoading(false);
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
@@ -62,6 +89,14 @@ function Login() {
 
   return (
     <Container component="main" maxWidth="xs">
+      {loading && (
+        <div className="spinner">
+          <Box sx={{ display: "flex" }}>
+            <CircularProgress />
+          </Box>
+        </div>
+      )}
+
       <Box
         sx={{
           // marginTop: 2,
