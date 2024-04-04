@@ -39,7 +39,6 @@ function Login() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -77,14 +76,6 @@ function Login() {
       message.warning(r.msg);
     }
     setLoading(false);
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
-    if (formData.userType === "0") {
-      navigate("/student-dashboard");
-    } else if (formData.userType === "1") {
-      navigate("/admin-dashboard");
-    }
   };
 
   return (
