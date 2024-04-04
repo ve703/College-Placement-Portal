@@ -39,7 +39,8 @@ function SignUp() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    username: "",
+  
+    userName: "",
     // firstName: "",
     // lastName: "",
     email: "",
@@ -76,6 +77,8 @@ function SignUp() {
         message.warning(r.msg);
       }
       setLoading(false);
+      console.log(formData);
+      navigate("/login");
     } catch (error) {
       console.error("Sign up error", error.message);
     }
@@ -90,6 +93,7 @@ function SignUp() {
           </Box>
         </div>
       )}
+
       <Box
         sx={{
           // marginTop: 2,
@@ -102,6 +106,7 @@ function SignUp() {
           <LockOutlinedIcon />
         </Avatar>
       </Box>
+
       <Typography component="h1" variant="h5" align="center" gutterBottom>
         Sign Up
       </Typography>
@@ -138,6 +143,8 @@ function SignUp() {
               variant="outlined"
               label="User Name"
               name="username"
+
+              name="userName"
               value={formData.firstName}
               onChange={handleChange}
               fullWidth
@@ -203,6 +210,7 @@ function SignUp() {
           </Grid>
         </Grid>
       </form>
+
       <Copyright sx={{ mt: 4, mb: 4 }} />
     </Container>
   );
