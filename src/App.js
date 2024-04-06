@@ -1,10 +1,13 @@
 import "./App.css";
 // import Navbar from "./components/Navbar";
-import Home from "./components/Home";
+import Home from "./components/AppHome/Home";
+import PlacementStat from "./components/AppHome/PlacementStat";
+import Recruitment from "./components/AppHome/Recruitment";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import OurTeam from "./components/OurTeam";
-import Contact from "./components/Contact";
-import ResponsiveDrawer from "./components/Sidebar";
+import OurTeam from "./components/AppHome/OurTeam";
+import Contact from "./components/AppHome/Contact";
+import AboutVjti from "./components/AppHome/AboutVjti";
+import ResponsiveDrawer from "./components/AppHome/Layout/Sidebar";
 import Signup from "./components/Auth/Signup";
 import Login from "./components/Auth/Login";
 import AdminDashboard from "./components/AdminPannel/AdminDashboard";
@@ -22,6 +25,9 @@ function App() {
           <Route path="/contact" element={<Contact />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
           <Route path="/login" element={<Login />}></Route>
+          <Route path="/placement" element={<PlacementStat />}></Route>
+          <Route path="/recruitment" element={<Recruitment />}></Route>
+          <Route path="/about" element={<AboutVjti />}></Route>
           <Route
             path="/student-dashboard"
             element={<StudentDashboard />}

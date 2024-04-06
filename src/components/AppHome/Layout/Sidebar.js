@@ -21,11 +21,11 @@ import SignalCellularAltIcon from "@mui/icons-material/SignalCellularAlt";
 import PeopleIcon from "@mui/icons-material/People";
 import MenuIcon from "@mui/icons-material/Menu";
 import SchoolIcon from "@mui/icons-material/School";
-import "./Navbar.css";
+import "../Styles/Sidebar.css";
 import HomeIcon from "@mui/icons-material/Home";
 import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
 import { Link } from "react-router-dom";
-import VJTI_logo from "../VJTI_logo.svg";
+import VJTI_logo from "../../../VJTI_logo.svg";
 
 const drawerWidth = 240;
 
@@ -91,7 +91,7 @@ function ResponsiveDrawer(props) {
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton component={Link} to="/about">
             <ListItemIcon>
               <HelpIcon />
             </ListItemIcon>
@@ -99,7 +99,7 @@ function ResponsiveDrawer(props) {
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton component={Link} to="/placement">
             <ListItemIcon>
               <SignalCellularAltIcon />
             </ListItemIcon>
@@ -107,7 +107,7 @@ function ResponsiveDrawer(props) {
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton component={Link} to="/recruitment">
             <ListItemIcon>
               <AccountTreeIcon />
             </ListItemIcon>

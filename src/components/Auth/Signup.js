@@ -39,7 +39,6 @@ function SignUp() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-  
     userName: "",
     // firstName: "",
     // lastName: "",
@@ -142,8 +141,6 @@ function SignUp() {
             <TextField
               variant="outlined"
               label="User Name"
-              name="username"
-
               name="userName"
               value={formData.firstName}
               onChange={handleChange}
