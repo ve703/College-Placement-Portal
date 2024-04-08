@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import OurTeam from "./components/AppHome/OurTeam";
 import Contact from "./components/AppHome/Contact";
 import AboutVjti from "./components/AppHome/AboutVjti";
+import RecruitersPage from "./components/AppHome/OurRecruiters";
 import ResponsiveDrawer from "./components/AppHome/Layout/Sidebar";
 import Signup from "./components/Auth/Signup";
 import Login from "./components/Auth/Login";
@@ -28,6 +29,7 @@ function App() {
           <Route path="/placement" element={<PlacementStat />}></Route>
           <Route path="/recruitment" element={<Recruitment />}></Route>
           <Route path="/about" element={<AboutVjti />}></Route>
+          <Route path="/recruiters" element={<RecruitersPage />}></Route>
           <Route
             path="/student-dashboard"
             element={<StudentDashboard />}

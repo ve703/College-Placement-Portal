@@ -20,7 +20,6 @@ import CorporateFareIcon from "@mui/icons-material/CorporateFare";
 import SignalCellularAltIcon from "@mui/icons-material/SignalCellularAlt";
 import PeopleIcon from "@mui/icons-material/People";
 import MenuIcon from "@mui/icons-material/Menu";
-import SchoolIcon from "@mui/icons-material/School";
 import "../Styles/Sidebar.css";
 import HomeIcon from "@mui/icons-material/Home";
 import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
@@ -116,7 +115,7 @@ function ResponsiveDrawer(props) {
         </ListItem>
 
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton component={Link} to="/recruiters">
             <ListItemIcon>
               <CorporateFareIcon />
             </ListItemIcon>
