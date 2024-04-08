@@ -125,7 +125,7 @@ const Navbar = () => {
         </ListItem>
 
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton component={Link} to="/signup">
             <ListItemIcon>
               <ExitToAppIcon />
             </ListItemIcon>
