@@ -65,11 +65,14 @@ function Login() {
       body: JSON.stringify(formData),
     });
     const r = await response.json();
+    console.log(r);
     if (r.msgType === "success") {
       message.success(r.msg);
+      console.log("HERE");
+      localStorage.setItem("AuthToken", r.AuthToken);
       if (r.userType === 0) {
-        navigate("/student-dashboard");
-      } else if (r.userType === "1") {
+        navigate("/candidate");
+      } else if (r.userType === 1) {
         navigate("/admin-dashboard");
       }
     } else {

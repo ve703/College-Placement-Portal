@@ -1,5 +1,5 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -7,23 +7,26 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import {
   Avatar,
-  ListItem,
+  // ListItem,
   Stack,
-  List,
-  ListItemText,
-  ListItemButton,
+  // List,
+  // ListItemText,
   Divider,
 } from "@mui/material";
 import sample_profile from "./sample_profile.jpg";
-
+import Table from "@mui/material/Table";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import EducationalDetails from "./EducationalDetails";
-
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
-
   return (
     <div
       role="tabpanel"
@@ -46,7 +49,6 @@ CustomTabPanel.propTypes = {
   index: PropTypes.number.isRequired,
   value: PropTypes.number.isRequired,
 };
-
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
@@ -54,20 +56,7 @@ function a11yProps(index) {
   };
 }
 
-const array = [
-  "RollNo. :",
-  "Program :",
-  "Stream :",
-  "Enrollment Year :",
-  "Backlog :",
-  "Current Percentage :",
-  "Email :",
-  "Phone No :",
-  "Sex :",
-  "D.O.B :",
-  "Current Address :",
-  "permanent Address :",
-];
+const array = ["A"];
 
 const StudentInfo = () => {
   const [value, setValue] = React.useState(0);
@@ -81,15 +70,75 @@ const StudentInfo = () => {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
 
+  const navigate = useNavigate();
+
+  const EditPath = () => {
+    navigate("/edit-profile");
+  };
+  const data = {
+    "Registration Number": '"Enter Registration Number',
+    "First Name": "Enter FirstName",
+    "Last Name": "Enter LastName",
+    Branch: "Enter Branch",
+    CPI: "Enter current CPI",
+    Gender: "Male",
+    Phone: "Enter Phone Number",
+    "Enrollment year": 2020,
+    "Date of Birth": "Enter Date of Birth",
+  };
+  const [credential, setCredentials] = useState(data);
+  const fetchData = async () => {
+    const response = await fetch("http://localhost:5000/api/v1/fetchdata", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        AuthToken: localStorage.getItem("AuthToken"),
+      },
+    });
+    const r = await response.json();
+    // console.log(r.userData.firstName);
+    setCredentials({
+      "Registration Number": r.userData.regnumber,
+      "First Name": r.userData.firstName,
+      "Last Name": r.userData.lastName,
+      Branch: r.userData.branch,
+      CPI: r.userData.currcpi,
+      "Date of Birth": r.userData.dob,
+      "Enrollment year": r.userData.enrollmentyear,
+      Phone: r.userData.phone,
+      Gender: r.userData.sex,
+    });
+  };
+  useEffect(() => {
+    if (!localStorage.getItem("AuthToken")) {
+      navigate("/login");
+    } else {
+      fetchData();
+    }
+  }, []);
+  console.log(credential);
+  // Object.entries(credential).map((entry) => {
+  //   let key = entry[0];
+  //   let value = entry[1];
+  //   console.log(key, value);
+  // });
   return (
     <Box>
       <Typography variant="h6">My Profile</Typography>
-      <Box sx={{ width: "100%", border: 1 }}>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+
+      <Box sx={{ width: "100%" }}>
+        <Box
+          sx={{
+            borderBottom: 1,
+            borderColor: "divider",
+            width: "100%",
+          }}
+        >
           <Tabs
             value={value}
             onChange={handleChange}
@@ -97,30 +146,32 @@ const StudentInfo = () => {
           >
             <Tab label="Personal Details" {...a11yProps(0)} />
             <Tab label="Educational Details" {...a11yProps(1)} />
-            <Tab label="Resume" {...a11yProps(2)} />
+            {/* <Tab label="Resume" {...a11yProps(2)} /> */}
           </Tabs>
         </Box>
-        <CustomTabPanel value={value} index={0}>
-          <Stack direction="row" spacing={10}>
+      </Box>
+      <CustomTabPanel value={value} index={0}>
+        <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
+          <Stack>
             <Avatar
-              sx={{ width: 150, height: 150, border: "2px solid blue" }}
+              sx={{
+                width: 150,
+                height: 150,
+                border: "2px solid blue",
+                // alignContent: "center",
+                marginLeft: "auto",
+                marginRight: "auto",
+              }}
               alt="Profile pic"
               src={sample_profile}
             />
-            <Box sx={{ border: 1 }}>
-              <Typography variant="h5">Student Name </Typography>
-              <Divider />
-              <List sx={{ height: 600, width: 980, background: "white" }}>
-                {array.map((listElem) => (
-                  <ListItem>
-                    <ListItemText primary={listElem} />
-                  </ListItem>
-                ))}
-              </List>
-            </Box>
 
             <Button
-              sx={{ height: 20 }}
+              sx={{
+                height: 20,
+                marginTop: "10px",
+                color: "black",
+              }}
               id="basic-button"
               aria-controls={open ? "basic-menu" : undefined}
               aria-haspopup="true"
@@ -129,28 +180,63 @@ const StudentInfo = () => {
             >
               <Typography variant="h5">...</Typography>
             </Button>
-
-            <Menu
-              id="basic-menu"
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-              MenuListProps={{
-                "aria-labelledby": "basic-button",
-              }}
-            >
-              <MenuItem onClick={handleClose}>Edit Profile</MenuItem>
-              <MenuItem onClick={handleClose}>Change Password</MenuItem>
-            </Menu>
           </Stack>
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={1}>
-          <EducationalDetails />
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={2}>
-          Resume
-        </CustomTabPanel>
-      </Box>
+          <Box sx={{ border: 1, width: "100%" }}>
+            <Typography variant="h5">
+              {credential["First Name"] === "Enter First Name"
+                ? "Update Profile in Edit profile Section"
+                : credential["First Name"] + " " + credential["Last Name"]}
+            </Typography>
+            <Divider />
+            {/* <List sx={{ height: 600, width: 980, background: "white" }}>
+                {array.map((listElem) => (
+                  <ListItem>
+                    <ListItemText primary={listElem} />
+                  </ListItem>
+                ))}
+              </List> */}
+
+            <TableContainer component={Paper}>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    {/* <TableCell align="left">Credentials</TableCell>
+                      <TableCell align="left">Details</TableCell> */}
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {Object.entries(credential).map((i, index) => (
+                    <TableRow key={index}>
+                      <TableCell>{i[0]}</TableCell>
+                      <TableCell>{i[1]}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Box>
+
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              "aria-labelledby": "basic-button",
+            }}
+          >
+            <MenuItem onClick={EditPath}>Edit Profile</MenuItem>
+
+            <MenuItem onClick={handleClose}>Change Password</MenuItem>
+          </Menu>
+        </Stack>
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={1}>
+        <EducationalDetails />
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={2}>
+        Resume
+      </CustomTabPanel>
     </Box>
   );
 };
