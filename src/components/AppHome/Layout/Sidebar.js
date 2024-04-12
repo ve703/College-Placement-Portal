@@ -25,6 +25,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
 import { Link } from "react-router-dom";
 import VJTI_logo from "../../../VJTI_logo.svg";
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -32,6 +33,11 @@ function ResponsiveDrawer(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
+  const navigate = useNavigate();
+  const LogOutChange = async () => {
+    localStorage.removeItem("AuthToken");
+    navigate("/login");
+  };
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -53,26 +59,6 @@ function ResponsiveDrawer(props) {
       <Toolbar />
       <Divider />
       <List>
-        {/* this can be done or mapping of list items, neglected for simplicity
-         {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))} */}
-        {/* <ListItem>
-          <ListItemButton>
-            <ListItemIcon>
-              <SchoolIcon />
-            </ListItemIcon>
-            <ListItemText primary={"VJTI"} />
-          </ListItemButton>
-        </ListItem>
-        <Divider /> */}
         <ListItem disablePadding>
           <ListItemButton component={Link} to="/">
             <ListItemIcon>
@@ -130,15 +116,31 @@ function ResponsiveDrawer(props) {
             <ListItemText primary={"Contact Us"} />
           </ListItemButton>
         </ListItem>
-
-        <ListItem disablePadding>
-          <ListItemButton component={Link} to="/signup">
-            <ListItemIcon>
-              <ExitToAppIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Sign Up"} />
-          </ListItemButton>
-        </ListItem>
+        {localStorage.getItem("AuthToken") ? (
+          <ListItem disablePadding>
+            <ListItemButton
+              component={Link}
+              to="/"
+              onClick={() => {
+                localStorage.removeItem("AuthToken");
+              }}
+            >
+              <ListItemIcon>
+                <ExitToAppIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Log Out"} />
+            </ListItemButton>
+          </ListItem>
+        ) : (
+          <ListItem disablePadding>
+            <ListItemButton component={Link} to="/signup">
+              <ListItemIcon>
+                <ExitToAppIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Sign Up"} />
+            </ListItemButton>
+          </ListItem>
+        )}
       </List>
     </div>
   );

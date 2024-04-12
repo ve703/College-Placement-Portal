@@ -77,7 +77,6 @@ function SignUp() {
       }
       setLoading(false);
       console.log(formData);
-      navigate("/login");
     } catch (error) {
       console.error("Sign up error", error.message);
     }

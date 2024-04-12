@@ -4,11 +4,11 @@ import sample_profile from "./sample_profile.jpg";
 import Box from "@mui/material/Box";
 import {
   Avatar,
-  ListItem,
+  // ListItem,
   Stack,
-  List,
-  ListItemText,
-  ListItemButton,
+  // List,
+  // ListItemText,
+  // ListItemButton,
   Divider,
 } from "@mui/material";
 import {
@@ -130,6 +130,8 @@ const EducationalDetails = () => {
         </Table>
       </TableContainer>
 
+      <br />
+      <br />
       <Typography align="left">Semister Info :</Typography>
       <Divider />
       <Divider />

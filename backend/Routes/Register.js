@@ -2,6 +2,12 @@ const express = require("express");
 const router = express.Router();
 const User = require("../Schemas/User.js");
 router.post("/register", async (req, res) => {
+  console.log(req.body);
+  if (req.body.email == "") {
+    return res
+      .status(400)
+      .json({ msg: "Incrorrect Credentials", msgType: "error" });
+  }
   const userData = await User.find({ email: req.body.email });
   if (userData.length !== 0) {
     return res.status(400).json({ msg: "User Exists", msgType: "error" });

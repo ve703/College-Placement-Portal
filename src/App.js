@@ -16,6 +16,7 @@ import Signup from "./components/Auth/Signup";
 import Login from "./components/Auth/Login";
 import AdminDashboard from "./components/AdminPannel/AdminDashboard";
 import StudentDashboard from "./components/StudentPannel/StudentDashboard";
+import EditProfile from "./components/StudentPannel/EditProfile";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
             element={<StudentDashboard />}
           ></Route>
           <Route path="/admin-dashboard" element={<AdminDashboard />}></Route>
+          <Route path="/edit-profile" element={<EditProfile />}></Route>
         </Routes>
       </BrowserRouter>
       {/* <Home /> */}
