@@ -25,9 +25,13 @@ import HomeIcon from "@mui/icons-material/Home";
 import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
 import { Link } from "react-router-dom";
 import VJTI_logo from "../../../VJTI_logo.svg";
+import Profile from "../../../Profile.png";
 import { useNavigate } from "react-router-dom";
+import PersonIcon from "@mui/icons-material/Person";
+import LoginIcon from "@mui/icons-material/Login";
+import WorkIcon from "@mui/icons-material/Work";
 
-const drawerWidth = 240;
+// const drawerWidth = 240;
 
 function ResponsiveDrawer(props) {
   const { window } = props;
@@ -57,6 +61,23 @@ function ResponsiveDrawer(props) {
   const drawer = (
     <div>
       <Toolbar />
+
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        {localStorage.getItem("AuthToken") ? (
+          <img
+            src={Profile}
+            alt="Profile"
+            style={{ height: "150px", marginBottom: "20px" }}
+          />
+        ) : (
+          <img
+            src={VJTI_logo}
+            alt="VJTI LOGO"
+            style={{ height: "150px", marginBottom: "20px" }}
+          />
+        )}
+      </div>
+
       <Divider />
       <List>
         <ListItem disablePadding>
@@ -67,6 +88,37 @@ function ResponsiveDrawer(props) {
             <ListItemText primary={"Home"} />
           </ListItemButton>
         </ListItem>
+
+        {/* Job Profiles */}
+
+        {localStorage.getItem("AuthToken") ? (
+          <ListItem disablePadding>
+            <ListItemButton component={Link} to="/job-profiles">
+              <ListItemIcon>
+                <WorkIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Job Profiles"} />
+            </ListItemButton>
+          </ListItem>
+        ) : (
+          ""
+        )}
+
+        {/* My Profile */}
+
+        {localStorage.getItem("AuthToken") ? (
+          <ListItem disablePadding>
+            <ListItemButton component={Link} to="/candidate">
+              <ListItemIcon>
+                <PersonIcon />
+              </ListItemIcon>
+              <ListItemText primary={"My Profile"} />
+            </ListItemButton>
+          </ListItem>
+        ) : (
+          ""
+        )}
+
         <ListItem disablePadding>
           <ListItemButton component={Link} to="/ourTeam">
             <ListItemIcon>
@@ -132,14 +184,24 @@ function ResponsiveDrawer(props) {
             </ListItemButton>
           </ListItem>
         ) : (
-          <ListItem disablePadding>
-            <ListItemButton component={Link} to="/signup">
-              <ListItemIcon>
-                <ExitToAppIcon />
-              </ListItemIcon>
-              <ListItemText primary={"Sign Up"} />
-            </ListItemButton>
-          </ListItem>
+          <>
+            <ListItem disablePadding>
+              <ListItemButton component={Link} to="/signup">
+                <ListItemIcon>
+                  <ExitToAppIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Sign Up"} />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton component={Link} to="/login">
+                <ListItemIcon>
+                  <LoginIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Login"} />
+              </ListItemButton>
+            </ListItem>
+          </>
         )}
       </List>
     </div>
