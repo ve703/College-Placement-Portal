@@ -10,6 +10,8 @@ app.use("/api/v1", require("./Routes/Login.js"));
 app.use("/api/v1", require("./Routes/Register.js"));
 app.use("/api/v1", require("./Routes/UpdateUserInfo.js"));
 app.use("/api/v1", require("./Routes/FetchStudentData.js"));
+app.use("/api/v1", require("./Routes/AddJob.js"));
+app.use("/api/v1", require("./Routes/FetchJobs.js"));
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });

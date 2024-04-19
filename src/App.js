@@ -17,6 +17,7 @@ import Login from "./components/Auth/Login";
 import AdminDashboard from "./components/AdminPannel/AdminDashboard";
 import StudentDashboard from "./components/StudentPannel/StudentDashboard";
 import EditProfile from "./components/StudentPannel/EditProfile";
+import JobProfiles from "./components/StudentPannel/JobProfiles";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
           <Route path="/admin-dashboard" element={<AdminDashboard />}></Route>
           <Route path="/admin-events" element={<AdminEvents />}></Route>
           <Route path="/edit-profile" element={<EditProfile />}></Route>
+          <Route path="/job-profiles" element={<JobProfiles />}></Route>
         </Routes>
       </BrowserRouter>
       {/* <Home /> */}
