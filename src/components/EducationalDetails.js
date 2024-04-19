@@ -91,7 +91,7 @@ const EducationalDetails = () => {
         />
         <div>
           <ThemeProvider theme={theme}>
-            <Typography variant="body1">vedant bhu</Typography>
+            <Typography variant="body1">student_info</Typography>
             <Divider />
             <Typography variant="subtitle1">@gmail.com</Typography>
           </ThemeProvider>
