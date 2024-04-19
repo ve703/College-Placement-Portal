@@ -4,9 +4,9 @@ import Home from "./components/AppHome/Home";
 import PlacementStat from "./components/AppHome/PlacementStat";
 import Recruitment from "./components/AppHome/Recruitment";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import AdminList from "./components/AdminPannel/AdminList";
 import StudentInfo from "./components/StudentInfo";
-
+import AdminEvents from "./components/AdminPannel/AdminEvents";
 import OurTeam from "./components/AppHome/OurTeam";
 import Contact from "./components/AppHome/Contact";
 import AboutVjti from "./components/AppHome/AboutVjti";
@@ -28,9 +28,8 @@ function App() {
           <Route path="/" element={<Home />}></Route>
           <Route path="/ourTeam" element={<OurTeam />}></Route>
           <Route path="/contact" element={<Contact />}></Route>
-
+          <Route path="/admin-list" element={<AdminList />}></Route>
           <Route path="/candidate" element={<StudentInfo />}></Route>
-
           <Route path="/signup" element={<Signup />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/placement" element={<PlacementStat />}></Route>
@@ -42,6 +41,7 @@ function App() {
             element={<StudentDashboard />}
           ></Route>
           <Route path="/admin-dashboard" element={<AdminDashboard />}></Route>
+          <Route path="/admin-events" element={<AdminEvents />}></Route>
           <Route path="/edit-profile" element={<EditProfile />}></Route>
         </Routes>
       </BrowserRouter>
