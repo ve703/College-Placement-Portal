@@ -13,10 +13,11 @@ import {
   MenuItem,
   TextareaAutosize,
   Checkbox, // Import Checkbox
-  ListItemText
+  ListItemText,
 } from "@mui/material";
+import FormControlLabel from "@mui/material/FormControlLabel";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
+import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import { useNavigate } from "react-router-dom";
 import { message } from "antd";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -25,7 +26,6 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-
 function AdminList() {
   const navigate = useNavigate();
   useEffect(() => {
@@ -44,11 +44,9 @@ function AdminList() {
     enrollmentyear: "",
     additionalInfo: "",
     package: "",
-    interests: []
   });
-  
-  const [value2, setValue2] = useState(dayjs("2024-04-20"));
 
+  const [value2, setValue2] = useState(dayjs("2024-04-20"));
 
   const interests = [
     "Computer Engineering",
@@ -63,15 +61,11 @@ function AdminList() {
   ];
 
   const course = [
-    "Engg and Manufacture",
-    "Information Technology",
-    "Consulting Firm",
-    "Financial Institution",
-    "Startup",
-    "Automotive",
-    "Energy and Utilties",
-    "Telecommunication",
-    "Textile",
+    "Software Engineer",
+    "Analyst",
+    "Consulting",
+    "Core",
+    "Finance",
     "Others",
   ];
   const handleChange = (e) => {
@@ -221,25 +215,45 @@ function AdminList() {
           </Grid>
 
           <Grid item xs={12}>
-        <InputLabel id="demo-multiple-checkbox-label" sx={{ textAlign: "left" }}>Eligible Streams</InputLabel>
-        <Select
-          labelId="demo-multiple-checkbox-label"
-          id="demo-multiple-checkbox"
-          multiple // Enable multiple selection
-          value={formData.interests} // Use an array to store selected values
-          onChange={handleChange} // Handle changes
-          fullWidth
-          renderValue={(selected) => selected.join(", ")} // Render selected values
-        >
-          {interests.map((interest) => (
+            <InputLabel
+              id="demo-multiple-checkbox-label"
+              sx={{ textAlign: "left" }}
+            >
+              Eligible Streams
+            </InputLabel>
+            <Select
+              labelId="demo-multiple-checkbox-label"
+              id="demo-multiple-checkbox"
+              multiple // Enable multiple selection
+              value={formData.interests} // Use an array to store selected values
+              onChange={handleChange} // Handle changes
+              fullWidth
+              renderValue={(selected) => selected.join(", ")} // Render selected values
+            >
+              {/* {interests.map((interest) => (
             <MenuItem key={interest} value={interest}>
               <Checkbox checked={formData.interests.indexOf(interest) > -1} /> {/* Checkbox for each option */}
-              <ListItemText primary={interest} />
-            </MenuItem>
-          ))}
-        </Select>
+              {/* <ListItemText primary={interest} /> */}
+              {/* </MenuItem> */}
+              {/* ))}  */}
+              <MenuItem>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      onChange={() => {
+                        console.log("abc");
+                      }}
+                      name={interests[0]}
+                    />
+                  }
+                  label={interests[0]}
+                />
+                ;
+              </MenuItem>
+              ;
+            </Select>
           </Grid>
-          
+
           <Grid item xs={12}>
             <InputLabel
               id="demo-simple-select-label"
@@ -259,7 +273,7 @@ function AdminList() {
               required
             >
               {/* Assuming grades are from 1 to 12 */}
-              {course.map((index, i) => (
+              {interests.map((index, i) => (
                 <MenuItem key={i + 1} value={index}>
                   {index}
                 </MenuItem>
@@ -268,17 +282,17 @@ function AdminList() {
           </Grid>
 
           <Grid item xs={12}>
-  <TextField
-    variant="outlined"
-    label="Package"
-    name="package"
-    type="number" // Set the type to "number"
-    value={formData.package}
-    onChange={handleChange}
-    fullWidth
-    required
-  />
-</Grid>
+            <TextField
+              variant="outlined"
+              label="Package"
+              name="package"
+              type="number" // Set the type to "number"
+              value={formData.package}
+              onChange={handleChange}
+              fullWidth
+              required
+            />
+          </Grid>
 
           <Grid item xs={12}>
             <TextField

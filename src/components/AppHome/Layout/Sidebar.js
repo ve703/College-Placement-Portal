@@ -80,94 +80,137 @@ function ResponsiveDrawer(props) {
 
       <Divider />
       <List>
-        <ListItem disablePadding>
-          <ListItemButton component={Link} to="/">
-            <ListItemIcon>
-              <HomeIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Home"} />
-          </ListItemButton>
-        </ListItem>
+        {localStorage.getItem("AuthToken") &&
+          localStorage.getItem("userType") == 0 && (
+            <ListItem disablePadding>
+              <ListItemButton component={Link} to="/candidate">
+                <ListItemIcon>
+                  <HomeIcon />
+                </ListItemIcon>
+                <ListItemText primary={"My Profile"} />
+              </ListItemButton>
+            </ListItem>
+          )}
+        {localStorage.getItem("AuthToken") &&
+          localStorage.getItem("userType") == 1 && (
+            <ListItem disablePadding>
+              <ListItemButton component={Link} to="/admin-dashboard">
+                <ListItemIcon>
+                  <HomeIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Dashboard"} />
+              </ListItemButton>
+            </ListItem>
+          )}
+        {!localStorage.getItem("AuthToken") && (
+          <ListItem disablePadding>
+            <ListItemButton component={Link} to="/">
+              <ListItemIcon>
+                <HomeIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Home"} />
+            </ListItemButton>
+          </ListItem>
+        )}
 
         {/* Job Profiles */}
 
-        {localStorage.getItem("AuthToken") ? (
-          <ListItem disablePadding>
-            <ListItemButton component={Link} to="/job-profiles">
-              <ListItemIcon>
-                <WorkIcon />
-              </ListItemIcon>
-              <ListItemText primary={"Job Profiles"} />
-            </ListItemButton>
-          </ListItem>
-        ) : (
-          ""
-        )}
+        {localStorage.getItem("AuthToken") &&
+          localStorage.getItem("userType") == 0 && (
+            <ListItem disablePadding>
+              <ListItemButton component={Link} to="/job-profiles">
+                <ListItemIcon>
+                  <WorkIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Job Profiles"} />
+              </ListItemButton>
+            </ListItem>
+          )}
+        {localStorage.getItem("AuthToken") &&
+          localStorage.getItem("userType") == 1 && (
+            <ListItem disablePadding>
+              <ListItemButton component={Link} to="/admin-list2">
+                <ListItemIcon>
+                  <WorkIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Add Job"} />
+              </ListItemButton>
+            </ListItem>
+          )}
 
         {/* My Profile */}
 
-        {localStorage.getItem("AuthToken") ? (
+        {localStorage.getItem("AuthToken") &&
+          localStorage.getItem("userType") == 0 && (
+            <ListItem disablePadding>
+              <ListItemButton component={Link} to="/candidate">
+                <ListItemIcon>
+                  <PersonIcon />
+                </ListItemIcon>
+                <ListItemText primary={"My Profile"} />
+              </ListItemButton>
+            </ListItem>
+          )}
+        {!localStorage.getItem("AuthToken") && (
           <ListItem disablePadding>
-            <ListItemButton component={Link} to="/candidate">
+            <ListItemButton component={Link} to="/ourTeam">
               <ListItemIcon>
-                <PersonIcon />
+                <PeopleIcon />
               </ListItemIcon>
-              <ListItemText primary={"My Profile"} />
+              <ListItemText primary={"Our Team"} />
             </ListItemButton>
           </ListItem>
-        ) : (
-          ""
         )}
-
-        <ListItem disablePadding>
-          <ListItemButton component={Link} to="/ourTeam">
-            <ListItemIcon>
-              <PeopleIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Our Team"} />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton component={Link} to="/about">
-            <ListItemIcon>
-              <HelpIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Why VJTI"} />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton component={Link} to="/placement">
-            <ListItemIcon>
-              <SignalCellularAltIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Placement Statistics"} />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton component={Link} to="/recruitment">
-            <ListItemIcon>
-              <AccountTreeIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Recruitment Process"} />
-          </ListItemButton>
-        </ListItem>
-
-        <ListItem disablePadding>
-          <ListItemButton component={Link} to="/recruiters">
-            <ListItemIcon>
-              <CorporateFareIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Our Recruiters"} />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton component={Link} to="/contact">
-            <ListItemIcon>
-              <PermContactCalendarIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Contact Us"} />
-          </ListItemButton>
-        </ListItem>
+        {!localStorage.getItem("AuthToken") && (
+          <ListItem disablePadding>
+            <ListItemButton component={Link} to="/about">
+              <ListItemIcon>
+                <HelpIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Why VJTI"} />
+            </ListItemButton>
+          </ListItem>
+        )}
+        {!localStorage.getItem("AuthToken") && (
+          <ListItem disablePadding>
+            <ListItemButton component={Link} to="/placement">
+              <ListItemIcon>
+                <SignalCellularAltIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Placement Statistics"} />
+            </ListItemButton>
+          </ListItem>
+        )}
+        {!localStorage.getItem("AuthToken") && (
+          <ListItem disablePadding>
+            <ListItemButton component={Link} to="/recruitment">
+              <ListItemIcon>
+                <AccountTreeIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Recruitment Process"} />
+            </ListItemButton>
+          </ListItem>
+        )}
+        {!localStorage.getItem("AuthToken") && (
+          <ListItem disablePadding>
+            <ListItemButton component={Link} to="/recruiters">
+              <ListItemIcon>
+                <CorporateFareIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Our Recruiters"} />
+            </ListItemButton>
+          </ListItem>
+        )}
+        {!localStorage.getItem("AuthToken") && (
+          <ListItem disablePadding>
+            <ListItemButton component={Link} to="/contact">
+              <ListItemIcon>
+                <PermContactCalendarIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Contact Us"} />
+            </ListItemButton>
+          </ListItem>
+        )}
         {localStorage.getItem("AuthToken") ? (
           <ListItem disablePadding>
             <ListItemButton
@@ -175,6 +218,7 @@ function ResponsiveDrawer(props) {
               to="/"
               onClick={() => {
                 localStorage.removeItem("AuthToken");
+                localStorage.removeItem("userType");
               }}
             >
               <ListItemIcon>

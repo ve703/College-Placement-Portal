@@ -70,6 +70,7 @@ function Login() {
       message.success(r.msg);
       console.log("HERE");
       localStorage.setItem("AuthToken", r.AuthToken);
+      localStorage.setItem("userType",r.userType);
       if (r.userType === 0) {
         navigate("/candidate");
       } else if (r.userType === 1) {
