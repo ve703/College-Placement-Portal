@@ -25,6 +25,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import EditProfile from "./StudentPannel/EditProfile";
+
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
   return (
@@ -143,10 +145,17 @@ const StudentInfo = () => {
             value={value}
             onChange={handleChange}
             aria-label="basic tabs example"
+            TabIndicatorProps={{ sx: { display: "none" } }}
+            sx={{
+              "& .MuiTabs-flexContainer": {
+                flexWrap: "wrap",
+              },
+            }}
+            // Stack Overflow
           >
             <Tab label="Personal Details" {...a11yProps(0)} />
             <Tab label="Educational Details" {...a11yProps(1)} />
-            {/* <Tab label="Resume" {...a11yProps(2)} /> */}
+            <Tab label="Edit Profile" {...a11yProps(2)} />
           </Tabs>
         </Box>
       </Box>
@@ -166,7 +175,7 @@ const StudentInfo = () => {
               src={sample_profile}
             />
 
-            <Button
+            {/* <Button
               sx={{
                 height: 20,
                 marginTop: "10px",
@@ -179,7 +188,7 @@ const StudentInfo = () => {
               onClick={handleClick}
             >
               <Typography variant="h5">...</Typography>
-            </Button>
+            </Button> */}
           </Stack>
           <Box sx={{ border: 1, width: "100%" }}>
             <Typography variant="h5">
@@ -216,7 +225,7 @@ const StudentInfo = () => {
             </TableContainer>
           </Box>
 
-          <Menu
+          {/* <Menu
             id="basic-menu"
             anchorEl={anchorEl}
             open={open}
@@ -228,14 +237,14 @@ const StudentInfo = () => {
             <MenuItem onClick={EditPath}>Edit Profile</MenuItem>
 
             <MenuItem onClick={handleClose}>Change Password</MenuItem>
-          </Menu>
+          </Menu> */}
         </Stack>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         <EducationalDetails />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        Resume
+        <EditProfile />
       </CustomTabPanel>
     </Box>
   );
