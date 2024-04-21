@@ -19,6 +19,8 @@ import StudentDashboard from "./components/StudentPannel/StudentDashboard";
 import EditProfile from "./components/StudentPannel/EditProfile";
 import JobProfiles from "./components/StudentPannel/JobProfiles";
 import AlumniConnectPage from "./components/AlumniSection/AlumniConnectPage";
+import AdminList2 from "./components/AdminPannel/AdminList2";
+
 function App() {
   return (
     <div className="App">
@@ -46,6 +48,7 @@ function App() {
           <Route path="/edit-profile" element={<EditProfile />}></Route>
           <Route path="/job-profiles" element={<JobProfiles />}></Route>
           <Route path="/alumni-connect" element={<AlumniConnectPage />}></Route>
+          <Route path="/admin-list2" element={<AdminList2 />}></Route>
         </Routes>
       </BrowserRouter>
       {/* <Home /> */}

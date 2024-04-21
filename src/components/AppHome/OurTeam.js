@@ -68,14 +68,14 @@ const OurTeam = () => {
                         paddingBottom: "5px",
                       }}
                     >
-                      {/* <CardMedia
+                      <CardMedia
                         component="img"
                         height="200"
                         image="https://media.licdn.com/dms/image/C5103AQHe0-DIDdpXJg/profile-displayphoto-shrink_400_400/0/1537113765976?e=1718236800&v=beta&t=w6I57wYcMPHp7KOduqko8pVGKaN8qpKJriC2yqc1jZA"
                         alt="Swapnil Sir"
                         style={{ objectFit: "cover" }}
-                      /> */}
-                      <Lottie
+                      />
+                      {/* <Lottie
                         options={{
                           loop: true,
                           autoplay: true,
@@ -83,7 +83,7 @@ const OurTeam = () => {
                         }}
                         height={200} // Adjust the height as needed
                         width={"100%"} // Make the animation responsive
-                      />
+                      /> */}
                     </div>
                     <CardContent>
                       <Typography gutterBottom variant="h5" component="div">
@@ -131,14 +131,14 @@ const OurTeam = () => {
                         paddingBottom: "5px",
                       }}
                     >
-                      {/* <CardMedia
+                      <CardMedia
                         component="img"
                         height="200"
                         image="https://i1.rgstatic.net/ii/profile.image/518814028374016-1500706311519_Q512/Nitin-Gulhane.jpg"
                         alt="Nitin Sir"
                         style={{ objectFit: "cover" }}
-                      /> */}
-                      <Lottie
+                      />
+                      {/* <Lottie
                         options={{
                           loop: true,
                           autoplay: true,
@@ -146,7 +146,7 @@ const OurTeam = () => {
                         }}
                         height={200} // Adjust the height as needed
                         width={"100%"} // Make the animation responsive
-                      />
+                      /> */}
                     </div>
                     <CardContent>
                       <Typography gutterBottom variant="h5" component="div">
