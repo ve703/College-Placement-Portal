@@ -60,14 +60,21 @@ const JobProfiles = () => {
   });
 
   const [value, setValue] = React.useState(0);
+  const [clicked, setClicked] = useState(false);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
   const data = {
+    id: "Set ID",
     Branch: "Enter Branch",
     CPI: "Enter current CPI",
     Gender: "Male",
+    "Date of birth": "Enter DOB",
+    "First Name": "Enter First Name",
+    "Last Name": "Enter last Name",
+    phone: "Enter Phone number",
+    regnumber: "Enter Registration number",
   };
   const [credential, setCredentials] = useState(data);
   const fetchData = async () => {
@@ -79,11 +86,18 @@ const JobProfiles = () => {
       },
     });
     const r = await response.json();
+    console.log(r);
     // console.log(r.userData.firstName);
     setCredentials({
+      id: r.userData._id,
       Branch: r.userData.branch,
       CPI: r.userData.currcpi,
       Gender: r.userData.sex,
+      "Date of birth": r.userData.dob,
+      "First Name": r.userData.firstName,
+      "Last Name": r.userData.lastName,
+      phone: r.userData.phone,
+      regnumber: r.userData.regnumber,
     });
   };
   const [jobs, setJobs] = useState([{}]);
@@ -109,7 +123,22 @@ const JobProfiles = () => {
   }, []);
   console.log(jobs);
   console.log(credential.Branch);
-  const handleOnClick = (jobid) => {
+  const handleOnClick = async (jobid) => {
+    setClicked(true);
+    console.log(JSON.stringify(credential));
+    const response = await fetch(
+      `http://localhost:5000/api/v1/applyjob/${jobid}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          AuthToken: localStorage.getItem("AuthToken"),
+        },
+        body: JSON.stringify(credential),
+      }
+    );
+    const r = await response.json();
+
     console.log("CLICKED");
     console.log(jobid);
   };
@@ -121,32 +150,65 @@ const JobProfiles = () => {
     lastDay,
     lastMonth,
     lastYear,
-    jobid
+    jobid,
+    AppliedCandidates
   ) => {
     // console.log(cpi);
     const d = new Date();
     const currdate = d.getDate();
-    console.log(currdate);
-    console.log(lastDay);
-    const currmonth = d.getMonth();
+    // console.log(currdate);
+    // console.log(lastDay);
+    const currmonth = d.getMonth() + 1;
+    console.log(AppliedCandidates);
     const curryear = d.getFullYear();
     if (
-      cpi >= eligibility &&
-      BranchAllowed.includes(currBranch) &&
-      lastDay - currdate >= 0 &&
-      lastMonth - currmonth >= 0 &&
-      lastYear - curryear >= 0
-    )
+      AppliedCandidates &&
+      AppliedCandidates.some((id) => id.id === credential.id)
+    ) {
       return (
-        <Button
-          size="small"
-          onClick={() => {
-            handleOnClick(jobid);
-          }}
-        >
-          Apply Now
+        <Button size="small" disabled>
+          Applied
         </Button>
       );
+    } else if (cpi >= eligibility && BranchAllowed.includes(currBranch))
+      if (lastYear - curryear >= 0 && lastMonth - currmonth >= 0) {
+        if (lastYear - curryear > 0 || lastMonth - currmonth > 0) {
+          return (
+            <Button
+              size="small"
+              disabled={clicked}
+              onClick={() => {
+                handleOnClick(jobid);
+              }}
+            >
+              Apply Now
+            </Button>
+          );
+        } else if (lastMonth - currmonth == 0 && lastDay - currdate >= 0) {
+          return (
+            <Button
+              size="small"
+              onClick={() => {
+                handleOnClick(jobid);
+              }}
+            >
+              Apply Now
+            </Button>
+          );
+        } else {
+          return (
+            <Button size="small" disabled>
+              Deadline to Apply exceeded
+            </Button>
+          );
+        }
+      } else {
+        return (
+          <Button size="small" disabled>
+            Not Eligible
+          </Button>
+        );
+      }
     else {
       return (
         <Button size="small" disabled>
@@ -224,7 +286,8 @@ const JobProfiles = () => {
                               i.lastDay,
                               i.lastMonth,
                               i.lastYear,
-                              i._id
+                              i._id,
+                              i.AppliedCandidates
                             )}
                           </CardActions>
                         </Card>

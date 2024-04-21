@@ -18,6 +18,7 @@ import AdminDashboard from "./components/AdminPannel/AdminDashboard";
 import StudentDashboard from "./components/StudentPannel/StudentDashboard";
 import EditProfile from "./components/StudentPannel/EditProfile";
 import JobProfiles from "./components/StudentPannel/JobProfiles";
+import AdminList2 from "./components/AdminPannel/AdminList2";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
           <Route path="/admin-events" element={<AdminEvents />}></Route>
           <Route path="/edit-profile" element={<EditProfile />}></Route>
           <Route path="/job-profiles" element={<JobProfiles />}></Route>
+          <Route path="/admin-list2" element={<AdminList2 />}></Route>
         </Routes>
       </BrowserRouter>
       {/* <Home /> */}
