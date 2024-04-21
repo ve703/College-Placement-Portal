@@ -94,8 +94,8 @@ const JobProfiles = () => {
       CPI: r.userData.currcpi,
       Gender: r.userData.sex,
       "Date of birth": r.userData.dob,
-      "First Name": r.userData.firstName,
-      "Last Name": r.userData.lastName,
+      FirstName: r.userData.firstName,
+      LastName: r.userData.lastName,
       phone: r.userData.phone,
       regnumber: r.userData.regnumber,
     });

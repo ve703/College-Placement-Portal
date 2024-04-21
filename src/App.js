@@ -20,6 +20,7 @@ import EditProfile from "./components/StudentPannel/EditProfile";
 import JobProfiles from "./components/StudentPannel/JobProfiles";
 import AlumniConnectPage from "./components/AlumniSection/AlumniConnectPage";
 import AdminList2 from "./components/AdminPannel/AdminList2";
+import AdminCompanies from "./components/AdminPannel/AdminCompanies";
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
           <Route path="/job-profiles" element={<JobProfiles />}></Route>
           <Route path="/alumni-connect" element={<AlumniConnectPage />}></Route>
           <Route path="/admin-list2" element={<AdminList2 />}></Route>
+          <Route path="/admin-company" element={<AdminCompanies />}></Route>
         </Routes>
       </BrowserRouter>
       {/* <Home /> */}
