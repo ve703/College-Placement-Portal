@@ -1,11 +1,23 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const JobSchema = new Schema({
+  processCompleted: {
+    type: Boolean,
+    default: false,
+  },
   CompanyName: {
     type: String,
   },
   JobLocation: {
     type: String,
+  },
+  DegreeAllowed: {
+    type: Array,
+    default: [],
+  },
+  MTechBranchAllowed: {
+    type: Array,
+    default: [],
   },
   BranchAllowed: {
     type: Array,
@@ -40,6 +52,10 @@ const JobSchema = new Schema({
   },
   lastMinute: {
     type: Number,
+  },
+  OfferedCandidates: {
+    type: Array,
+    default: [],
   },
   AppliedCandidates: {
     type: Array,

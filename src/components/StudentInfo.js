@@ -92,6 +92,7 @@ const StudentInfo = () => {
     Phone: "Enter Phone Number",
     "Enrollment year": 2020,
     "Date of Birth": "Enter Date of Birth",
+    Degree: "Enter Degree",
   };
   const [credential, setCredentials] = useState(data);
   const fetchData = async () => {
@@ -114,6 +115,7 @@ const StudentInfo = () => {
       "Enrollment year": r.userData.enrollmentyear,
       Phone: r.userData.phone,
       Gender: r.userData.sex,
+      Degree: r.userData.degree,
     });
   };
   useEffect(() => {

@@ -13,6 +13,9 @@ app.use("/api/v1", require("./Routes/FetchStudentData.js"));
 app.use("/api/v1", require("./Routes/AddJob.js"));
 app.use("/api/v1", require("./Routes/FetchJobs.js"));
 app.use("/api/v1", require("./Routes/ApplyJob.js"));
+app.use("/api/v1", require("./Routes/AddOfferedCandidate.js"));
+app.use("/api/v1", require("./Routes/PlaceStudent.js"));
+app.use("/api/v1", require("./Routes/FetchAllStudentData.js"));
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });

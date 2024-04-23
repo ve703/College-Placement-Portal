@@ -21,38 +21,45 @@ import JobProfiles from "./components/StudentPannel/JobProfiles";
 import AlumniConnectPage from "./components/AlumniSection/AlumniConnectPage";
 import AdminList2 from "./components/AdminPannel/AdminList2";
 import AdminCompanies from "./components/AdminPannel/AdminCompanies";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function App() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (localStorage.getItem("AuthToken")) {
+      if (localStorage.getItem("userType") == 1) {
+        navigate("/admin-dashboard");
+      } else {
+        navigate("/candidate");
+      }
+    }
+  }, []);
   return (
     <div className="App">
-      <BrowserRouter>
-        <ResponsiveDrawer />
-        {/* only keeps hamburger icon on entire page <Navbar /> */}
-        <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/ourTeam" element={<OurTeam />}></Route>
-          <Route path="/contact" element={<Contact />}></Route>
-          <Route path="/admin-list" element={<AdminList />}></Route>
-          <Route path="/candidate" element={<StudentInfo />}></Route>
-          <Route path="/signup" element={<Signup />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/placement" element={<PlacementStat />}></Route>
-          <Route path="/recruitment" element={<Recruitment />}></Route>
-          <Route path="/about" element={<AboutVjti />}></Route>
-          <Route path="/recruiters" element={<RecruitersPage />}></Route>
-          <Route
-            path="/student-dashboard"
-            element={<StudentDashboard />}
-          ></Route>
-          <Route path="/admin-dashboard" element={<AdminDashboard />}></Route>
-          <Route path="/admin-events" element={<AdminEvents />}></Route>
-          <Route path="/edit-profile" element={<EditProfile />}></Route>
-          <Route path="/job-profiles" element={<JobProfiles />}></Route>
-          <Route path="/alumni-connect" element={<AlumniConnectPage />}></Route>
-          <Route path="/admin-list2" element={<AdminList2 />}></Route>
-          <Route path="/admin-company" element={<AdminCompanies />}></Route>
-        </Routes>
-      </BrowserRouter>
+      <ResponsiveDrawer />
+      {/* only keeps hamburger icon on entire page <Navbar /> */}
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/ourTeam" element={<OurTeam />}></Route>
+        <Route path="/contact" element={<Contact />}></Route>
+        <Route path="/admin-list" element={<AdminList />}></Route>
+        <Route path="/candidate" element={<StudentInfo />}></Route>
+        <Route path="/signup" element={<Signup />}></Route>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/placement" element={<PlacementStat />}></Route>
+        <Route path="/recruitment" element={<Recruitment />}></Route>
+        <Route path="/about" element={<AboutVjti />}></Route>
+        <Route path="/recruiters" element={<RecruitersPage />}></Route>
+        <Route path="/student-dashboard" element={<StudentDashboard />}></Route>
+        <Route path="/admin-dashboard" element={<AdminDashboard />}></Route>
+        <Route path="/admin-events" element={<AdminEvents />}></Route>
+        <Route path="/edit-profile" element={<EditProfile />}></Route>
+        <Route path="/job-profiles" element={<JobProfiles />}></Route>
+        <Route path="/alumni-connect" element={<AlumniConnectPage />}></Route>
+        <Route path="/admin-list2" element={<AdminList2 />}></Route>
+        <Route path="/admin-company" element={<AdminCompanies />}></Route>
+      </Routes>
       {/* <Home /> */}
     </div>
   );

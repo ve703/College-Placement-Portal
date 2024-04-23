@@ -9,6 +9,14 @@ const UserSchema = new Schema({
     type: String,
     default: "Enter Last Name",
   },
+  placed: {
+    type: Boolean,
+    default: false,
+  },
+  degree: {
+    type: String,
+    default: "Add Degree",
+  },
   branch: {
     type: String,
     default: "Select Branch",

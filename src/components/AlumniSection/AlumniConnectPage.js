@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Grid,
   Paper,
@@ -14,13 +14,44 @@ import {
 } from "@mui/material";
 import AlumniCard from "./AlumniCard";
 import Profiles from "./Profiles";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const AlumniConnectPage = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedYear, setSelectedYear] = useState([]);
   const [selectedBranch, setSelectedBranch] = useState([]);
   const [selectedCompanies, setSelectedCompanies] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
+
+  const fetchData = async () => {
+    const response = await fetch(
+      `http://localhost:5000/api/v1/fetchallstudentdata`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          AuthToken: localStorage.getItem("AuthToken"),
+        },
+      }
+    );
+    const r = await response.json();
+    const curryear = new Date().getFullYear();
+    var b = r.students.filter(function (i) {
+      return i.userType === 0 && i.enrollmentyear + 3 < curryear;
+    });
+    console.log(b);
+  };
+  useEffect(() => {
+    if (
+      localStorage.getItem("AuthToken") &&
+      localStorage.getItem("userType") == 0
+    ) {
+      fetchData();
+    } else {
+      navigate("/");
+    }
+  }, []);
 
   const handleSearch = () => {
     const results = Profiles.filter((profile) => {

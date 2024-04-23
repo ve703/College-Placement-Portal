@@ -21,6 +21,7 @@ router.put("/update", async (req, res) => {
     sex: req.body.sex,
     dob: req.body.dob,
     enrollmentyear: req.body.enrollmentyear,
+    degree: req.body.degree,
   };
   await User.findByIdAndUpdate(userid, { $set: newdata }, { new: true });
   console.log(data.user.id);
