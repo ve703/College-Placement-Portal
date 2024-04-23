@@ -40,11 +40,14 @@ function EditProfile() {
     sex: "",
     dob: "",
     enrollmentyear: "",
+    degree: "",
   });
   const [value, setValue] = useState(dayjs("2022-04-17"));
   const [value2, setValue2] = useState(dayjs("2022-04-17"));
-
+  const [ugval, setugval] = useState(true);
+  const [pgval, setpgval] = useState(true);
   const sex = ["Male", "Female", "Others"];
+  const degree = ["BTech", "MTech", "MCA"];
 
   const course = [
     "Computer Engineering",
@@ -57,6 +60,51 @@ function EditProfile() {
     "Production Engineering",
     "Textile Engineering",
   ];
+  const mcourse = [
+    "Civil Engineering (with specialization in Construction Management)",
+    "Civil Engineering (with specialization in Environmental Engineering)",
+    "Civil Engineering (with specialization in Structural Engineering )",
+    "Computer Engineering",
+    "Computer Engineering (with specialization in Network Infrastructure Management Systems)",
+    "Computer Engineering (with specialization in Software Engineering)",
+    "Electrical Engineering (with specialization in Power Systems)",
+    "Electrical Engineering (with specialization in Control Systems)",
+    "Internet of Things (IOT)",
+    "Electronics & Telecommunication Engineering",
+    "Mechanical Engineering (with specialization in Machine Design)",
+    "Mechanical Engineering (with specialization in Automobile Engineering)",
+    "Mechanical Engineering (with specialization CAD/CAM & Automation)",
+    "Mechanical Engineering (with specialization in Thermal Engineering)",
+    "Production Engineering",
+    "Project Management",
+    "Textile Technology",
+    "Defence Technology",
+  ];
+  const onChangeDeg = (e) => {
+    const { name, value } = e.target;
+
+    // Disable both UG and PG branches by default
+    setugval(true);
+    setpgval(true);
+
+    if (value === "BTech") {
+      // If BTech is selected, only disable PG branch
+
+      setugval(false);
+    } else if (value === "MTech") {
+      // If MTech is selected, only disable UG branch
+      setpgval(false);
+    } else if (value === "MCA") {
+      // If MCA is selected, disable both UG and PG branches
+      setugval(true);
+      setpgval(true);
+    }
+
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -235,6 +283,32 @@ function EditProfile() {
               id="demo-simple-select-label"
               sx={{ textAlign: "left" }}
             >
+              Degree
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="deg"
+              value={formData.degree}
+              label="Degree"
+              name="degree"
+              onChange={onChangeDeg}
+              fullWidth
+              required
+              align={"left"}
+            >
+              {/* Assuming grades are from 1 to 12 */}
+              {degree.map((index, i) => (
+                <MenuItem key={i + 1} value={index}>
+                  {index}
+                </MenuItem>
+              ))}
+            </Select>
+          </Grid>
+          <Grid item xs={12}>
+            <InputLabel
+              id="demo-simple-select-label"
+              sx={{ textAlign: "left" }}
+            >
               Gender
             </InputLabel>
             <Select
@@ -261,11 +335,12 @@ function EditProfile() {
               id="demo-simple-select-label"
               sx={{ textAlign: "left" }}
             >
-              Branch
+              UG Branch
             </InputLabel>
             <Select
+              disabled={ugval}
               labelId="demo-simple-select-label"
-              id="demo-simple-select"
+              id="ugb"
               value={formData.branch}
               label="Branch"
               name="branch"
@@ -276,7 +351,34 @@ function EditProfile() {
             >
               {/* Assuming grades are from 1 to 12 */}
               {course.map((index, i) => (
-                <MenuItem key={i + 1} value={index}>
+                <MenuItem key={i + 1} value={index} disabled={ugval}>
+                  {index}
+                </MenuItem>
+              ))}
+            </Select>
+          </Grid>
+          <Grid item xs={12}>
+            <InputLabel
+              id="demo-simple-select-label"
+              sx={{ textAlign: "left" }}
+            >
+              PG Branch
+            </InputLabel>
+            <Select
+              disabled={pgval}
+              labelId="demo-simple-select-label"
+              id="pgb"
+              value={formData.branch}
+              label="MTech Branch"
+              name="branch"
+              onChange={handleChange}
+              fullWidth
+              align={"left"}
+              required
+            >
+              {/* Assuming grades are from 1 to 12 */}
+              {mcourse.map((index, i) => (
+                <MenuItem key={i + 1} value={index} disabled={pgval}>
                   {index}
                 </MenuItem>
               ))}

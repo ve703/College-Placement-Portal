@@ -22,6 +22,8 @@ router.post("/addjob", async (req, res) => {
     lastHour: req.body.lastHour,
     lastMinute: req.body.lastMinute,
     AppliedCandidates: req.body.AppliedCandidates,
+    DegreeAllowed: req.body.DegreeAllowed,
+    MTechBranchAllowed: req.body.MTechBranchAllowed,
   });
   res.json({ msg: "Job Added", msgType: "success" });
 });

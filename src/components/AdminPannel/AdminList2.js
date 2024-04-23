@@ -37,6 +37,8 @@ const AdminList2 = () => {
     CompanyName: "",
     JobLocation: "",
     BranchAllowed: [],
+    MTechBranchAllowed: [],
+    DegreeAllowed: [],
     mincpi: "",
     JobProfile: "",
     dov: "",
@@ -47,7 +49,7 @@ const AdminList2 = () => {
   });
 
   const [loading, setLoading] = useState(false);
-
+  const degree = ["BTech", "MTech", "MCA"];
   const course = [
     "Computer Engineering",
     "Information Technology",
@@ -66,6 +68,26 @@ const AdminList2 = () => {
     "Consulting",
     "Finance",
     "Marketing/Sales",
+  ];
+  const mcourse = [
+    "Civil Engineering (with specialization in Construction Management)",
+    "Civil Engineering (with specialization in Environmental Engineering)",
+    "Civil Engineering (with specialization in Structural Engineering )",
+    "Computer Engineering",
+    "Computer Engineering (with specialization in Network Infrastructure Management Systems)",
+    "Computer Engineering (with specialization in Software Engineering)",
+    "Electrical Engineering (with specialization in Power Systems)",
+    "Electrical Engineering (with specialization in Control Systems)",
+    "Internet of Things (IOT)",
+    "Electronics & Telecommunication Engineering",
+    "Mechanical Engineering (with specialization in Machine Design)",
+    "Mechanical Engineering (with specialization in Automobile Engineering)",
+    "Mechanical Engineering (with specialization CAD/CAM & Automation)",
+    "Mechanical Engineering (with specialization in Thermal Engineering)",
+    "Production Engineering",
+    "Project Management",
+    "Textile Technology",
+    "Defence Technology",
   ];
 
   const [value2, setValue2] = useState(dayjs("2022-04-17"));
@@ -87,7 +109,6 @@ const AdminList2 = () => {
       lastDay: lastday,
     }));
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(JSON.stringify(formData));
@@ -115,11 +136,30 @@ const AdminList2 = () => {
     }));
   };
   const handleOnChange = (branch) => {
+    console.log(formData);
     setFormData((prevData) => ({
       ...prevData,
       BranchAllowed: prevData.BranchAllowed.includes(branch)
         ? prevData.BranchAllowed.filter((c) => c !== branch)
         : [...prevData.BranchAllowed, branch],
+    }));
+  };
+  const handleOnChangeDegree = (branch) => {
+    console.log(formData);
+    setFormData((prevData) => ({
+      ...prevData,
+      DegreeAllowed: prevData.DegreeAllowed.includes(branch)
+        ? prevData.DegreeAllowed.filter((c) => c !== branch)
+        : [...prevData.DegreeAllowed, branch],
+    }));
+  };
+  const handleOnChangeMTech = (branch) => {
+    console.log(formData);
+    setFormData((prevData) => ({
+      ...prevData,
+      MTechBranchAllowed: prevData.MTechBranchAllowed.includes(branch)
+        ? prevData.MTechBranchAllowed.filter((c) => c !== branch)
+        : [...prevData.MTechBranchAllowed, branch],
     }));
   };
 
@@ -242,6 +282,21 @@ const AdminList2 = () => {
             </LocalizationProvider>
           </Grid>
           <Grid item xs={12}>
+            Select Eligible Degrees:
+            <FormGroup>
+              {degree.map((course, index) => (
+                <FormControlLabel
+                  key={index}
+                  control={<Checkbox />}
+                  label={course}
+                  onChange={() => {
+                    handleOnChangeDegree(course);
+                  }}
+                />
+              ))}
+            </FormGroup>
+          </Grid>
+          <Grid item xs={12}>
             Select Eligible Branches:
             <FormGroup>
               <FormControlLabel
@@ -309,6 +364,21 @@ const AdminList2 = () => {
                   handleOnChange("Textile Engineering");
                 }}
               />
+            </FormGroup>
+          </Grid>
+          <Grid item xs={12}>
+            Select Eligible Branches From MTech:
+            <FormGroup>
+              {mcourse.map((course, index) => (
+                <FormControlLabel
+                  key={index}
+                  control={<Checkbox />}
+                  label={course}
+                  onChange={() => {
+                    handleOnChangeMTech(course);
+                  }}
+                />
+              ))}
             </FormGroup>
           </Grid>
         </Grid>
