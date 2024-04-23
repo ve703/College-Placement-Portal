@@ -18,6 +18,7 @@ import AdminDashboard from "./components/AdminPannel/AdminDashboard";
 import StudentDashboard from "./components/StudentPannel/StudentDashboard";
 import EditProfile from "./components/StudentPannel/EditProfile";
 import JobProfiles from "./components/StudentPannel/JobProfiles";
+import StudentExperiance from "./components/StudentPannel/StudentExperience";
 import AlumniConnectPage from "./components/AlumniSection/AlumniConnectPage";
 import AdminList2 from "./components/AdminPannel/AdminList2";
 import AdminCompanies from "./components/AdminPannel/AdminCompanies";
@@ -59,6 +60,10 @@ function App() {
         <Route path="/alumni-connect" element={<AlumniConnectPage />}></Route>
         <Route path="/admin-list2" element={<AdminList2 />}></Route>
         <Route path="/admin-company" element={<AdminCompanies />}></Route>
+        <Route
+          path="/StudentExperiance"
+          element={<StudentExperiance />}
+        ></Route>
       </Routes>
       {/* <Home /> */}
     </div>
