@@ -1,12 +1,45 @@
 const express = require("express");
 const router = express.Router();
 const Job = require("../Schemas/Job.js");
+const User = require("../Schemas/User.js");
+const dotenv = require("dotenv");
+dotenv.config();
+var nodemailer = require("nodemailer");
 router.post("/addjob", async (req, res) => {
   const token = req.header("AuthToken");
-  console.log(req.body);
+  const userData = await User.find();
+  var senderArray = [];
+  userData.map((i) => {
+    if (i.userType == 0) {
+      senderArray.push(i.email);
+    }
+  });
+  console.log(senderArray);
   if (!token) {
     res.status(400).json({ msg: "Authentication Error", msgType: "error" });
   }
+  var transporter = nodemailer.createTransport({
+    service: "Gmail",
+    auth: {
+      user: process.env.MAIL_ID,
+      pass: process.env.MAIL_PASS,
+    },
+  });
+
+  var mailOptions = {
+    from: "sdawebdev@gmail.com",
+    to: senderArray,
+    subject: "New Job Application Open!",
+    text: `New Job Application open by ${req.body.CompanyName}. CTC:${req.body.ctc}. minimum CPI:${req.body.mincpi}`,
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Email sent: " + info.response);
+    }
+  });
   await Job.create({
     CompanyName: req.body.CompanyName,
     JobLocation: req.body.JobLocation,

@@ -78,6 +78,7 @@ const JobProfiles = () => {
     regnumber: "Enter Registration number",
     Degree: "Enter Degree",
     placed: false,
+    placedCompanyid: "Not placed",
   };
   const [credential, setCredentials] = useState(data);
   const fetchData = async () => {
@@ -103,6 +104,7 @@ const JobProfiles = () => {
       phone: r.userData.phone,
       regnumber: r.userData.regnumber,
       placed: r.userData.placed,
+      placedCompanyid: r.userData.placedCompanyid,
     });
   };
   const [jobs, setJobs] = useState([{}]);
@@ -147,8 +149,12 @@ const JobProfiles = () => {
     console.log("CLICKED");
     console.log(jobid);
   };
-  const OfferedOnCLick = async (companyName) => {
+  const OfferedOnCLick = async (companyName, jobid) => {
     localStorage.setItem("Company", companyName);
+    const data = {
+      placedCompanyid: jobid,
+      placedCompany: companyName,
+    };
     const response = await fetch(
       `http://localhost:5000/api/v1/placestudent/${credential.id}`,
       {
@@ -157,6 +163,7 @@ const JobProfiles = () => {
           "Content-Type": "application/json",
           AuthToken: localStorage.getItem("AuthToken"),
         },
+        body: JSON.stringify(data),
       }
     );
     const r = await response.json();
@@ -198,11 +205,19 @@ const JobProfiles = () => {
     //       DegreeAllowed.includes(credential.Degree))
     // );
     if (credential.placed === true) {
-      return (
-        <Button size="small" disabled>
-          You are placed
-        </Button>
-      );
+      if (jobid == credential.placedCompanyid) {
+        return (
+          <Button size="small" disabled>
+            Offer Accepted
+          </Button>
+        );
+      } else {
+        return (
+          <Button size="small" disabled>
+            Not Eligible
+          </Button>
+        );
+      }
     } else {
       if (processCompleted === true) {
         if (OfferedCandidates.includes(credential.id)) {
@@ -210,7 +225,7 @@ const JobProfiles = () => {
             <Button
               size="small"
               onClick={() => {
-                OfferedOnCLick(CompanyName);
+                OfferedOnCLick(CompanyName, jobid);
               }}
             >
               Job Offered
@@ -228,6 +243,7 @@ const JobProfiles = () => {
           AppliedCandidates &&
           AppliedCandidates.some((id) => id.id === credential.id)
         ) {
+          console.log("HERE" + CompanyName);
           return (
             <Button size="small" disabled>
               Applied

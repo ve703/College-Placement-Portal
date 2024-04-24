@@ -9,6 +9,14 @@ const UserSchema = new Schema({
     type: String,
     default: "Enter Last Name",
   },
+  placedCompanyid: {
+    type: String,
+    default: "Not Placed",
+  },
+  placedCompany: {
+    type: String,
+    default: "Not Placed",
+  },
   placed: {
     type: Boolean,
     default: false,

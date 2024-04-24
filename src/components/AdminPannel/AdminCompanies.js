@@ -24,6 +24,7 @@ import Modal from "@mui/material/Modal";
 const AdminCompanies = () => {
   const navigate = useNavigate();
   const [companies, setCompanies] = useState([]);
+  const [refresh, setRefresh] = useState(false);
   const fetchCompanies = async () => {
     const response = await fetch("http://localhost:5000/api/v1/fetchjobdata", {
       method: "GET",
@@ -113,15 +114,18 @@ const AdminCompanies = () => {
   const handleClose = () => setOpen(false);
   const [offered, setOffered] = useState([]);
   const CompanyArray = companies.map((company) => {
+    const job_id = company._id;
     var processCompleted = company.processCompleted;
     const companyName = company.CompanyName;
     const JobLocation = company.JobLocation;
     const JobProfile = company.JobProfile;
     const ctc = company.ctc;
     const AppliedCandidates = company.AppliedCandidates;
-    console.log(processCompleted);
-    const arr = [];
-    const logStudents = async (jobid) => {
+    // console.log(processCompleted);
+    console.log(job_id);
+    const logStudents = async (e, jobid) => {
+      e.preventDefault();
+      console.log(jobid);
       setClicked(true);
       console.log(JSON.stringify(offered));
       const response = await fetch(
@@ -137,8 +141,10 @@ const AdminCompanies = () => {
       );
       const r = await response.json();
       console.log(r);
+      window.location.reload();
     };
-    const handleonClick = (candidate) => {
+    const handleonClick = (e, candidate) => {
+      e.preventDefault();
       var idx = offered.indexOf(candidate);
       if (idx == -1) {
         setOffered((prevData) => [...prevData, candidate]);
@@ -174,8 +180,8 @@ const AdminCompanies = () => {
                       key={idx}
                       control={<Checkbox key={idx} />}
                       label={`${candidate["FirstName"]} ${candidate["LastName"]}`}
-                      onChange={() => {
-                        handleonClick(candidate.id);
+                      onChange={(e) => {
+                        handleonClick(e, candidate.id);
                         console.log(candidate);
                       }}
                     />
@@ -215,11 +221,17 @@ const AdminCompanies = () => {
                 Process Completed
               </Button>
             ) : (
-              <Button size="small" onClick={handleOpen}>
+              <Button
+                size="small"
+                disabled={clicked}
+                onClick={(e) => {
+                  logStudents(e, job_id);
+                }}
+              >
                 Confirm Offers
               </Button>
             )}
-            <Modal
+            {/* <Modal
               open={open}
               onClose={handleClose}
               aria-labelledby="modal-modal-title"
@@ -233,15 +245,15 @@ const AdminCompanies = () => {
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                   <Button
                     disabled={clicked}
-                    onClick={() => {
-                      logStudents(company._id);
+                    onClick={(e) => {
+                      logStudents(e, job_id);
                     }}
                   >
                     Offer Job
                   </Button>
                 </Typography>
               </Box>
-            </Modal>
+            </Modal> */}
             {/* <CsvDownloadButton data={AppliedCandidates} /> */}
             {/* <Button
               size="small"

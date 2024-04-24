@@ -13,17 +13,17 @@ import {
   ListItemText,
 } from "@mui/material";
 import AlumniCard from "./AlumniCard";
-import Profiles from "./Profiles";
+// import Profiles from "./Profiles";
 import { Navigate, useNavigate } from "react-router-dom";
 
 const AlumniConnectPage = () => {
   const navigate = useNavigate();
+  const [Profiles, setProfile] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedYear, setSelectedYear] = useState([]);
   const [selectedBranch, setSelectedBranch] = useState([]);
   const [selectedCompanies, setSelectedCompanies] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
-
   const fetchData = async () => {
     const response = await fetch(
       `http://localhost:5000/api/v1/fetchallstudentdata`,
@@ -40,8 +40,30 @@ const AlumniConnectPage = () => {
     var b = r.students.filter(function (i) {
       return i.userType === 0 && i.enrollmentyear + 3 < curryear;
     });
+    var c = [];
+    b.map((i) => {
+      const temp = {
+        degree: i.degree,
+        name: i.firstName + " " + i.lastName,
+        jobTitle: i.JobProfile,
+        company:
+          i.placedCompany === "Not Placed" ? "Not Placed" : i.placedCompany,
+        Branch: i.branch,
+        passOutYear: i.enrollmentyear + 4,
+        mobileNumber: i.phone,
+        email: i.email,
+        userProfilePic: require("./profile.png"),
+        socialMediaLinks: {
+          linkedin: "https://pbc-webdev.com",
+          twitter: "https://pbc-webdev.com",
+        },
+      };
+      c.push(temp);
+    });
+    setProfile(c);
     console.log(b);
   };
+  console.log(Profiles);
   useEffect(() => {
     if (
       localStorage.getItem("AuthToken") &&
@@ -54,37 +76,42 @@ const AlumniConnectPage = () => {
   }, []);
 
   const handleSearch = () => {
-    const results = Profiles.filter((profile) => {
-      const nameMatch =
-        profile.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        searchTerm.trim() === "";
+    const results =
+      Profiles.length === 0
+        ? []
+        : Profiles.filter((profile) => {
+            const nameMatch =
+              profile.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              searchTerm.trim() === "";
 
-      const yearMatch =
-        selectedYear.length === 0 || selectedYear.includes(profile.passOutYear);
+            const yearMatch =
+              selectedYear.length === 0 ||
+              selectedYear.includes(profile.passOutYear);
 
-      const branchMatch =
-        selectedBranch.length === 0 || selectedBranch.includes(profile.Branch);
+            const branchMatch =
+              selectedBranch.length === 0 ||
+              selectedBranch.includes(profile.Branch);
 
-      const companyMatch =
-        selectedCompanies.length === 0 ||
-        selectedCompanies.includes(profile.company);
+            const companyMatch =
+              selectedCompanies.length === 0 ||
+              selectedCompanies.includes(profile.company);
 
-      // Check if any filter option is selected
-      const anyFilterSelected =
-        selectedYear.length > 0 ||
-        selectedBranch.length > 0 ||
-        selectedCompanies.length > 0;
+            // Check if any filter option is selected
+            const anyFilterSelected =
+              selectedYear.length > 0 ||
+              selectedBranch.length > 0 ||
+              selectedCompanies.length > 0;
 
-      // Return true if any filter option is selected or if the name matches
-      return (
-        (anyFilterSelected &&
-          nameMatch &&
-          yearMatch &&
-          branchMatch &&
-          companyMatch) ||
-        (!anyFilterSelected && nameMatch)
-      );
-    });
+            // Return true if any filter option is selected or if the name matches
+            return (
+              (anyFilterSelected &&
+                nameMatch &&
+                yearMatch &&
+                branchMatch &&
+                companyMatch) ||
+              (!anyFilterSelected && nameMatch)
+            );
+          });
     setSearchResults(results);
   };
 
@@ -172,15 +199,31 @@ const AlumniConnectPage = () => {
                         renderValue={(selected) => selected.join(", ")}
                       >
                         {[
-                          "Computer Science",
+                          "Computer Engineering",
                           "Information Technology",
-                          "Electrical",
-                          "Electronics",
-                          "EXTC",
-                          "Civil",
-                          "Production",
-                          "Textile",
-                          "Mechanical",
+                          "Electronics and Telecommunication Engineering",
+                          "Electronics Engineering",
+                          "Electrical Engineering",
+                          "Mechanical Engineering",
+                          "Civil Engineering",
+                          "Production Engineering",
+                          "Textile Engineering",
+                          "Civil Engineering (with specialization in Construction Management)",
+                          "Civil Engineering (with specialization in Environmental Engineering)",
+                          "Civil Engineering (with specialization in Structural Engineering )",
+                          "Computer Engineering (with specialization in Network Infrastructure Management Systems)",
+                          "Computer Engineering (with specialization in Software Engineering)",
+                          "Electrical Engineering (with specialization in Power Systems)",
+                          "Electrical Engineering (with specialization in Control Systems)",
+                          "Internet of Things (IOT)",
+                          "Electronics & Telecommunication Engineering",
+                          "Mechanical Engineering (with specialization in Machine Design)",
+                          "Mechanical Engineering (with specialization in Automobile Engineering)",
+                          "Mechanical Engineering (with specialization CAD/CAM & Automation)",
+                          "Mechanical Engineering (with specialization in Thermal Engineering)",
+                          "Project Management",
+                          "Textile Technology",
+                          "Defence Technology",
                         ].map((branch) => (
                           <MenuItem key={branch} value={branch}>
                             <Checkbox
@@ -241,9 +284,10 @@ const AlumniConnectPage = () => {
                     </Typography>
                   </Grid>
                 )}
-                {searchResults.map((profile) => (
-                  <AlumniCard key={profile.name} profile={profile} />
-                ))}
+                {Profiles &&
+                  searchResults.map((profile) => (
+                    <AlumniCard key={profile.name} profile={profile} />
+                  ))}
               </Grid>
             </Grid>
           </Grid>

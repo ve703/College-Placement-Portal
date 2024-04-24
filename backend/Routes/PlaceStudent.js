@@ -4,6 +4,7 @@ const User = require("../Schemas/User.js");
 router.post("/placestudent/:userid", async (req, res) => {
   const token = req.header("AuthToken");
   const userid = req.params.userid;
+  console.log(req.body);
   console.log(userid);
   const UserData = await User.findById(userid);
   //   console.log(jobdata);
@@ -12,6 +13,8 @@ router.post("/placestudent/:userid", async (req, res) => {
     res.status(400).json({ msg: "Authentication Error", msgType: "error" });
   }
   const newdata = {
+    placedCompanyid: req.body.placedCompanyid,
+    placedCompany: req.body.placedCompany,
     placed: true,
   };
   //   jobdata.AppliedCandidates.push(req.body);
