@@ -25,12 +25,13 @@ router.post("/addjob", async (req, res) => {
       pass: process.env.MAIL_PASS,
     },
   });
-
+  let ldta =
+    req.body.lastDay + "/" + req.body.lastMonth + "/" + req.body.lastYear;
   var mailOptions = {
     from: "sdawebdev@gmail.com",
     to: senderArray,
     subject: "New Job Application Open!",
-    text: `New Job Application open by ${req.body.CompanyName}. CTC:${req.body.ctc}. minimum CPI:${req.body.mincpi}`,
+    text: `New Job Application open by ${req.body.CompanyName}. CTC: ${req.body.ctc} LPA. minimum CPI: ${req.body.mincpi}. Last Date to Apply: ${ldta}`,
   };
 
   transporter.sendMail(mailOptions, function (error, info) {

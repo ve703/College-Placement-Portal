@@ -21,6 +21,7 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import logo from "./profile.png";
 function EditProfile() {
   const navigate = useNavigate();
   useEffect(() => {
@@ -126,6 +127,27 @@ function EditProfile() {
       enrollmentyear: year,
     }));
   };
+  // function convertToBase64(e) {
+  //   console.log(e);
+  //   var reader = new FileReader();
+  //   console.log(e.target.files);
+  //   if (e.target.files[0].size >= 1500000) {
+  //     window.alert("Size must be less than 1.5 MB");
+  //   } else {
+  //     reader.readAsDataURL(e.target.files[0]);
+  //     reader.onload = () => {
+  //       console.log(reader.result);
+  //       setFormData((prevData) => ({
+  //         ...prevData,
+  //         imgb64: reader.result,
+  //       }));
+  //       console.log(formData);
+  //     };
+  //     reader.onerror = () => {
+  //       console.log("ERROR");
+  //     };
+  //   }
+  // }
   const handleSubmit = async (e) => {
     e.preventDefault();
     // setLoading(true);
@@ -188,6 +210,20 @@ function EditProfile() {
       </Typography>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
+          {/* <Grid item xs={12}>
+            <Avatar
+              alt="Remy Sharp"
+              src={formData.imgb64 === "" ? logo : formData.imgb64}
+              sx={{ width: 56, height: 56 }}
+              style={{ alignSelf: "center" }}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Button variant="contained" component="label">
+              Upload File
+              <input type="file" onChange={convertToBase64} hidden />
+            </Button>
+          </Grid> */}
           <Grid item xs={12}>
             <TextField
               variant="outlined"

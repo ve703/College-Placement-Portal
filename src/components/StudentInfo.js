@@ -26,6 +26,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import EditProfile from "./StudentPannel/EditProfile";
+import logo from "./Profile.png";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -82,6 +83,9 @@ const StudentInfo = () => {
   const EditPath = () => {
     navigate("/edit-profile");
   };
+  const imgdata = {
+    imgb64: "",
+  };
   const data = {
     "Registration Number": '"Enter Registration Number',
     "First Name": "Enter FirstName",
@@ -95,6 +99,7 @@ const StudentInfo = () => {
     Degree: "Enter Degree",
   };
   const [credential, setCredentials] = useState(data);
+  const [image, setImage] = useState(imgdata);
   const fetchData = async () => {
     const response = await fetch("http://localhost:5000/api/v1/fetchdata", {
       method: "GET",
@@ -105,6 +110,9 @@ const StudentInfo = () => {
     });
     const r = await response.json();
     // console.log(r.userData.firstName);
+    setImage({
+      imgb64: r.userData.imgb64,
+    });
     setCredentials({
       "Registration Number": r.userData.regnumber,
       "First Name": r.userData.firstName,
@@ -174,7 +182,7 @@ const StudentInfo = () => {
                 marginRight: "auto",
               }}
               alt="Profile pic"
-              src={sample_profile}
+              src={logo}
             />
 
             {/* <Button

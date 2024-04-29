@@ -67,6 +67,7 @@ const JobProfiles = () => {
     setValue(newValue);
   };
   const data = {
+    email: "Set Email",
     id: "Set ID",
     Branch: "Enter Branch",
     CPI: "Enter current CPI",
@@ -93,6 +94,7 @@ const JobProfiles = () => {
     console.log(r);
     // console.log(r.userData.firstName);
     setCredentials({
+      email: r.userData.email,
       Degree: r.userData.degree,
       id: r.userData._id,
       Branch: r.userData.branch,
