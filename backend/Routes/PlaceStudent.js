@@ -38,12 +38,23 @@ router.post("/placestudent/:userid", async (req, res) => {
     }
     mdata.save();
   }
+  var newEligibleArray = UserData.eligibleArr;
+  if (req.body.currctc < 12) {
+    newEligibleArray[0] = true;
+  } else if (req.body.currctc >= 12 && req.body.currctc < 40) {
+    newEligibleArray[1] = true;
+  } else if (req.body.currctc >= 40) {
+    newEligibleArray[2] = true;
+  }
   //   console.log(jobdata);
   //   console.log(req.body);
+  console.log(newEligibleArray);
   if (!token) {
     res.status(400).json({ msg: "Authentication Error", msgType: "error" });
   }
   const newdata = {
+    eligibleArr: newEligibleArray,
+    jobOffers: UserData.jobOffers + 1,
     placedCompanyid: req.body.placedCompanyid,
     placedCompany: req.body.placedCompany,
     placed: true,

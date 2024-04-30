@@ -10,6 +10,7 @@ import {
   Card,
   Box,
 } from "@mui/material";
+import Avatar from "@mui/material/Avatar";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -17,6 +18,9 @@ import { useNavigate } from "react-router-dom";
 import AppliedJobs from "./AppliedJobs";
 import JobCard from "./JobCard";
 import { message } from "antd";
+import logo from "./profiledb.png";
+import WorkIcon from "@mui/icons-material/Work";
+import PlaceIcon from "@mui/icons-material/Place";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -80,6 +84,8 @@ const JobProfiles = () => {
     Degree: "Enter Degree",
     placed: false,
     placedCompanyid: "Not placed",
+    jobOffers: 0,
+    eligibleArr: [],
   };
   const [credential, setCredentials] = useState(data);
   const fetchData = async () => {
@@ -107,6 +113,8 @@ const JobProfiles = () => {
       regnumber: r.userData.regnumber,
       placed: r.userData.placed,
       placedCompanyid: r.userData.placedCompanyid,
+      eligibleArr: r.userData.eligibleArr,
+      jobOffers: r.userData.jobOffers,
     });
   };
   const [jobs, setJobs] = useState([{}]);
@@ -151,9 +159,10 @@ const JobProfiles = () => {
     console.log("CLICKED");
     console.log(jobid);
   };
-  const OfferedOnCLick = async (companyName, jobid) => {
+  const OfferedOnCLick = async (companyName, jobid, currctc) => {
     localStorage.setItem("Company", companyName);
     const data = {
+      currctc: currctc,
       placedCompanyid: jobid,
       placedCompany: companyName,
     };
@@ -190,7 +199,8 @@ const JobProfiles = () => {
     OfferedCandidates,
     CompanyName,
     DegreeAllowed,
-    MTechBranchAllowed
+    MTechBranchAllowed,
+    currctc
   ) => {
     // console.log(cpi);
     const d = new Date();
@@ -213,13 +223,162 @@ const JobProfiles = () => {
             Offer Accepted
           </Button>
         );
-      } else {
+      }
+      if (credential.jobOffers >= 2) {
         return (
           <Button size="small" disabled>
-            Not Eligible
+            2 Offers already Accepted
           </Button>
         );
       }
+      if (currctc <= 12) {
+        if (
+          credential.eligibleArr[1] == true ||
+          credential.eligibleArr[2] == true
+        ) {
+          return (
+            <Button size="small" disabled>
+              Placed in higher job profile
+            </Button>
+          );
+        }
+        if (credential.eligibleArr[0] == true) {
+          return (
+            <Button size="small" disabled>
+              1 job offer in this profile
+            </Button>
+          );
+        }
+      }
+      // if(jobctc<=12 ){
+      //   if(arr[1]== true || arr[2]== true){
+      //     placed in higher job profile
+      //   }
+      if (currctc > 12 && currctc <= 40) {
+        if (credential.eligibleArr[1] == true) {
+          return (
+            <Button size="small" disabled>
+              1 job offer in this profile
+            </Button>
+          );
+        }
+        if (credential.eligibleArr[2] == true) {
+          return (
+            <Button size="small" disabled>
+              Placed in higher job profile
+            </Button>
+          );
+        }
+      }
+
+      // }
+      // if(12<jobctc<=40){
+      //   if(arr[2]==true){
+      //     placed in higher job profile
+      //   }
+      //   if(arr[1]==true){
+      //     1 job offer in this job profile
+      //   }
+      // }
+      // if(jobctc>40){
+      //   if(arr[2]==true){
+      //     1 job offer in this job profile
+      //   }
+      // }
+      if (currctc > 40) {
+        if (credential.eligibleArr[2] == true) {
+          return (
+            <Button size="small" disabled>
+              1 Job offer in this profile
+            </Button>
+          );
+        }
+      }
+      if (processCompleted === true) {
+        if (OfferedCandidates.includes(credential.id)) {
+          return (
+            <Button
+              size="small"
+              onClick={() => {
+                OfferedOnCLick(CompanyName, jobid, currctc);
+              }}
+            >
+              Job Offered
+            </Button>
+          );
+        } else {
+          return (
+            <Button size="small" disabled>
+              Job not Offered(Recruitment Process Over)
+            </Button>
+          );
+        }
+      } else if (processCompleted === false) {
+        if (
+          AppliedCandidates &&
+          AppliedCandidates.some((id) => id.id === credential.id)
+        ) {
+          console.log("HERE" + CompanyName);
+          return (
+            <Button size="small" disabled>
+              Applied
+            </Button>
+          );
+        } else {
+          if (
+            cpi >= eligibility &&
+            ((DegreeAllowed.includes(credential.Degree) &&
+              BranchAllowed.includes(currBranch)) ||
+              (MTechBranchAllowed.includes(currBranch) &&
+                DegreeAllowed.includes(credential.Degree)) ||
+              (DegreeAllowed.includes("MCA") && credential.Degree === "MCA"))
+          ) {
+            var GivenDate1 = "2018-02-22";
+            var GivenDate = lastYear + "-" + lastMonth + "-" + lastDay;
+            var CurrentDate = new Date();
+            GivenDate = new Date(GivenDate);
+            if (CurrentDate <= GivenDate) {
+              return (
+                <Button
+                  size="small"
+                  disabled={clicked}
+                  onClick={() => {
+                    handleOnClick(jobid);
+                  }}
+                >
+                  Apply Now
+                </Button>
+              );
+            } else {
+              return (
+                <Button size="small" disabled>
+                  Deadline missed
+                </Button>
+              );
+            }
+          } else {
+            return (
+              <Button size="small" disabled>
+                Not Eligible
+              </Button>
+            );
+          }
+        }
+      }
+      return <Button size="small">TESTING</Button>;
+      // if (jobid == credential.placedCompanyid) {
+      //   return (
+      //     <Button size="small" disabled>
+      //       Offer Accepted
+      //     </Button>
+      //   );
+      // } else {
+      //   return (
+      //     <Button size="small" disabled>
+      //       Not Eligible
+      //     </Button>
+      //   );
+      // }
     } else {
       if (processCompleted === true) {
         if (OfferedCandidates.includes(credential.id)) {
@@ -424,6 +583,7 @@ const JobProfiles = () => {
                       <>
                         <Card sx={{ minWidth: 275 }} key={idx}>
                           <CardContent>
+                            <Avatar alt="Cindy Baker" src={logo} />
                             <Typography
                               variant="h5"
                               component="div"
@@ -436,7 +596,14 @@ const JobProfiles = () => {
                               color="text.secondary"
                               align="left"
                             >
-                              {i.JobProfile}, {i.JobLocation}
+                              <WorkIcon /> {i.JobProfile}
+                            </Typography>
+                            <Typography
+                              sx={{ mb: 1.5 }}
+                              color="text.secondary"
+                              align="left"
+                            >
+                              <PlaceIcon /> {i.JobLocation}
                             </Typography>
                             <Typography variant="body2" align="left">
                               Eligibility CPI: {i.mincpi}
@@ -448,7 +615,8 @@ const JobProfiles = () => {
                                 return <>x</>;
                               })} */}
                               <br />
-                              Last Date to Apply: {i.LastDatetoApply}
+                              Last Date to Apply:
+                              {i.lastDay + "/" + i.lastMonth + "/" + i.lastYear}
                             </Typography>
                           </CardContent>
                           <CardActions>
@@ -467,7 +635,8 @@ const JobProfiles = () => {
                               i.OfferedCandidates,
                               i.CompanyName,
                               i.DegreeAllowed,
-                              i.MTechBranchAllowed
+                              i.MTechBranchAllowed,
+                              i.ctc
                             )}
                           </CardActions>
                         </Card>

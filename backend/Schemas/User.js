@@ -17,6 +17,18 @@ const UserSchema = new Schema({
     type: String,
     default: "Not Placed",
   },
+  jobOffers: {
+    type: Number,
+    default: 0,
+  },
+  eligibleArr: {
+    type: Array,
+    default: [false, false, false],
+  },
+  currbatch: {
+    type: Boolean,
+    default: true,
+  },
   placed: {
     type: Boolean,
     default: false,
