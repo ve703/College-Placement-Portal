@@ -19,6 +19,7 @@ app.use("/api/v1", require("./Routes/FetchAllStudentData.js"));
 app.use("/api/v1", require("./Routes/Test.js"));
 app.use("/api/v1", require("./Routes/FetchBTechData.js"));
 app.use("/api/v1", require("./Routes/FetchMTechData.js"));
+app.use("/api/v1", require("./Routes/AddImage.js"));
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

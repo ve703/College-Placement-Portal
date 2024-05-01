@@ -46,6 +46,7 @@ const AdminList2 = () => {
     lastDay: 0,
     lastMonth: 0,
     lastYear: 0,
+    photo: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -163,14 +164,123 @@ const AdminList2 = () => {
     }));
   };
 
+  const handlePhotoChange = (photu) => {
+    console.log(formData);
+    setFormData((prevData) => ({
+      ...prevData,
+      photo: photu,
+    }));
+  };
+
+  // Upload Photo
+  const [photo, setPhoto] = useState("");
+  function convertToBase64(e) {
+    console.log(e);
+    var reader = new FileReader();
+    console.log(e.target.files);
+    if (e.target.files[0].size >= 1500000) {
+      window.alert("Size must be less than 1.5 MB");
+    } else {
+      reader.readAsDataURL(e.target.files[0]);
+      reader.onload = () => {
+        console.log(reader.result);
+        setPhoto(reader.result);
+      };
+      reader.onerror = () => {
+        console.log("ERROR");
+      };
+    }
+  }
+
+  const handleCheck = () => {
+    // convertToBase64();
+    console.log(photo);
+    handlePhotoChange(photo);
+    console.log(formData);
+    message.success("Logo Uploaded");
+  };
+
   return (
     <Container component="main" maxWidth="xs">
       <Typography component="h1" variant="h5" align="center" gutterBottom>
         CREATE A JOB PROFILE
       </Typography>
+      <br />
 
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
+          {/* <Grid item xs={12}> */}
+          {/* <input type="file" accept="image/*" onChange={convertToBase64} />
+            <button onClick={handleCheck}>Upload Image</button>
+            <img height={100} width={100} alt="No Uploads" src={photo} />
+            <br /> */}
+
+          <Grid item xs={12}>
+            <Grid container spacing={2}>
+              <Grid item xs={6} sm={3}>
+                {photo && (
+                  <>
+                    {/* <Avatar
+                      height={100}
+                      width={100}
+                      alt="Logo"
+                      src={photo}
+                      style={{ border: "1px solid black" }}
+                    /> */}
+                    <img
+                      height={100}
+                      width={100}
+                      alt="Logo"
+                      src={photo}
+                      style={{ border: "0.5px solid black" }}
+                    />
+                  </>
+                )}
+                {!photo && (
+                  <img
+                    height={100}
+                    width={100}
+                    alt=""
+                    src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fstock.adobe.com%2Fsearch%3Fk%3Dtransparent%2Bbackground&psig=AOvVaw0U86u_cERPLYzkDtCx-so9&ust=1714638439744000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCKjw-IqE7IUDFQAAAAAdAAAAABAE"
+                  />
+                )}
+              </Grid>
+              <Grid item xs={6} sm={6} align="center">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={convertToBase64}
+                  // hidden
+                  style={{
+                    position: "relative",
+                    overflow: "hidden",
+                    appearance: "none",
+                    backgroundColor: "#1565c0",
+                    color: "#fff",
+                    borderRadius: "4px",
+                    padding: "6px 10px",
+                    cursor: "pointer",
+                    border: "none",
+                    fontSize: "inherit",
+                    fontFamily: "inherit",
+                    textAlign: "center",
+                  }}
+                />
+                <br />
+                <br />
+
+                <Button
+                  variant="contained"
+                  component="label"
+                  onClick={handleCheck}
+                >
+                  Upload Logo
+                </Button>
+              </Grid>
+            </Grid>
+          </Grid>
+          {/* </Grid> */}
+
           <Grid item xs={12}>
             <TextField
               variant="outlined"
@@ -382,15 +492,33 @@ const AdminList2 = () => {
             </FormGroup>
           </Grid>
         </Grid>
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          fullWidth
-          sx={{ mt: 3 }}
-        >
-          Update Profile
-        </Button>
+
+        {!formData.photo ? (
+          <>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              fullWidth
+              sx={{ mt: 3 }}
+              disabled
+            >
+              Upload Logo First
+            </Button>
+          </>
+        ) : (
+          <>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              fullWidth
+              sx={{ mt: 3 }}
+            >
+              Update Profile
+            </Button>
+          </>
+        )}
       </form>
     </Container>
   );

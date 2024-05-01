@@ -65,6 +65,10 @@ const UserSchema = new Schema({
     type: "Number",
     default: 0,
   },
+  photo: {
+    type: "String",
+    default: "",
+  },
 });
 
 module.exports = mongoose.model("users", UserSchema);

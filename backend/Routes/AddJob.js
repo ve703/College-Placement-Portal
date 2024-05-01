@@ -58,6 +58,7 @@ router.post("/addjob", async (req, res) => {
     AppliedCandidates: req.body.AppliedCandidates,
     DegreeAllowed: req.body.DegreeAllowed,
     MTechBranchAllowed: req.body.MTechBranchAllowed,
+    photo: req.body.photo,
   });
   res.json({ msg: "Job Added", msgType: "success" });
 });

@@ -9,6 +9,7 @@ import {
   CardActions,
   Card,
   Box,
+  Avatar,
 } from "@mui/material";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
@@ -17,6 +18,10 @@ import { useNavigate } from "react-router-dom";
 import AppliedJobs from "./AppliedJobs";
 import JobCard from "./JobCard";
 import { message } from "antd";
+import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
+import WorkIcon from "@mui/icons-material/Work";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import DownloadIcon from "@mui/icons-material/Download";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -209,13 +214,13 @@ const JobProfiles = () => {
     if (credential.placed === true) {
       if (jobid == credential.placedCompanyid) {
         return (
-          <Button size="small" disabled>
+          <Button variant="outlined" size="small" disabled>
             Offer Accepted
           </Button>
         );
       } else {
         return (
-          <Button size="small" disabled>
+          <Button variant="outlined" size="small" disabled>
             Not Eligible
           </Button>
         );
@@ -225,6 +230,7 @@ const JobProfiles = () => {
         if (OfferedCandidates.includes(credential.id)) {
           return (
             <Button
+              variant="outlined"
               size="small"
               onClick={() => {
                 OfferedOnCLick(CompanyName, jobid);
@@ -235,7 +241,7 @@ const JobProfiles = () => {
           );
         } else {
           return (
-            <Button size="small" disabled>
+            <Button variant="outlined" size="small" disabled>
               Job not Offered(Recruitment Process Over)
             </Button>
           );
@@ -247,7 +253,7 @@ const JobProfiles = () => {
         ) {
           console.log("HERE" + CompanyName);
           return (
-            <Button size="small" disabled>
+            <Button variant="outlined" size="small" disabled>
               Applied
             </Button>
           );
@@ -267,6 +273,7 @@ const JobProfiles = () => {
             if (CurrentDate <= GivenDate) {
               return (
                 <Button
+                  variant="outlined"
                   size="small"
                   disabled={clicked}
                   onClick={() => {
@@ -278,14 +285,14 @@ const JobProfiles = () => {
               );
             } else {
               return (
-                <Button size="small" disabled>
+                <Button variant="outlined" size="small" disabled>
                   Deadline missed
                 </Button>
               );
             }
           } else {
             return (
-              <Button size="small" disabled>
+              <Button variant="outlined" size="small" disabled>
                 Not Eligible
               </Button>
             );
@@ -422,22 +429,109 @@ const JobProfiles = () => {
                   jobs.map((i, idx) => {
                     return (
                       <>
-                        <Card sx={{ minWidth: 275 }} key={idx}>
+                        <Card
+                          sx={{
+                            minWidth: 275,
+                            boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.2)",
+                            margin: "10px",
+                          }}
+                          key={idx}
+                        >
                           <CardContent>
-                            <Typography
-                              variant="h5"
-                              component="div"
-                              align="left"
-                            >
-                              {i.CompanyName}
-                            </Typography>
-                            <Typography
-                              sx={{ mb: 1.5 }}
-                              color="text.secondary"
-                              align="left"
-                            >
-                              {i.JobProfile}, {i.JobLocation}
-                            </Typography>
+                            <Grid container spacing={2}>
+                              {/* Image */}
+                              <Grid item>
+                                {i.photo ? (
+                                  // <Avatar
+                                  //   sx={{
+                                  //     width: 150,
+                                  //     height: 150,
+                                  //     border: "2px solid blue",
+                                  //     // alignContent: "center",
+                                  //     marginLeft: "auto",
+                                  //     marginRight: "auto",
+                                  //     objectFit: "contain",
+                                  //     overflow: "hidden",
+                                  //   }}
+                                  //   alt="Profile pic"
+                                  //   src={i.photo}
+                                  // />
+                                  <img
+                                    height={80}
+                                    width={80}
+                                    alt="Logo"
+                                    src={i.photo}
+                                    style={{
+                                      borderRadius: "50%", // Make the image circular
+                                      objectFit: "cover", // Fit the image properly
+                                      border: "0.5px solid black",
+                                      overflow: "hidden", // Ensure no overflow
+                                    }}
+                                  />
+                                ) : (
+                                  // <img
+                                  //   height={100}
+                                  //   width={100}
+                                  //   alt="Logo"
+                                  //   src={i.photo}
+                                  //   style={{
+                                  //     borderRadius: "50%", // Make the image circular
+                                  //     objectFit: "cover", // Fit the image properly
+                                  //     border: "0.5px solid black",
+                                  //   }}
+                                  // />
+                                  <>
+                                    <Avatar
+                                      sx={{
+                                        width: 80,
+                                        height: 80,
+                                        border: "0.5px solid black",
+                                        // alignContent: "center",
+                                        marginLeft: "auto",
+                                        marginRight: "auto",
+                                      }}
+                                      alt="D"
+                                    >
+                                      {
+                                        <BusinessCenterIcon
+                                          sx={{
+                                            width: 60,
+                                            height: 60,
+                                            // border: "2px solid blue",
+                                            // alignContent: "center",
+                                            marginLeft: "auto",
+                                            marginRight: "auto",
+                                          }}
+                                        />
+                                      }
+                                    </Avatar>
+                                  </>
+                                )}
+                              </Grid>
+                              {/* Company Name, Job Profile, Job Location */}
+                              <Grid item xs={12} sm={9}>
+                                <Typography
+                                  variant="h5"
+                                  component="div"
+                                  align="left"
+                                >
+                                  {i.CompanyName}
+                                </Typography>
+                                <Typography
+                                  sx={{ mb: 1.5 }}
+                                  color="text.secondary"
+                                  align="left"
+                                >
+                                  <WorkIcon style={{ marginBottom: "-4px" }} />{" "}
+                                  {i.JobProfile}
+                                  <br />
+                                  <LocationOnIcon
+                                    style={{ marginBottom: "-4px" }}
+                                  />{" "}
+                                  {i.JobLocation}
+                                </Typography>
+                              </Grid>
+                            </Grid>
                             <Typography variant="body2" align="left">
                               Eligibility CPI: {i.mincpi}
                               <br />
@@ -452,7 +546,10 @@ const JobProfiles = () => {
                             </Typography>
                           </CardContent>
                           <CardActions>
-                            <Button size="small">Download JD</Button>
+                            <Button variant="outlined" size="small">
+                              <DownloadIcon style={{ marginRight: "3px" }} />{" "}
+                              Download JD
+                            </Button>
                             {check(
                               credential.CPI,
                               i.mincpi,

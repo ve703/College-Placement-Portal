@@ -23,6 +23,9 @@ import AdminList2 from "./components/AdminPannel/AdminList2";
 import AdminCompanies from "./components/AdminPannel/AdminCompanies";
 import { useNavigate, Navigate } from "react-router-dom";
 import StudentExperiance from "./components/StudentPannel/StudentExperience";
+import UploadPhoto from "./components/StudentPannel/UploadPhoto";
+import Photo from "./components/StudentPannel/Profile";
+import Base64UploadImage from "./components/AdminPannel/Base64UploadImage";
 
 function App() {
   const navigate = useNavigate();
@@ -51,6 +54,9 @@ function App() {
         <Route path="/recruitment" element={<Recruitment />}></Route>
         <Route path="/about" element={<AboutVjti />}></Route>
         <Route path="/recruiters" element={<RecruitersPage />}></Route>
+        <Route path="/upload-photo" element={<UploadPhoto />}></Route>
+        <Route path="/photo" element={<Photo />}></Route>
+        <Route path="/up" element={<Base64UploadImage />}></Route>
         <Route
           path="/interview-exp"
           element={

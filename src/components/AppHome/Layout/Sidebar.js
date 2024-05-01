@@ -1,5 +1,6 @@
 import * as React from "react";
 // import PropTypes from "prop-types";
+import { useState, useEffect } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -30,6 +31,7 @@ import { useNavigate } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
 import LoginIcon from "@mui/icons-material/Login";
 import WorkIcon from "@mui/icons-material/Work";
+import { Avatar } from "@mui/material";
 
 // const drawerWidth = 240;
 
@@ -58,17 +60,74 @@ function ResponsiveDrawer(props) {
     // }
     setMobileOpen(!mobileOpen);
   };
+
+  // Fetch Image
+  const [photo, setPhoto] = useState("");
+  const fetchData = async () => {
+    const response = await fetch("http://localhost:5000/api/v1/fetchdata", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        AuthToken: localStorage.getItem("AuthToken"),
+      },
+    });
+    const r = await response.json();
+    // console.log(r.userData.firstName);
+    setPhoto(r.userData.photo);
+  };
+  useEffect(() => {
+    if (!localStorage.getItem("AuthToken")) {
+      console.log("Error");
+    } else {
+      fetchData();
+    }
+  }, []);
+  console.log(photo);
+
   const drawer = (
     <div>
       <Toolbar />
 
       <div style={{ display: "flex", justifyContent: "center" }}>
+        {localStorage.getItem("AuthToken") &&
+          localStorage.getItem("userType") == 1 && (
+            <img
+              src={Profile}
+              alt="Profile"
+              style={{ height: "150px", margin: "20px" }}
+            />
+          )}
+
+        {localStorage.getItem("AuthToken") &&
+          localStorage.getItem("userType") == 0 &&
+          photo && (
+            <Avatar
+              sx={{
+                width: 150,
+                height: 150,
+                border: "0.5px solid black",
+                // alignContent: "center",
+                marginLeft: "auto",
+                marginRight: "auto",
+                marginBottom: "20px",
+              }}
+              alt="Profile pic"
+              src={photo}
+            />
+          )}
+
+        {localStorage.getItem("AuthToken") &&
+          localStorage.getItem("userType") == 0 &&
+          !photo && (
+            <img
+              src={Profile}
+              alt="Profile"
+              style={{ height: "150px", margin: "20px" }}
+            />
+          )}
+
         {localStorage.getItem("AuthToken") ? (
-          <img
-            src={Profile}
-            alt="Profile"
-            style={{ height: "150px", marginBottom: "20px" }}
-          />
+          ""
         ) : (
           <img
             src={VJTI_logo}
