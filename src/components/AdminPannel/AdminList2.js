@@ -190,6 +190,10 @@ const AdminList2 = () => {
         console.log("ERROR");
       };
     }
+    // console.log(photo);
+    // handlePhotoChange(photo);
+    // console.log(formData);
+    // message.success("Logo Uploaded");
   }
 
   const handleCheck = () => {

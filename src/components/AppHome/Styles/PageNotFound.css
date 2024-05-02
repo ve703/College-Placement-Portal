@@ -1,0 +1,15 @@
+#wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#info {
+  text-align: center;
+}
+
+h2 {
+  font-size: 36px;
+  color: #333;
+}

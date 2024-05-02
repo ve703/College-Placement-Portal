@@ -84,6 +84,8 @@ function ResponsiveDrawer(props) {
   }, []);
   console.log(photo);
 
+  // Light and Dark Mode
+
   const drawer = (
     <div>
       <Toolbar />

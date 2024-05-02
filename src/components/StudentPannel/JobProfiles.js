@@ -400,7 +400,9 @@ const JobProfiles = () => {
     // }
   };
   return (
-    <Container sx={{ margin: "auto" }}>
+    <Container
+      sx={{ margin: "auto", boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.2)" }}
+    >
       <Typography variant="h6">Job Profiles</Typography>
       <Paper>
         <Grid>
@@ -421,7 +423,7 @@ const JobProfiles = () => {
             {/* Panel 1 */}
 
             <CustomTabPanel value={value} index={0}>
-              <Grid>
+              <Grid container spacing={2}>
                 {/* Map Cards Here */}
                 {jobs.length === 0 ? (
                   <>No Jobs to Display</>
@@ -429,147 +431,155 @@ const JobProfiles = () => {
                   jobs.map((i, idx) => {
                     return (
                       <>
-                        <Card
-                          sx={{
-                            minWidth: 275,
-                            boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.2)",
-                            margin: "10px",
-                          }}
-                          key={idx}
-                        >
-                          <CardContent>
-                            <Grid container spacing={2}>
-                              {/* Image */}
-                              <Grid item>
-                                {i.photo ? (
-                                  // <Avatar
-                                  //   sx={{
-                                  //     width: 150,
-                                  //     height: 150,
-                                  //     border: "2px solid blue",
-                                  //     // alignContent: "center",
-                                  //     marginLeft: "auto",
-                                  //     marginRight: "auto",
-                                  //     objectFit: "contain",
-                                  //     overflow: "hidden",
-                                  //   }}
-                                  //   alt="Profile pic"
-                                  //   src={i.photo}
-                                  // />
-                                  <img
-                                    height={80}
-                                    width={80}
-                                    alt="Logo"
-                                    src={i.photo}
-                                    style={{
-                                      borderRadius: "50%", // Make the image circular
-                                      objectFit: "cover", // Fit the image properly
-                                      border: "0.5px solid black",
-                                      overflow: "hidden", // Ensure no overflow
-                                    }}
-                                  />
-                                ) : (
-                                  // <img
-                                  //   height={100}
-                                  //   width={100}
-                                  //   alt="Logo"
-                                  //   src={i.photo}
-                                  //   style={{
-                                  //     borderRadius: "50%", // Make the image circular
-                                  //     objectFit: "cover", // Fit the image properly
-                                  //     border: "0.5px solid black",
-                                  //   }}
-                                  // />
-                                  <>
-                                    <Avatar
-                                      sx={{
-                                        width: 80,
-                                        height: 80,
+                        <Grid item xs={12} sm={6} key={idx}>
+                          <Card
+                            sx={{
+                              minWidth: 275,
+                              boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.2)",
+                              margin: "10px",
+                              transition: "transform 0.3s",
+                              "&:hover": {
+                                transform: "scale(1.05)",
+                                boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.5)",
+                              },
+                            }}
+                            key={idx}
+                          >
+                            <CardContent>
+                              <Grid container spacing={2}>
+                                {/* Image */}
+                                <Grid item>
+                                  {i.photo ? (
+                                    // <Avatar
+                                    //   sx={{
+                                    //     width: 150,
+                                    //     height: 150,
+                                    //     border: "2px solid blue",
+                                    //     // alignContent: "center",
+                                    //     marginLeft: "auto",
+                                    //     marginRight: "auto",
+                                    //     objectFit: "contain",
+                                    //     overflow: "hidden",
+                                    //   }}
+                                    //   alt="Profile pic"
+                                    //   src={i.photo}
+                                    // />
+                                    <img
+                                      height={80}
+                                      width={80}
+                                      alt="Logo"
+                                      src={i.photo}
+                                      style={{
+                                        borderRadius: "50%", // Make the image circular
+                                        objectFit: "cover", // Fit the image properly
                                         border: "0.5px solid black",
-                                        // alignContent: "center",
-                                        marginLeft: "auto",
-                                        marginRight: "auto",
+                                        overflow: "hidden", // Ensure no overflow
                                       }}
-                                      alt="D"
-                                    >
-                                      {
-                                        <BusinessCenterIcon
-                                          sx={{
-                                            width: 60,
-                                            height: 60,
-                                            // border: "2px solid blue",
-                                            // alignContent: "center",
-                                            marginLeft: "auto",
-                                            marginRight: "auto",
-                                          }}
-                                        />
-                                      }
-                                    </Avatar>
-                                  </>
-                                )}
+                                    />
+                                  ) : (
+                                    // <img
+                                    //   height={100}
+                                    //   width={100}
+                                    //   alt="Logo"
+                                    //   src={i.photo}
+                                    //   style={{
+                                    //     borderRadius: "50%", // Make the image circular
+                                    //     objectFit: "cover", // Fit the image properly
+                                    //     border: "0.5px solid black",
+                                    //   }}
+                                    // />
+                                    <>
+                                      <Avatar
+                                        sx={{
+                                          width: 80,
+                                          height: 80,
+                                          border: "0.5px solid black",
+                                          // alignContent: "center",
+                                          marginLeft: "auto",
+                                          marginRight: "auto",
+                                        }}
+                                        alt="D"
+                                      >
+                                        {
+                                          <BusinessCenterIcon
+                                            sx={{
+                                              width: 60,
+                                              height: 60,
+                                              // border: "2px solid blue",
+                                              // alignContent: "center",
+                                              marginLeft: "auto",
+                                              marginRight: "auto",
+                                            }}
+                                          />
+                                        }
+                                      </Avatar>
+                                    </>
+                                  )}
+                                </Grid>
+                                {/* Company Name, Job Profile, Job Location */}
+                                <Grid item xs={12} sm={9}>
+                                  <Typography
+                                    variant="h5"
+                                    component="div"
+                                    align="left"
+                                  >
+                                    {i.CompanyName}
+                                  </Typography>
+                                  <Typography
+                                    sx={{ mb: 1.5 }}
+                                    color="text.secondary"
+                                    align="left"
+                                  >
+                                    <WorkIcon
+                                      style={{ marginBottom: "-4px" }}
+                                    />{" "}
+                                    {i.JobProfile}
+                                    <br />
+                                    <LocationOnIcon
+                                      style={{ marginBottom: "-4px" }}
+                                    />{" "}
+                                    {i.JobLocation}
+                                  </Typography>
+                                </Grid>
                               </Grid>
-                              {/* Company Name, Job Profile, Job Location */}
-                              <Grid item xs={12} sm={9}>
-                                <Typography
-                                  variant="h5"
-                                  component="div"
-                                  align="left"
-                                >
-                                  {i.CompanyName}
-                                </Typography>
-                                <Typography
-                                  sx={{ mb: 1.5 }}
-                                  color="text.secondary"
-                                  align="left"
-                                >
-                                  <WorkIcon style={{ marginBottom: "-4px" }} />{" "}
-                                  {i.JobProfile}
-                                  <br />
-                                  <LocationOnIcon
-                                    style={{ marginBottom: "-4px" }}
-                                  />{" "}
-                                  {i.JobLocation}
-                                </Typography>
-                              </Grid>
-                            </Grid>
-                            <Typography variant="body2" align="left">
-                              Eligibility CPI: {i.mincpi}
-                              <br />
-                              CTC: {i.ctc} LPA
-                              <br />
-                              Eligible Branches:
-                              {/* {i.BranchAllowed.map((x) => {
+                              <Typography variant="body2" align="left">
+                                Eligibility CPI: {i.mincpi}
+                                <br />
+                                CTC: {i.ctc} LPA
+                                <br />
+                                Eligible Branches:
+                                {/* {i.BranchAllowed.map((x) => {
                                 return <>x</>;
                               })} */}
-                              <br />
-                              Last Date to Apply: {i.LastDatetoApply}
-                            </Typography>
-                          </CardContent>
-                          <CardActions>
-                            <Button variant="outlined" size="small">
-                              <DownloadIcon style={{ marginRight: "3px" }} />{" "}
-                              Download JD
-                            </Button>
-                            {check(
-                              credential.CPI,
-                              i.mincpi,
-                              i.BranchAllowed,
-                              credential.Branch,
-                              i.lastDay,
-                              i.lastMonth,
-                              i.lastYear,
-                              i._id,
-                              i.AppliedCandidates,
-                              i.processCompleted,
-                              i.OfferedCandidates,
-                              i.CompanyName,
-                              i.DegreeAllowed,
-                              i.MTechBranchAllowed
-                            )}
-                          </CardActions>
-                        </Card>
-                        <br />
-                        <br />
+                                <br />
+                                Last Date to Apply: {i.LastDatetoApply}
+                              </Typography>
+                            </CardContent>
+                            <CardActions>
+                              <Button variant="outlined" size="small">
+                                <DownloadIcon style={{ marginRight: "3px" }} />{" "}
+                                Download JD
+                              </Button>
+                              {check(
+                                credential.CPI,
+                                i.mincpi,
+                                i.BranchAllowed,
+                                credential.Branch,
+                                i.lastDay,
+                                i.lastMonth,
+                                i.lastYear,
+                                i._id,
+                                i.AppliedCandidates,
+                                i.processCompleted,
+                                i.OfferedCandidates,
+                                i.CompanyName,
+                                i.DegreeAllowed,
+                                i.MTechBranchAllowed
+                              )}
+                            </CardActions>
+                          </Card>
+                          <br />
+                        </Grid>
                       </>
                     );
                   })
