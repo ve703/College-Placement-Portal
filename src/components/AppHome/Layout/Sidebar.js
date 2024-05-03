@@ -32,6 +32,8 @@ import PersonIcon from "@mui/icons-material/Person";
 import LoginIcon from "@mui/icons-material/Login";
 import WorkIcon from "@mui/icons-material/Work";
 import { Avatar } from "@mui/material";
+import AnalyticsIcon from "@mui/icons-material/Analytics";
+import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 
 // const drawerWidth = 240;
 
@@ -167,7 +169,7 @@ function ResponsiveDrawer(props) {
             <ListItem disablePadding>
               <ListItemButton component={Link} to="/admin-dashboard">
                 <ListItemIcon>
-                  <HomeIcon />
+                  <AnalyticsIcon />
                 </ListItemIcon>
                 <ListItemText primary={"Dashboard"} />
               </ListItemButton>
@@ -208,6 +210,18 @@ function ResponsiveDrawer(props) {
               </ListItemButton>
             </ListItem>
           )}
+        {localStorage.getItem("AuthToken") &&
+          localStorage.getItem("userType") == 0 && (
+            <ListItem disablePadding>
+              <ListItemButton component={Link} to="/student-experience">
+                <ListItemIcon>
+                  <QuestionAnswerIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Interview Experiences"} />
+              </ListItemButton>
+            </ListItem>
+          )}
+
         {localStorage.getItem("AuthToken") &&
           localStorage.getItem("userType") == 1 && (
             <ListItem disablePadding>
@@ -304,6 +318,7 @@ function ResponsiveDrawer(props) {
             </ListItemButton>
           </ListItem>
         )}
+
         {localStorage.getItem("AuthToken") ? (
           <ListItem disablePadding>
             <ListItemButton

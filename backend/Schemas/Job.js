@@ -11,6 +11,10 @@ const JobSchema = new Schema({
   JobLocation: {
     type: String,
   },
+  currbatch: {
+    type: Boolean,
+    default: false,
+  },
   DegreeAllowed: {
     type: Array,
     default: [],

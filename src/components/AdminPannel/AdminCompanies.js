@@ -23,6 +23,8 @@ import { ExportJsonCsv } from "react-export-json-csv";
 import Modal from "@mui/material/Modal";
 import WorkIcon from "@mui/icons-material/Work";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import logo from "./jobdefault.png";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 
@@ -79,6 +81,20 @@ const AdminCompanies = () => {
     boxShadow: 24,
     p: 4,
   };
+  const headers2 = [
+    {
+      key: "CompanyName",
+      name: "Company Name",
+    },
+    {
+      key: "JobProfile",
+      name: "Job Profile",
+    },
+    {
+      key: "ctc",
+      name: "CTC",
+    },
+  ];
   const headers = [
     {
       key: "Degree",
@@ -149,6 +165,22 @@ const AdminCompanies = () => {
       console.log(r);
       window.location.reload();
     };
+    const delJob = async (jobid) => {
+      const response = await fetch(
+        `http://localhost:5000/api/v1/deljob/${jobid}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            AuthToken: localStorage.getItem("AuthToken"),
+          },
+        }
+      );
+      const r = await response.json();
+      console.log(r);
+      console.log(jobid);
+      window.location.reload();
+    };
     const handleonClick = (e, candidate) => {
       e.preventDefault();
       var idx = offered.indexOf(candidate);
@@ -193,6 +225,11 @@ const AdminCompanies = () => {
                     />
                   ) : (
                     <Avatar
+                      height={80}
+                      width={80}
+                      src={logo}
+                      variant="rounded"
+                      alt="LogoAlt"
                       sx={{
                         width: 80,
                         height: 80,
@@ -200,7 +237,6 @@ const AdminCompanies = () => {
                         marginLeft: "auto",
                         marginRight: "auto",
                       }}
-                      alt="D"
                     >
                       <BusinessCenterIcon
                         sx={{
@@ -289,6 +325,17 @@ const AdminCompanies = () => {
                   Confirm Offers
                 </Button>
               )}
+              <Button
+                size="small"
+                variant="outlined"
+                disabled={clicked}
+                startIcon={<DeleteIcon />}
+                onClick={(e) => {
+                  delJob(job_id);
+                }}
+              >
+                Delete Jobs
+              </Button>
               {/* <Modal
               open={open}
               onClose={handleClose}
@@ -335,6 +382,25 @@ const AdminCompanies = () => {
     >
       <Typography variant="h6">All Companies</Typography>
       <br />
+      <Typography variant="h6">
+        <ExportJsonCsv
+          headers={headers2}
+          items={companies}
+          fileTitle={"Currentyear_Companydata"}
+          style={{
+            color: "black",
+            borderRadius: "20px",
+            fontWeight: 600,
+            fontFamily: "Roboto",
+            border: "hidden",
+            backgroundColor: "transparent",
+            fontSize: "15px",
+            cursor: "pointer",
+          }}
+        >
+          Download Company Data
+        </ExportJsonCsv>
+      </Typography>
       <Paper>
         <Grid>
           <Box sx={{ width: "100%", padding: "30px" }}>

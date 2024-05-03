@@ -11,10 +11,31 @@ import {
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid } from "recharts";
 import { BarChart as BarChartJS } from "@mui/x-charts/BarChart";
 import mockAdminData from "./mockData";
+import { Button } from "@mui/material";
+import WarningIcon from "@mui/icons-material/Warning";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+// import Button from '@mui/material/Button';
+import Typography from "@mui/material/Typography";
+import { message } from "antd";
 
 const valueFormatter = (value) => `${value} Lakhs`;
 
 const AdminDashboard = () => {
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const { getFillColor, horiChartSettings } = mockAdminData;
   const [horiChartData, sethoriChartData] = useState([]);
   const [simpleBarData, setSimpleBarData] = useState([]);
@@ -75,6 +96,23 @@ const AdminDashboard = () => {
     });
     setSimpleBarData(c);
     setplacedData(x);
+  };
+  const handleReset = async () => {
+    const response = await fetch("http://localhost:5000/api/v1//reset", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        AuthToken: localStorage.getItem("AuthToken"),
+      },
+    });
+    const r = await response.json();
+    console.log(r);
+    if (r.msgType == "success") {
+      message.success(r.msg);
+    } else {
+      message.warning("Error");
+    }
+    window.location.reload();
   };
   const fetchJobs = async () => {
     const response = await fetch("http://localhost:5000/api/v1/fetchjobdata", {
@@ -207,6 +245,34 @@ const AdminDashboard = () => {
             />
           </BarChart>
         </ResponsiveContainer>
+        <br />
+        <br />
+        <Button onClick={handleOpen} variant="outlined">
+          Reset data
+        </Button>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Do you want to reset the data? It is recommended to download and
+              save data for current batch
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              <Button
+                variant="outlined"
+                startIcon={<WarningIcon />}
+                component="label"
+                onClick={handleReset}
+              >
+                Reset Data for current Batch
+              </Button>
+            </Typography>
+          </Box>
+        </Modal>
       </div>
     </div>
   );

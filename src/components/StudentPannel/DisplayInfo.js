@@ -10,7 +10,7 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-
+import Paper from "@mui/material/Paper";
 import Backdrop from "@mui/material/Backdrop";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
@@ -32,9 +32,10 @@ const style = {
 };
 
 const DisplayInfo = () => {
-  const dummyData = [
+  const dummyDatax = [
     {
       id: 1,
+      companyName: "ABC",
       name: "Vishal Chavan",
       BranchName: "ee",
       description: "Description of Item hello bhai",
@@ -42,174 +43,203 @@ const DisplayInfo = () => {
     {
       id: 2,
       name: "Pranay Meshu",
+      companyName: "ABC",
       BranchName: "ee",
       description: "Description of Item 2",
     },
     {
       id: 3,
       name: "Mandar ",
+      companyName: "ABC",
       BranchName: "ee",
       description: "Description of Item 3",
     },
     {
       id: 4,
       name: "Chinmay ",
+      companyName: "ABC",
       BranchName: "ee",
       description: "Description of Item 4",
     },
     {
       id: 5,
       name: "Tushar ",
+      companyName: "ABC",
       BranchName: "ee",
       description: "Description of Item 5",
     },
     {
       id: 6,
       name: "Item 6",
+      companyName: "ABC",
       BranchName: "ee",
       description: "Description of Item 6",
     },
     {
       id: 7,
       name: "Item 7",
+      companyName: "ABC",
       BranchName: "cs",
       description: "Description of Item 7",
     },
     {
       id: 8,
       name: "Item 8",
+      companyName: "ABC",
       BranchName: "cs",
       description: "Description of Item 8",
     },
     {
       id: 9,
       name: "Item 9",
+      companyName: "ABC",
       BranchName: "cs",
       description: "Description of Item 9",
     },
     {
       id: 10,
       name: "Item 10",
+      companyName: "ABC",
       BranchName: "cs",
       description: "Description of Item 10",
     },
     {
       id: 11,
       name: "Item 11",
+      companyName: "ABC",
       BranchName: "cs",
       description: "Description of Item 10",
     },
     {
       id: 12,
       name: "Item 12",
+      companyName: "ABC",
       BranchName: "cs",
       description: "Description of Item 10",
     },
     {
       id: 13,
       name: "Item 13",
+      companyName: "ABC",
       BranchName: "cs",
       description: "Description of Item 13",
     },
     {
       id: 14,
       name: "Item 14",
+      companyName: "ABC",
       BranchName: "cs",
       description: "Description of Item 10",
     },
     {
       id: 15,
       name: "Item 15",
+      companyName: "ABC",
       BranchName: "cs",
       description: "Description of Item 10",
     },
     {
       id: 16,
       name: "Item 16",
+      companyName: "ABC",
       BranchName: "ee",
       description: "Description of Item 10",
     },
     {
       id: 17,
       name: "Item 17",
+      companyName: "ABC",
       BranchName: "cs",
       description: "Description of Item 10",
     },
     {
       id: 18,
       name: "Item 18",
+      companyName: "ABC",
       BranchName: "ee",
       description: "Description of Item 10",
     },
     {
       id: 19,
       name: "Item 19",
+      companyName: "ABC",
       BranchName: "cs",
       description: "Description of Item 10",
     },
     {
       id: 20,
       name: "Item 19",
+      companyName: "ABC",
       BranchName: "cs",
       description: "Description of Item 10",
     },
     {
       id: 21,
       name: "Item 19",
+      companyName: "ABC",
       BranchName: "cs",
       description: "Description of Item 10",
     },
     {
       id: 22,
       name: "Item 19",
+      companyName: "ABC",
       BranchName: "cs",
       description: "Description of Item 10",
     },
     {
       id: 23,
       name: "Item 19",
+      companyName: "ABC",
       BranchName: "cs",
       description: "Description of Item 10",
     },
     {
       id: 24,
       name: "Item 19",
+      companyName: "ABC",
       BranchName: "cs",
       description: "Description of Item 10",
     },
     {
       id: 25,
       name: "Item 19",
+      companyName: "ABC",
       BranchName: "cs",
       description: "Description of Item 10",
     },
     {
       id: 26,
       name: "Item 19",
+      companyName: "ABC",
       BranchName: "cs",
       description: "Description of Item 10",
     },
     {
       id: 27,
       name: "Item 19",
+      companyName: "ABCd",
       BranchName: "cs",
       description: "Description of Item 10",
     },
     {
       id: 28,
       name: "Item 19",
+      companyName: "ABC",
       BranchName: "cs",
       description: "Description of Item 10",
     },
     {
       id: 29,
       name: "Item 19",
+      companyName: "ABC",
       BranchName: "cs",
       description: "Description of Item 10",
     },
     {
       id: 30,
       name: "Item 19",
+      companyName: "ABC",
       BranchName: "cs",
       description: "Description of Item 10",
     },
@@ -221,17 +251,20 @@ const DisplayInfo = () => {
   const [searchTerm, setSearchTerm] = useState("");
   let [currentItems, setCurrentItems] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-  let size = dummyData.length;
+  const [student, setStudent] = useState("");
+  let size = dummyDatax.length;
+  const [dummyData, setDummydata] = useState(dummyDatax);
 
-  const handleOpen = (item) => {
+  const handleOpen = (item, student) => {
     setOpen(true);
     setDesc(item);
+    setStudent(student);
   };
   const handleClose = () => setOpen(false);
 
   const handleSearch = () => {
     const filtered = dummyData.filter((item) =>
-      item.BranchName.toLowerCase().includes(searchTerm.toLowerCase())
+      item.companyName.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredData(filtered);
 
@@ -244,8 +277,35 @@ const DisplayInfo = () => {
   const itemsPerPage = 13;
 
   // Calculate pagination
-
+  const fetchInterviewData = async () => {
+    const response = await fetch(
+      `http://localhost:5000/api/v1/fetchinterviewdata`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          AuthToken: localStorage.getItem("AuthToken"),
+        },
+      }
+    );
+    const r = await response.json();
+    console.log(r);
+    var temp = [];
+    r.interviewdata.map((i, idx) => {
+      const obj = {
+        id: idx + 1,
+        name: i.studentName,
+        companyName: i.companyName,
+        BranchName: i.branch,
+        description: i.experiance,
+      };
+      temp.push(obj);
+    });
+    console.log(temp);
+    setDummydata(temp);
+  };
   useEffect(() => {
+    fetchInterviewData();
     setCurrentItems(
       filteredData.slice(
         (currentPage - 1) * itemsPerPage,
@@ -262,12 +322,20 @@ const DisplayInfo = () => {
   };
 
   return (
-    <Grid sx={{ border: 1, height: 650, m: 10 }}>
-      <h1>Experience section:</h1>
-
-      <Grid>
-        <Grid item sx={{ width: 600, ml: 40 }}>
+    <Paper
+      sx={{
+        border: "0.5 px solid black",
+        boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.2)",
+        marginLeft: "50px",
+        marginRight: "50px",
+        marginBottom: "50px",
+      }}
+    >
+      <Grid container justifyContent="center" sx={{ mt: 5 }}>
+        <Grid item xs={12} sm={10} md={8} lg={6}>
+          <h1>Experience section:</h1>
           <TextField
+            margin="auto"
             fullWidth
             variant="outlined"
             placeholder="Search by company"
@@ -278,92 +346,79 @@ const DisplayInfo = () => {
                 <Button
                   variant="contained"
                   disableElevation
-                  onClick={() => {
-                    handleSearch();
-                  }}
+                  onClick={handleSearch}
                 >
                   Search
                 </Button>
               ),
             }}
           />
+          <List
+            sx={{
+              width: "100%",
+              mt: 2,
+              minHeight: "500px",
+              border: "0.5px solid black",
+            }}
+          >
+            {currentItems.map((item, index) => (
+              <Box key={item.id}>
+                <ListItem>
+                  <Button
+                    onClick={() => handleOpen(item.description, item.name)}
+                    sx={{ width: "100%" }}
+                  >
+                    <ListItemText
+                      sx={{ height: "25px", alignItems: "center" }}
+                      primary={item.companyName}
+                      secondary={item.BranchName}
+                    />
+                  </Button>
+                </ListItem>
+                <Divider />
+              </Box>
+            ))}
+          </List>
+          <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+            <Pagination
+              count={Math.ceil(size / itemsPerPage)}
+              page={currentPage}
+              onChange={handlePageChange}
+              variant="outlined"
+              shape="rounded"
+              color="primary"
+            />
+          </Box>
         </Grid>
-      </Grid>
 
-      <Grid sx={{ border: 1, height: 420, ml: 30, mt: 3, width: 800 }}>
-        <List
-          sx={{ width: "100%", maxWidth: 860, bgcolor: "background.paper" }}
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
         >
-          {currentItems.map((item, index) => (
-            <Box key={item.id}>
-              <Grid sx={{ ml: 35, height: 30 }} key={index}>
-                <Button
-                  key={index}
-                  sx={{ height: 30 }}
-                  onClick={() => {
-                    handleOpen(item.description);
-                  }}
-                >
-                  {item.name}
-                  <div
-                    style={{
-                      borderLeft: "1px solid black",
-                      height: "100%",
-                      margin: "0 10px",
-                    }}
-                  />
-                  <Typography variant="body2">{item.BranchName}</Typography>
-                </Button>
-
-                <Modal
-                  aria-labelledby="transition-modal-title"
-                  aria-describedby="transition-modal-description"
-                  open={open}
-                  onClose={handleClose}
-                  closeAfterTransition
-                  slots={{ backdrop: Backdrop }}
-                  slotProps={{
-                    backdrop: {
-                      timeout: 500,
-                    },
-                  }}
-                  // sx={{margin:500}}
-                >
-                  <Fade in={open}>
-                    <Box sx={style}>
-                      <Typography
-                        id="transition-modal-title"
-                        variant="h6"
-                        component="h2"
-                      >
-                        My Experience:
-                      </Typography>
-                      <Typography
-                        id="transition-modal-description"
-                        sx={{ mt: 2 }}
-                      >
-                        {desc}
-                      </Typography>
-                    </Box>
-                  </Fade>
-                </Modal>
-              </Grid>
-              <Divider />
+          <Fade in={open}>
+            <Box sx={style}>
+              <Typography
+                id="transition-modal-title"
+                variant="h6"
+                component="h2"
+              >
+                {student}
+              </Typography>
+              <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+                {desc}
+              </Typography>
             </Box>
-          ))}
-        </List>
+          </Fade>
+        </Modal>
       </Grid>
-      <Box sx={{ display: "flex", justifyContent: "center", mt: 2, mr: 10 }}>
-        <Pagination
-          count={Math.ceil(size / itemsPerPage)}
-          page={currentPage}
-          onChange={handlePageChange}
-          variant="outlined"
-          shape="rounded"
-          color="primary"
-        />
-      </Box>
-    </Grid>
+    </Paper>
   );
 };
 

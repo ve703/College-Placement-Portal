@@ -20,6 +20,10 @@ app.use("/api/v1", require("./Routes/Test.js"));
 app.use("/api/v1", require("./Routes/FetchBTechData.js"));
 app.use("/api/v1", require("./Routes/FetchMTechData.js"));
 app.use("/api/v1", require("./Routes/AddImage.js"));
+app.use("/api/v1", require("./Routes/AddInterview.js"));
+app.use("/api/v1", require("./Routes/FetchInterviews.js"));
+app.use("/api/v1", require("./Routes/Reset.js"));
+app.use("/api/v1", require("./Routes/DelJob.js"));
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
