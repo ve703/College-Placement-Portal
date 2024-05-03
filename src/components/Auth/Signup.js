@@ -44,9 +44,9 @@ function SignUp() {
     // lastName: "",
     email: "",
     password: "",
-    userType: "",
+    userType: 0,
   });
-
+  const regex = /@.{2}\.vjti\.ac\.in$/;
   const [loading, setLoading] = useState(false);
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -59,24 +59,28 @@ function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true);
-      const response = await fetch("http://localhost:5000/api/v1/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      const r = await response.json();
-      console.log(r.msgType);
-      if (r.msgType === "success") {
-        message.success(r.msg);
-        navigate("/login");
+      if (!regex.test(formData.email)) {
+        message.warning("Incorrect Email ID");
       } else {
-        message.warning(r.msg);
+        setLoading(true);
+        const response = await fetch("http://localhost:5000/api/v1/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+        const r = await response.json();
+        console.log(r.msgType);
+        if (r.msgType === "success") {
+          message.success(r.msg);
+          navigate("/login");
+        } else {
+          message.warning(r.msg);
+        }
+        setLoading(false);
+        console.log(formData);
       }
-      setLoading(false);
-      console.log(formData);
     } catch (error) {
       console.error("Sign up error", error.message);
     }

@@ -24,6 +24,9 @@ app.use("/api/v1", require("./Routes/AddInterview.js"));
 app.use("/api/v1", require("./Routes/FetchInterviews.js"));
 app.use("/api/v1", require("./Routes/Reset.js"));
 app.use("/api/v1", require("./Routes/DelJob.js"));
+app.use("/api/v1", require("./Routes/generateotp.js"));
+app.use("/api/v1", require("./Routes/ResetPassword.js"));
+// app.use("/api/v1", require("./Routes/generateotp.js"));
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
