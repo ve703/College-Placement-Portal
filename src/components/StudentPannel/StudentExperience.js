@@ -1,3 +1,4 @@
+// import "./App.css";
 import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -7,6 +8,7 @@ import { styled } from "@mui/system";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { useNavigate } from "react-router-dom";
 
 // import pic1 from "./img/background1.jpg"
 
@@ -26,34 +28,52 @@ const Input = React.forwardRef(function CustomInput(props, ref) {
 });
 
 function App() {
+  const navigate = useNavigate();
   return (
-    <Box sx={{ height: 400, width: 600, mx: 50, my: 20 }}>
-      <Box
-        sx={{
-          height: "100%",
-          m: 1,
-        }}
-      >
-        <h1>ADD Your Experiance:</h1>
-        <TextField
-          fullWidth
-          label="Company Name"
-          id="CompanyName"
-          sx={{ mb: 2 }}
-        />
-        <TextField fullWidth label="Branch" id="Branch" sx={{ mb: 2 }} />
-        <TextField fullWidth label="CPI" id="Cpi" sx={{ mb: 2 }} />
-        <LocalizationProvider dateAdapter={AdapterDayjs} sx={{ mb: 2 }}>
-          <DatePicker sx={{ mb: 2 }} />
-        </LocalizationProvider>
-        <Input
-          aria-label="Experiance"
-          multiline
-          placeholder="Your Experiance"
-        />
-        ;
-      </Box>
-    </Box>
+    <>
+      {localStorage.getItem("AuthToken") &&
+      localStorage.getItem("userType") == 0 ? (
+        <Box
+          sx={{
+            height: 400,
+            width: 600,
+            mx: 50,
+            my: 20,
+            alignItems: "left",
+            alignContent: "left",
+          }}
+        >
+          <Box
+            sx={{
+              height: "100%",
+              m: 1,
+            }}
+          >
+            <h1>ADD Your Experiance:</h1>
+            <TextField
+              fullWidth
+              label="Company Name"
+              id="CompanyName"
+              sx={{ mb: 2 }}
+            />
+            <TextField fullWidth label="Branch" id="Branch" sx={{ mb: 2 }} />
+            <TextField fullWidth label="CPI" id="Cpi" sx={{ mb: 2 }} />
+            <Box sx={{ alignItems: "left", marginLeft: "-330px" }}>
+              <LocalizationProvider dateAdapter={AdapterDayjs} sx={{ mb: 2 }}>
+                <DatePicker sx={{ mb: 2, alignSelf: "flex-start" }} />
+              </LocalizationProvider>
+            </Box>
+            <Input
+              aria-label="Experiance"
+              multiline
+              placeholder="Your Experiance"
+            />
+          </Box>
+        </Box>
+      ) : (
+        <>{navigate("/login")}</>
+      )}
+    </>
   );
 }
 
