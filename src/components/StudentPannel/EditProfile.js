@@ -11,6 +11,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Paper,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useNavigate } from "react-router-dom";
@@ -183,7 +184,7 @@ function EditProfile() {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" sx={{ width: "70%" }}>
       {loading && (
         <div className="spinner">
           <Box sx={{ display: "flex" }}>
@@ -191,26 +192,37 @@ function EditProfile() {
           </Box>
         </div>
       )}
-
-      <Box
+      <Paper
         sx={{
-          // marginTop: 2,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          border: "0.5 px solid black",
+          boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.2)",
+          // marginLeft: "50px",
+          // marginRight: "50px",
+          padding: "50px",
+          marginBottom: "50px",
+          width: "100%",
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-          <LockOutlinedIcon />
-        </Avatar>
-      </Box>
+        <Box
+          sx={{
+            // marginTop: 2,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <LockOutlinedIcon />
+          </Avatar>
+        </Box>
 
-      <Typography component="h1" variant="h5" align="center" gutterBottom>
-        Edit Profile
-      </Typography>
-      <form onSubmit={handleSubmit}>
-        <Grid container spacing={2}>
-          {/* <Grid item xs={12}>
+        <Typography component="h1" variant="h5" align="center" gutterBottom>
+          Edit Profile
+        </Typography>
+
+        <form onSubmit={handleSubmit}>
+          <Grid container spacing={2}>
+            {/* <Grid item xs={12}>
             <Avatar
               alt="Remy Sharp"
               src={formData.imgb64 === "" ? logo : formData.imgb64}
@@ -224,213 +236,215 @@ function EditProfile() {
               <input type="file" onChange={convertToBase64} hidden />
             </Button>
           </Grid> */}
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              label="First Name"
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
-              fullWidth
-              required
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              label="Last Name"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              fullWidth
-              required
-            />
-          </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                label="First Name"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
+                fullWidth
+                required
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                label="Last Name"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
+                fullWidth
+                required
+              />
+            </Grid>
 
-          <Grid item xs={12}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DemoContainer components={["DatePicker", "DatePicker"]}>
-                <DatePicker
-                  label="Select Date of Enrollment"
-                  value={value2}
-                  onChange={(newValue) => {
-                    setValue2(newValue);
-                    handleEnrollmentChange(newValue.$y);
-                  }}
-                />
-              </DemoContainer>
-            </LocalizationProvider>
-          </Grid>
+            <Grid item xs={12}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DemoContainer components={["DatePicker", "DatePicker"]}>
+                  <DatePicker
+                    label="Select Date of Enrollment"
+                    value={value2}
+                    onChange={(newValue) => {
+                      setValue2(newValue);
+                      handleEnrollmentChange(newValue.$y);
+                    }}
+                  />
+                </DemoContainer>
+              </LocalizationProvider>
+            </Grid>
 
-          <Grid item xs={12}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DemoContainer components={["DatePicker", "DatePicker"]}>
-                <DatePicker
-                  label="Select Date Of Birth"
-                  value={value}
-                  onChange={(newValue) => {
-                    setValue(newValue);
-                    let num = Number(newValue.$M);
-                    console.log(num + 1);
-                    let newval = "";
-                    newval = newValue.$D + "-" + (num + 1) + "-" + newValue.$y;
-                    // console.log(newval);
-                    handleDateChange(newval);
-                  }}
-                />
-              </DemoContainer>
-            </LocalizationProvider>
+            <Grid item xs={12}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DemoContainer components={["DatePicker", "DatePicker"]}>
+                  <DatePicker
+                    label="Select Date Of Birth"
+                    value={value}
+                    onChange={(newValue) => {
+                      setValue(newValue);
+                      let num = Number(newValue.$M);
+                      console.log(num + 1);
+                      let newval = "";
+                      newval =
+                        newValue.$D + "-" + (num + 1) + "-" + newValue.$y;
+                      // console.log(newval);
+                      handleDateChange(newval);
+                    }}
+                  />
+                </DemoContainer>
+              </LocalizationProvider>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                label="Current CPI"
+                name="currcpi"
+                value={formData.currcpi}
+                onChange={handleChange}
+                fullWidth
+                required
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                label="Registration Number"
+                name="regnumber"
+                value={formData.regnumber}
+                onChange={handleChange}
+                fullWidth
+                required
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                label="Phone Number"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                fullWidth
+                required
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <InputLabel
+                id="demo-simple-select-label"
+                sx={{ textAlign: "left" }}
+              >
+                Degree
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="deg"
+                value={formData.degree}
+                label="Degree"
+                name="degree"
+                onChange={onChangeDeg}
+                fullWidth
+                required
+                align={"left"}
+              >
+                {/* Assuming grades are from 1 to 12 */}
+                {degree.map((index, i) => (
+                  <MenuItem key={i + 1} value={index}>
+                    {index}
+                  </MenuItem>
+                ))}
+              </Select>
+            </Grid>
+            <Grid item xs={12}>
+              <InputLabel
+                id="demo-simple-select-label"
+                sx={{ textAlign: "left" }}
+              >
+                Gender
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={formData.sex}
+                label="Sex"
+                name="sex"
+                onChange={handleChange}
+                fullWidth
+                required
+                align={"left"}
+              >
+                {/* Assuming grades are from 1 to 12 */}
+                {sex.map((index, i) => (
+                  <MenuItem key={i + 1} value={index}>
+                    {index}
+                  </MenuItem>
+                ))}
+              </Select>
+            </Grid>
+            <Grid item xs={12}>
+              <InputLabel
+                id="demo-simple-select-label"
+                sx={{ textAlign: "left" }}
+              >
+                UG Branch
+              </InputLabel>
+              <Select
+                disabled={ugval}
+                labelId="demo-simple-select-label"
+                id="ugb"
+                value={formData.branch}
+                label="Branch"
+                name="branch"
+                onChange={handleChange}
+                fullWidth
+                align={"left"}
+                required
+              >
+                {/* Assuming grades are from 1 to 12 */}
+                {course.map((index, i) => (
+                  <MenuItem key={i + 1} value={index} disabled={ugval}>
+                    {index}
+                  </MenuItem>
+                ))}
+              </Select>
+            </Grid>
+            <Grid item xs={12}>
+              <InputLabel
+                id="demo-simple-select-label"
+                sx={{ textAlign: "left" }}
+              >
+                PG Branch
+              </InputLabel>
+              <Select
+                disabled={pgval}
+                labelId="demo-simple-select-label"
+                id="pgb"
+                value={formData.branch}
+                label="MTech Branch"
+                name="branch"
+                onChange={handleChange}
+                fullWidth
+                align={"left"}
+                required
+              >
+                {/* Assuming grades are from 1 to 12 */}
+                {mcourse.map((index, i) => (
+                  <MenuItem key={i + 1} value={index} disabled={pgval}>
+                    {index}
+                  </MenuItem>
+                ))}
+              </Select>
+            </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              label="Current CPI"
-              name="currcpi"
-              value={formData.currcpi}
-              onChange={handleChange}
-              fullWidth
-              required
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              label="Registration Number"
-              name="regnumber"
-              value={formData.regnumber}
-              onChange={handleChange}
-              fullWidth
-              required
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              label="Phone Number"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              fullWidth
-              required
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <InputLabel
-              id="demo-simple-select-label"
-              sx={{ textAlign: "left" }}
-            >
-              Degree
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="deg"
-              value={formData.degree}
-              label="Degree"
-              name="degree"
-              onChange={onChangeDeg}
-              fullWidth
-              required
-              align={"left"}
-            >
-              {/* Assuming grades are from 1 to 12 */}
-              {degree.map((index, i) => (
-                <MenuItem key={i + 1} value={index}>
-                  {index}
-                </MenuItem>
-              ))}
-            </Select>
-          </Grid>
-          <Grid item xs={12}>
-            <InputLabel
-              id="demo-simple-select-label"
-              sx={{ textAlign: "left" }}
-            >
-              Gender
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={formData.sex}
-              label="Sex"
-              name="sex"
-              onChange={handleChange}
-              fullWidth
-              required
-              align={"left"}
-            >
-              {/* Assuming grades are from 1 to 12 */}
-              {sex.map((index, i) => (
-                <MenuItem key={i + 1} value={index}>
-                  {index}
-                </MenuItem>
-              ))}
-            </Select>
-          </Grid>
-          <Grid item xs={12}>
-            <InputLabel
-              id="demo-simple-select-label"
-              sx={{ textAlign: "left" }}
-            >
-              UG Branch
-            </InputLabel>
-            <Select
-              disabled={ugval}
-              labelId="demo-simple-select-label"
-              id="ugb"
-              value={formData.branch}
-              label="Branch"
-              name="branch"
-              onChange={handleChange}
-              fullWidth
-              align={"left"}
-              required
-            >
-              {/* Assuming grades are from 1 to 12 */}
-              {course.map((index, i) => (
-                <MenuItem key={i + 1} value={index} disabled={ugval}>
-                  {index}
-                </MenuItem>
-              ))}
-            </Select>
-          </Grid>
-          <Grid item xs={12}>
-            <InputLabel
-              id="demo-simple-select-label"
-              sx={{ textAlign: "left" }}
-            >
-              PG Branch
-            </InputLabel>
-            <Select
-              disabled={pgval}
-              labelId="demo-simple-select-label"
-              id="pgb"
-              value={formData.branch}
-              label="MTech Branch"
-              name="branch"
-              onChange={handleChange}
-              fullWidth
-              align={"left"}
-              required
-            >
-              {/* Assuming grades are from 1 to 12 */}
-              {mcourse.map((index, i) => (
-                <MenuItem key={i + 1} value={index} disabled={pgval}>
-                  {index}
-                </MenuItem>
-              ))}
-            </Select>
-          </Grid>
-        </Grid>
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          fullWidth
-          sx={{ mt: 3 }}
-        >
-          Update Profile
-        </Button>
-      </form>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            fullWidth
+            sx={{ mt: 3 }}
+          >
+            Update Profile
+          </Button>
+        </form>
+      </Paper>
     </Container>
   );
 }

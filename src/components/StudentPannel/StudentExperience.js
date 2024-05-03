@@ -7,8 +7,11 @@ import { styled } from "@mui/system";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-
-// import pic1 from "./img/background1.jpg"
+import Button from "@mui/material/Button";
+import { FormControl } from "@mui/material";
+import { useState } from "react";
+import Paper from "@mui/material/Paper";
+import { message } from "antd";
 
 const Input = React.forwardRef(function CustomInput(props, ref) {
   return (
@@ -20,42 +23,124 @@ const Input = React.forwardRef(function CustomInput(props, ref) {
       }}
       {...props}
       ref={ref}
-      sx={{ width: "200%", fontSize: "1.5rem", padding: "12px" }}
+      sx={{ width: "200%", fontSize: "1.8rem", padding: "12px" }}
     />
   );
 });
 
-function App() {
+const Info = () => {
+  const [inputs, setInputs] = useState({
+    name: "",
+    companyName: "",
+    branch: "",
+    cpi: "",
+    // date:'',
+    experiance: "",
+    drivelink: "",
+  });
+
+  const hendleChange = (e) => {
+    setInputs((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const response = await fetch(`http://localhost:5000/api/v1//addinterview`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        AuthToken: localStorage.getItem("AuthToken"),
+      },
+      body: JSON.stringify(inputs),
+    });
+    const r = await response.json();
+    if (r.msgType == "success") {
+      message.success(r.msg);
+    } else {
+      message.warning("error");
+    }
+    // console.log(inputs);
+  };
+
   return (
-    <Box sx={{ height: 400, width: 600, mx: 50, my: 20 }}>
-      <Box
-        sx={{
-          height: "100%",
-          m: 1,
-        }}
-      >
-        <h1>ADD Your Experiance:</h1>
+    <Paper elevation={3} sx={{ p: 2, maxWidth: 400, mx: "auto", mt: 10 }}>
+      <form onSubmit={handleSubmit}>
+        <Box sx={{ textAlign: "center", mb: 2 }}>
+          <h1>Add Your Experience:</h1>
+        </Box>
+
         <TextField
           fullWidth
+          name="companyName"
+          value={inputs.companyName}
+          onChange={hendleChange}
           label="Company Name"
           id="CompanyName"
           sx={{ mb: 2 }}
         />
-        <TextField fullWidth label="Branch" id="Branch" sx={{ mb: 2 }} />
-        <TextField fullWidth label="CPI" id="Cpi" sx={{ mb: 2 }} />
-        <LocalizationProvider dateAdapter={AdapterDayjs} sx={{ mb: 2 }}>
-          <DatePicker sx={{ mb: 2 }} />
-        </LocalizationProvider>
-        <Input
-          aria-label="Experiance"
-          multiline
-          placeholder="Your Experiance"
+        <TextField
+          fullWidth
+          name="name"
+          value={inputs.name}
+          onChange={hendleChange}
+          label="Student Name"
+          id="StudentName"
+          sx={{ mb: 2 }}
         />
-        ;
-      </Box>
-    </Box>
+        <TextField
+          fullWidth
+          type={"text"}
+          value={inputs.branch}
+          name="branch"
+          onChange={hendleChange}
+          label="Branch"
+          id="Branch"
+          sx={{ mb: 2 }}
+        />
+        <TextField
+          fullWidth
+          type={"text"}
+          name="cpi"
+          value={inputs.cpi}
+          onChange={hendleChange}
+          label="CPI"
+          id="Cpi"
+          sx={{ mb: 2 }}
+        />
+        <TextField
+          fullWidth
+          type={"text"}
+          name="drivelink"
+          value={inputs.drivelink}
+          onChange={hendleChange}
+          label="Drive Link"
+          id="Cpi"
+          sx={{ mb: 2 }}
+        />
+        <TextField
+          fullWidth
+          name="experiance"
+          type={"text"}
+          onChange={hendleChange}
+          value={inputs.experiance}
+          label="Experience"
+          multiline
+          rows={4}
+          sx={{ mb: 2 }}
+        />
+
+        <Box sx={{ textAlign: "center" }}>
+          <Button type="submit" variant="outlined" onClick={handleSubmit}>
+            Submit
+          </Button>
+        </Box>
+      </form>
+    </Paper>
   );
-}
+};
 
 const blue = {
   100: "#DAECFF",
@@ -118,4 +203,4 @@ const TextareaElement = styled(TextareaAutosize)(
 `
 );
 
-export default App;
+export default Info;

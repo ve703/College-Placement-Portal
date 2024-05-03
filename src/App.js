@@ -57,7 +57,14 @@ function App() {
         <Route path="/about" element={<AboutVjti />}></Route>
         <Route path="/recruiters" element={<RecruitersPage />}></Route>
         <Route path="/recruiters" element={<RecruitersPage />}></Route>
-        <Route path="/student-experience" element={<DisplayInfo />}></Route>
+        <Route
+          path="/student-experience"
+          element={
+            <ProtectedRouteStudent>
+              <DisplayInfo />
+            </ProtectedRouteStudent>
+          }
+        ></Route>
         {/* <Route path="/upload-photo" element={<UploadPhoto />}></Route> */}
         {/* <Route path="/photo" element={<Photo />}></Route> */}
         {/* <Route path="/up" element={<Base64UploadImage />}></Route> */}
