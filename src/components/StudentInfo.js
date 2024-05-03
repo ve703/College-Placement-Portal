@@ -26,6 +26,9 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import EditProfile from "./StudentPannel/EditProfile";
+import logo from "./Profile.png";
+import UploadPhoto from "./StudentPannel/UploadPhoto";
+import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -82,6 +85,9 @@ const StudentInfo = () => {
   const EditPath = () => {
     navigate("/edit-profile");
   };
+  const imgdata = {
+    imgb64: "",
+  };
   const data = {
     "Registration Number": '"Enter Registration Number',
     "First Name": "Enter FirstName",
@@ -95,6 +101,7 @@ const StudentInfo = () => {
     Degree: "Enter Degree",
   };
   const [credential, setCredentials] = useState(data);
+  const [image, setImage] = useState(imgdata);
   const fetchData = async () => {
     const response = await fetch("http://localhost:5000/api/v1/fetchdata", {
       method: "GET",
@@ -105,6 +112,9 @@ const StudentInfo = () => {
     });
     const r = await response.json();
     // console.log(r.userData.firstName);
+    setImage({
+      imgb64: r.userData.imgb64,
+    });
     setCredentials({
       "Registration Number": r.userData.regnumber,
       "First Name": r.userData.firstName,
@@ -116,6 +126,7 @@ const StudentInfo = () => {
       Phone: r.userData.phone,
       Gender: r.userData.sex,
       Degree: r.userData.degree,
+      photo: r.userData.photo,
     });
   };
   useEffect(() => {
@@ -126,6 +137,7 @@ const StudentInfo = () => {
     }
   }, []);
   console.log(credential);
+
   // Object.entries(credential).map((entry) => {
   //   let key = entry[0];
   //   let value = entry[1];
@@ -163,19 +175,48 @@ const StudentInfo = () => {
       </Box>
       <CustomTabPanel value={value} index={0}>
         <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
-          <Stack>
-            <Avatar
-              sx={{
-                width: 150,
-                height: 150,
-                border: "2px solid blue",
-                // alignContent: "center",
-                marginLeft: "auto",
-                marginRight: "auto",
-              }}
-              alt="Profile pic"
-              src={sample_profile}
-            />
+          <Stack sx={{ width: "300px" }}>
+            {credential.photo ? (
+              <>
+                {credential.photo && (
+                  <>
+                    <Avatar
+                      sx={{
+                        width: 150,
+                        height: 150,
+                        border: "0.5px solid black",
+                        // alignContent: "center",
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                      }}
+                      alt="Profile pic"
+                      src={credential.photo}
+                    />
+
+                    <div>Update Profile</div>
+                    <UploadPhoto />
+                  </>
+                )}
+              </>
+            ) : (
+              <>
+                <Avatar
+                  sx={{
+                    width: 150,
+                    height: 150,
+                    border: "2px solid blue",
+                    // alignContent: "center",
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                  }}
+                  alt="Profile pic"
+                  src={sample_profile}
+                />
+
+                <div>Upload Profile</div>
+                <UploadPhoto />
+              </>
+            )}
 
             {/* <Button
               sx={{

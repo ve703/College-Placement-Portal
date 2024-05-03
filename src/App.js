@@ -22,20 +22,24 @@ import StudentExperiance from "./components/StudentPannel/StudentExperience";
 import AlumniConnectPage from "./components/AlumniSection/AlumniConnectPage";
 import AdminList2 from "./components/AdminPannel/AdminList2";
 import AdminCompanies from "./components/AdminPannel/AdminCompanies";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useNavigate, Navigate } from "react-router-dom";
+import UploadPhoto from "./components/StudentPannel/UploadPhoto";
+import Photo from "./components/StudentPannel/Profile";
+import Base64UploadImage from "./components/AdminPannel/Base64UploadImage";
+import PageNotFound from "./components/AppHome/PageNotFound";
+import DisplayInfo from "./components/StudentPannel/DisplayInfo";
 
 function App() {
   const navigate = useNavigate();
-  useEffect(() => {
-    if (localStorage.getItem("AuthToken")) {
-      if (localStorage.getItem("userType") == 1) {
-        navigate("/admin-dashboard");
-      } else {
-        navigate("/candidate");
-      }
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (localStorage.getItem("AuthToken")) {
+  //     if (localStorage.getItem("userType") == 1) {
+  //       navigate("/admin-dashboard");
+  //     } else {
+  //       navigate("/candidate");
+  //     }
+  //   }
+  // }, []);
   return (
     <div className="App">
       <ResponsiveDrawer />
@@ -52,17 +56,76 @@ function App() {
         <Route path="/recruitment" element={<Recruitment />}></Route>
         <Route path="/about" element={<AboutVjti />}></Route>
         <Route path="/recruiters" element={<RecruitersPage />}></Route>
-        <Route path="/student-dashboard" element={<StudentDashboard />}></Route>
-        <Route path="/admin-dashboard" element={<AdminDashboard />}></Route>
-        <Route path="/admin-events" element={<AdminEvents />}></Route>
-        <Route path="/edit-profile" element={<EditProfile />}></Route>
-        <Route path="/job-profiles" element={<JobProfiles />}></Route>
-        <Route path="/alumni-connect" element={<AlumniConnectPage />}></Route>
-        <Route path="/admin-list2" element={<AdminList2 />}></Route>
-        <Route path="/admin-company" element={<AdminCompanies />}></Route>
+        <Route path="/recruiters" element={<RecruitersPage />}></Route>
+        <Route path="/student-experience" element={<DisplayInfo />}></Route>
+        {/* <Route path="/upload-photo" element={<UploadPhoto />}></Route> */}
+        {/* <Route path="/photo" element={<Photo />}></Route> */}
+        {/* <Route path="/up" element={<Base64UploadImage />}></Route> */}
+        <Route path="*" element={<PageNotFound />}></Route>
         <Route
-          path="/StudentExperiance"
-          element={<StudentExperiance />}
+          path="/interview-exp"
+          element={
+            <ProtectedRouteStudent>
+              <StudentExperiance />
+            </ProtectedRouteStudent>
+          }
+        ></Route>
+        <Route
+          path="/student-dashboard"
+          element={
+            <ProtectedRouteStudent>
+              <StudentDashboard />
+            </ProtectedRouteStudent>
+          }
+        ></Route>
+        <Route
+          path="/admin-dashboard"
+          element={
+            <ProtectedRouteAdmin>
+              <AdminDashboard />
+            </ProtectedRouteAdmin>
+          }
+        ></Route>
+        <Route path="/admin-events" element={<AdminEvents />}></Route>
+        <Route
+          path="/edit-profile"
+          element={
+            <ProtectedRouteStudent>
+              <EditProfile />
+            </ProtectedRouteStudent>
+          }
+        ></Route>
+        <Route
+          path="/job-profiles"
+          element={
+            <ProtectedRouteStudent>
+              <JobProfiles />
+            </ProtectedRouteStudent>
+          }
+        ></Route>
+        <Route
+          path="/alumni-connect"
+          element={
+            <ProtectedRouteStudent>
+              <AlumniConnectPage />
+            </ProtectedRouteStudent>
+          }
+        ></Route>
+        <Route
+          path="/admin-list2"
+          element={
+            <ProtectedRouteAdmin>
+              <AdminList2 />
+            </ProtectedRouteAdmin>
+          }
+        ></Route>
+        <Route
+          path="/admin-company"
+          element={
+            <ProtectedRouteAdmin>
+              <AdminCompanies />
+            </ProtectedRouteAdmin>
+          }
         ></Route>
       </Routes>
       {/* <Home /> */}
@@ -71,3 +134,24 @@ function App() {
 }
 
 export default App;
+
+export function ProtectedRouteStudent(props) {
+  if (
+    localStorage.getItem("AuthToken") &&
+    localStorage.getItem("userType") == 0
+  ) {
+    return props.children;
+  } else {
+    return <Navigate to="/login" />;
+  }
+}
+export function ProtectedRouteAdmin(props) {
+  if (
+    localStorage.getItem("AuthToken") &&
+    localStorage.getItem("userType") == 1
+  ) {
+    return props.children;
+  } else {
+    return <Navigate to="/login" />;
+  }
+}

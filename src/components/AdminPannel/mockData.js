@@ -1,98 +1,96 @@
 export const mockAdminData = {
-
-  horiChartSettings : {
+  horiChartSettings: {
     xAxis: [
       {
-        label: 'Package (Lakhs)',
+        label: "Package (Lakhs)",
       },
     ],
     width: 700,
     height: 550,
   },
 
-  horiChartData : [
+  horiChartData: [
     {
       package: 63,
-      company: 'Google',
+      company: "Google",
     },
     {
       package: 55,
-      company: 'Amazon',
+      company: "Amazon",
     },
     {
       package: 45,
-      company: 'JP Morgan',
+      company: "JP Morgan",
     },
     {
       package: 44,
-      company: 'DE Shaw',
+      company: "DE Shaw",
     },
     {
       package: 36,
-      company: 'Morgan Stanley',
+      company: "Morgan Stanley",
     },
     {
       package: 30,
-      company: 'Texas',
+      company: "Texas",
     },
     {
       package: 26,
-      company: 'VISA',
+      company: "VISA",
     },
     {
       package: 20,
-      company: 'Deustche Bank',
+      company: "Deustche Bank",
     },
-  ],  
+  ],
 
-  simpleBarData : [
+  simpleBarData: [
     {
-      name: 'CS',
+      name: "CS",
       unplaced: 10,
       placed: 61,
     },
     {
-      name: 'IT',
+      name: "IT",
       unplaced: 9,
       placed: 58,
     },
     {
-      name: 'EXTC',
+      name: "EXTC",
       unplaced: 17,
       placed: 45,
     },
     {
-      name: 'ETRX',
+      name: "ETRX",
       unplaced: 18,
       placed: 48,
     },
     {
-      name: 'ELEC',
+      name: "ELEC",
       unplaced: 15,
       placed: 55,
     },
     {
-      name: 'MECH',
+      name: "MECH",
       unplaced: 26,
       placed: 40,
     },
     {
-      name: 'PROD',
+      name: "PROD",
       unplaced: 34,
       placed: 38,
     },
   ],
-  
-    data : [
-        { name: 'No. of students placed', students: 256 },
-        { name: 'No. of students not placed', students: 168 },
-        { name: 'No. of students applied', students: 424 }
-    ],
-  
-    getFillColor : (index) => {
-          const colors = ["#8884d8", "#82ca9d", "#EA4335"];
-          return colors[index % colors.length];
-      }
+
+  data: [
+    { name: "No. of students placed", students: 256 },
+    { name: "No. of students not placed", students: 168 },
+  ],
+
+  getFillColor: (index) => {
+    const colors = ["#8884d8", "#82ca9d", "#EA4335"];
+    return colors[index % colors.length];
+  },
 };
 
 export default mockAdminData;

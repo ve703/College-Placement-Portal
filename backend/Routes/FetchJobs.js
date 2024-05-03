@@ -7,7 +7,6 @@ router.get("/fetchjobdata", async (req, res) => {
     res.status(400).json({ msg: "Authentication Error", msgType: "error" });
   }
   const jobData = await Job.find();
-  console.log(jobData);
   res.json({ jobData });
 });
 module.exports = router;

@@ -12,6 +12,7 @@ router.post("/register", async (req, res) => {
   if (userData.length !== 0) {
     return res.status(400).json({ msg: "User Exists", msgType: "error" });
   }
+
   await User.create({
     name: req.body.username,
     email: req.body.email,

@@ -17,6 +17,7 @@ import WorkIcon from "@mui/icons-material/Work";
 
 function AlumniCard({ profile }) {
   const {
+    degree,
     name,
     jobTitle,
     company,
@@ -55,7 +56,10 @@ function AlumniCard({ profile }) {
             {name}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            <strong>Job Title:</strong> {jobTitle}
+            <strong>Degree:</strong> {degree}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            <strong>Job Type:</strong> {jobTitle}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             <strong>Company:</strong> {company}

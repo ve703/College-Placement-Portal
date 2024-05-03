@@ -61,6 +61,10 @@ const JobSchema = new Schema({
     type: Array,
     default: [],
   },
+  photo: {
+    type: String,
+    default: "",
+  },
 });
 
 module.exports = mongoose.model("jobs", JobSchema);
