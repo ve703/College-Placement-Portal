@@ -43,3 +43,6 @@
   left: 48.5%;
   top: 50%;
 }
+#fp:hover{
+  cursor:pointer
+}

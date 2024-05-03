@@ -16,6 +16,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useNavigate } from "react-router-dom";
 import { message } from "antd";
 import CircularProgress from "@mui/material/CircularProgress";
+import Modal from "@mui/material/Modal";
 
 function Copyright(props) {
   return (
@@ -38,11 +39,16 @@ function Copyright(props) {
 function Login() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-
+  const regex = /@.{2}\.vjti\.ac\.in$/;
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     userType: "",
+  });
+  const [verifyData, setVerifyData] = useState({
+    email: "",
+    otp: "",
+    newpass: "",
   });
 
   const handleChange = (e) => {
@@ -52,36 +58,98 @@ function Login() {
       [name]: value,
     }));
   };
+  const handleChangeForm = (e) => {
+    const { name, value } = e.target;
+    setVerifyData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
-    const response = await fetch("http://localhost:5000/api/v1/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
-    const r = await response.json();
-    console.log(r);
-    if (r.msgType === "success") {
-      message.success(r.msg);
-      console.log("HERE");
-      localStorage.setItem("AuthToken", r.AuthToken);
-      localStorage.setItem("userType",r.userType);
-      if (r.userType === 0) {
-        navigate("/candidate");
-      } else if (r.userType === 1) {
-        navigate("/admin-dashboard");
-      }
+    if (!regex.test(formData.email)) {
+      message.warning("Incorrect Email ID");
     } else {
-      message.warning(r.msg);
+      const response = await fetch("http://localhost:5000/api/v1/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const r = await response.json();
+      console.log(r);
+      if (r.msgType === "success") {
+        message.success(r.msg);
+        console.log("HERE");
+        localStorage.setItem("AuthToken", r.AuthToken);
+        localStorage.setItem("userType", r.userType);
+        if (r.userType === 0) {
+          navigate("/candidate");
+        } else if (r.userType === 1) {
+          navigate("/admin-dashboard");
+        }
+      } else {
+        message.warning(r.msg);
+      }
     }
     setLoading(false);
   };
-
+  const handleOnClick = async () => {
+    if (!regex.test(verifyData.email)) {
+      message.warning("Incorrect Email ID");
+    } else {
+      const email = {
+        email: verifyData.email,
+      };
+      const response = await fetch("http://localhost:5000/api/v1/otpgenerate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(email),
+      });
+      const r = await response.json();
+      console.log(r);
+      localStorage.setItem("otp", r.otp);
+    }
+  };
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = async () => {
+    if (verifyData.otp == "") {
+      message.warning("Enter OTP");
+    } else if (verifyData.otp == localStorage.getItem("otp")) {
+      const response = await fetch("http://localhost:5000/api/v1/resetpass", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(verifyData),
+      });
+      const r = await response.json();
+      console.log(r);
+      console.log("HERE");
+      message.success("Password Reset Successfully");
+      localStorage.removeItem("otp");
+      setOpen(false);
+    } else {
+      message.warning("Incorrect OTP");
+    }
+  };
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
   return (
     <Container component="main" maxWidth="xs">
       {loading && (
@@ -91,7 +159,63 @@ function Login() {
           </Box>
         </div>
       )}
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <TextField
+            type="email"
+            variant="outlined"
+            label="Enter Email"
+            name="email"
+            value={verifyData.email}
+            onChange={handleChangeForm}
+            fullWidth
+            required
+            sx={{ width: "100%" }}
+          />
+          <br />
+          <br />
+          <TextField
+            type="email"
+            variant="outlined"
+            label="Enter New Password"
+            name="newpass"
+            value={verifyData.newpass}
+            onChange={handleChangeForm}
+            fullWidth
+            required
+            sx={{ width: "100%" }}
+          />
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            <Button type="small" variant="outlined" onClick={handleOnClick}>
+              Send OTP
+            </Button>
+          </Typography>
+          <br />
 
+          <TextField
+            type="email"
+            variant="outlined"
+            label="Enter OTP"
+            name="otp"
+            value={verifyData.otp}
+            onChange={handleChangeForm}
+            fullWidth
+            required
+            sx={{ width: "100%" }}
+          />
+
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            <Button type="small" variant="outlined" onClick={handleClose}>
+              Verify
+            </Button>
+          </Typography>
+        </Box>
+      </Modal>
       <Box
         sx={{
           // marginTop: 2,
@@ -173,7 +297,7 @@ function Login() {
 
         <Grid container justifyContent="flex-end" sx={{ mt: 2 }}>
           <Grid item xs>
-            <Link href="/forgotPassword" variant="body2">
+            <Link onClick={handleOpen} variant="body2" id="fp">
               Forgot password?
             </Link>
           </Grid>

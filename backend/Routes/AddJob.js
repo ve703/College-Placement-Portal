@@ -10,7 +10,7 @@ router.post("/addjob", async (req, res) => {
   const userData = await User.find();
   var senderArray = [];
   userData.map((i) => {
-    if (i.userType == 0) {
+    if (i.userType == 0 && i.currbatch == true) {
       senderArray.push(i.email);
     }
   });
