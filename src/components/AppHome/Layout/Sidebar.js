@@ -145,14 +145,24 @@ function ResponsiveDrawer(props) {
       <List>
         {localStorage.getItem("AuthToken") &&
           localStorage.getItem("userType") == 0 && (
-            <ListItem disablePadding>
-              <ListItemButton component={Link} to="/candidate">
-                <ListItemIcon>
-                  <HomeIcon />
-                </ListItemIcon>
-                <ListItemText primary={"My Profile"} />
-              </ListItemButton>
-            </ListItem>
+            <>
+              <ListItem disablePadding>
+                <ListItemButton component={Link} to="/candidate">
+                  <ListItemIcon>
+                    <HomeIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"My Profile"} />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton component={Link} to="/StudentExperiance">
+                  <ListItemIcon>
+                    <HomeIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"Student Experience"} />
+                </ListItemButton>
+              </ListItem>
+            </>
           )}
         {localStorage.getItem("AuthToken") &&
           localStorage.getItem("userType") == 1 && (

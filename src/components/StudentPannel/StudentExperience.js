@@ -1,3 +1,4 @@
+// import "./App.css";
 import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -7,11 +8,17 @@ import { styled } from "@mui/system";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+<<<<<<< HEAD
 import Button from "@mui/material/Button";
 import { FormControl } from "@mui/material";
 import { useState } from "react";
 import Paper from "@mui/material/Paper";
 import { message } from "antd";
+=======
+import { useNavigate } from "react-router-dom";
+
+// import pic1 from "./img/background1.jpg"
+>>>>>>> main
 
 const Input = React.forwardRef(function CustomInput(props, ref) {
   return (
@@ -28,6 +35,7 @@ const Input = React.forwardRef(function CustomInput(props, ref) {
   );
 });
 
+<<<<<<< HEAD
 const Info = () => {
   const [inputs, setInputs] = useState({
     name: "",
@@ -139,6 +147,55 @@ const Info = () => {
         </Box>
       </form>
     </Paper>
+=======
+function App() {
+  const navigate = useNavigate();
+  return (
+    <>
+      {localStorage.getItem("AuthToken") &&
+      localStorage.getItem("userType") == 0 ? (
+        <Box
+          sx={{
+            height: 400,
+            width: 600,
+            mx: 50,
+            my: 20,
+            alignItems: "left",
+            alignContent: "left",
+          }}
+        >
+          <Box
+            sx={{
+              height: "100%",
+              m: 1,
+            }}
+          >
+            <h1>ADD Your Experiance:</h1>
+            <TextField
+              fullWidth
+              label="Company Name"
+              id="CompanyName"
+              sx={{ mb: 2 }}
+            />
+            <TextField fullWidth label="Branch" id="Branch" sx={{ mb: 2 }} />
+            <TextField fullWidth label="CPI" id="Cpi" sx={{ mb: 2 }} />
+            <Box sx={{ alignItems: "left", marginLeft: "-330px" }}>
+              <LocalizationProvider dateAdapter={AdapterDayjs} sx={{ mb: 2 }}>
+                <DatePicker sx={{ mb: 2, alignSelf: "flex-start" }} />
+              </LocalizationProvider>
+            </Box>
+            <Input
+              aria-label="Experiance"
+              multiline
+              placeholder="Your Experiance"
+            />
+          </Box>
+        </Box>
+      ) : (
+        <>{navigate("/login")}</>
+      )}
+    </>
+>>>>>>> main
   );
 };
 
