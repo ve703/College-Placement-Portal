@@ -9,8 +9,10 @@ import {
   Link,
   Box,
   InputLabel,
+  ListItemText,
   Select,
   MenuItem,
+  FormControl,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useNavigate } from "react-router-dom";
@@ -34,6 +36,8 @@ const AdminList2 = () => {
     }
   });
 
+  const [description, setDescription] = useState(""); // Step 1
+
   const [formData, setFormData] = useState({
     CompanyName: "",
     JobLocation: "",
@@ -48,6 +52,7 @@ const AdminList2 = () => {
     lastMonth: 0,
     lastYear: 0,
     photo: "",
+    description: "", // Include description field
   });
 
   const [loading, setLoading] = useState(false);
@@ -113,14 +118,15 @@ const AdminList2 = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(JSON.stringify(formData));
+    const formDataWithDescription = { ...formData, description };
+    console.log(JSON.stringify(formDataWithDescription));
     const response = await fetch("http://localhost:5000/api/v1/addjob", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         AuthToken: localStorage.getItem("AuthToken"),
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(formDataWithDescription), // Use formDataWithDescription
     });
     const r = await response.json();
     console.log(r);
@@ -314,30 +320,29 @@ const AdminList2 = () => {
           </Grid>
 
           <Grid item xs={12}>
-            <InputLabel
-              id="demo-simple-select-label"
-              sx={{ textAlign: "left" }}
-            >
-              Job Profile
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={formData.JobProfile}
-              label="Job profile"
-              name="JobProfile"
-              onChange={handleChange}
-              fullWidth
-              required
-              align={"left"}
-            >
-              {/* Assuming grades are from 1 to 12 */}
-              {jobtype.map((index, i) => (
-                <MenuItem key={i + 1} value={index}>
-                  {index}
-                </MenuItem>
-              ))}
-            </Select>
+            <FormControl fullWidth required>
+              <InputLabel id="job-profile-label">Job Profile</InputLabel>
+              <Select
+                labelId="job-profile-label"
+                id="job-profile-select"
+                value={formData.JobProfile}
+                onChange={(e) => {
+                  const { value } = e.target;
+                  setFormData((prevData) => ({
+                    ...prevData,
+                    JobProfile: value,
+                  }));
+                }}
+                renderValue={(selected) => selected}
+              >
+                {jobtype.map((job, index) => (
+                  <MenuItem key={index} value={job}>
+                    <Checkbox checked={formData.JobProfile.includes(job)} />
+                    {job}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </Grid>
 
           <Grid item xs={12}>
@@ -389,104 +394,107 @@ const AdminList2 = () => {
             </LocalizationProvider>
           </Grid>
           <Grid item xs={12}>
-            Select Eligible Degrees:
-            <FormGroup>
-              {degree.map((course, index) => (
-                <FormControlLabel
-                  key={index}
-                  control={<Checkbox />}
-                  label={course}
-                  onChange={() => {
-                    handleOnChangeDegree(course);
-                  }}
-                />
-              ))}
-            </FormGroup>
+            <FormControl fullWidth required>
+              <InputLabel id="degree-label">
+                Select Eligible Degrees:
+              </InputLabel>
+              <Select
+                labelId="degree-label"
+                id="degree-select"
+                multiple
+                value={formData.DegreeAllowed}
+                onChange={(e) => {
+                  const { value } = e.target;
+                  setFormData((prevData) => ({
+                    ...prevData,
+                    DegreeAllowed: value,
+                  }));
+                }}
+                renderValue={(selected) => selected.join(", ")}
+              >
+                {degree.map((course, index) => (
+                  <MenuItem key={index} value={course}>
+                    <Checkbox
+                      checked={formData.DegreeAllowed.includes(course)}
+                    />
+                    {course}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={12}>
-            Select Eligible Branches:
-            <FormGroup>
-              <FormControlLabel
-                control={<Checkbox />}
-                label="Computer Engineering"
-                onChange={() => {
-                  handleOnChange("Computer Engineering");
+            <FormControl fullWidth>
+              <InputLabel id="branch-label">
+                Select Eligible Branches:
+              </InputLabel>
+              <Select
+                labelId="branch-label"
+                id="branch-select"
+                multiple
+                value={formData.BranchAllowed}
+                onChange={(e) => {
+                  const { value } = e.target;
+                  setFormData((prevData) => ({
+                    ...prevData,
+                    BranchAllowed: value,
+                  }));
                 }}
-              />
-              <FormControlLabel
-                control={<Checkbox />}
-                label="Information Technology"
-                onChange={() => {
-                  handleOnChange("Information Technology");
+                renderValue={(selected) => selected.join(", ")}
+              >
+                {course.map((branch, index) => (
+                  <MenuItem key={index} value={branch}>
+                    <Checkbox
+                      checked={formData.BranchAllowed.includes(branch)}
+                    />
+                    {branch}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={12}>
+            <FormControl fullWidth>
+              <InputLabel id="mtech-branch-label">
+                Select Eligible Branches from MTech:
+              </InputLabel>
+              <Select
+                labelId="mtech-branch-label"
+                id="mtech-branch-select"
+                multiple
+                value={formData.MTechBranchAllowed}
+                onChange={(e) => {
+                  const { value } = e.target;
+                  setFormData((prevData) => ({
+                    ...prevData,
+                    MTechBranchAllowed: value,
+                  }));
                 }}
-              />
-              <FormControlLabel
-                control={<Checkbox />}
-                label="Electronics and Telecommunication Engineering"
-                onChange={() => {
-                  handleOnChange(
-                    "Electronics and Telecommunication Engineering"
-                  );
-                }}
-              />
-              <FormControlLabel
-                control={<Checkbox />}
-                label="Electronics Engineering"
-                onChange={() => {
-                  handleOnChange("Electronics Engineering");
-                }}
-              />
-              <FormControlLabel
-                control={<Checkbox />}
-                label="Electrical Engineering"
-                onChange={() => {
-                  handleOnChange("Electrical Engineering");
-                }}
-              />
-              <FormControlLabel
-                control={<Checkbox />}
-                label="Mechanical Engineering"
-                onChange={() => {
-                  handleOnChange("Mechanical Engineering");
-                }}
-              />
-              <FormControlLabel
-                control={<Checkbox />}
-                label="Civil Engineering"
-                onChange={() => {
-                  handleOnChange("Civil Engineering");
-                }}
-              />
-              <FormControlLabel
-                control={<Checkbox />}
-                label="Production Engineering"
-                onChange={() => {
-                  handleOnChange("Production Engineering");
-                }}
-              />
-              <FormControlLabel
-                control={<Checkbox />}
-                label="Textile Engineering"
-                onChange={() => {
-                  handleOnChange("Textile Engineering");
-                }}
-              />
-            </FormGroup>
+                renderValue={(selected) => selected.join(", ")}
+              >
+                {mcourse.map((branch, index) => (
+                  <MenuItem key={index} value={branch}>
+                    <Checkbox
+                      checked={formData.MTechBranchAllowed.includes(branch)}
+                    />
+                    {branch}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={12}>
-            Select Eligible Branches From MTech:
-            <FormGroup>
-              {mcourse.map((course, index) => (
-                <FormControlLabel
-                  key={index}
-                  control={<Checkbox />}
-                  label={course}
-                  onChange={() => {
-                    handleOnChangeMTech(course);
-                  }}
-                />
-              ))}
-            </FormGroup>
+            <TextField
+              variant="outlined"
+              label="Description"
+              name="description"
+              value={description} // Step 2
+              onChange={(e) => setDescription(e.target.value)} // Step 3
+              multiline
+              rows={4} // Adjust rows as needed
+              fullWidth
+            />
           </Grid>
         </Grid>
         <Button

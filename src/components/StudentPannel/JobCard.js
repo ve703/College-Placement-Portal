@@ -15,6 +15,7 @@ const JobCard = ({
   cpi,
   skills,
   lastDate,
+  description,
 }) => {
   const check = (cpi, eligibility) => {
     console.log(cpi);
@@ -44,6 +45,16 @@ const JobCard = ({
           Required Skills: {skills}
           <br />
           Last Date to Apply: {lastDate}
+        </Typography>
+        <Typography variant="body2" align="left">
+          <strong>Description:</strong>
+        </Typography>
+        <Typography
+          variant="body2"
+          align="left"
+          style={{ whiteSpace: "pre-wrap" }}
+        >
+          {description}
         </Typography>
       </CardContent>
       <CardActions>

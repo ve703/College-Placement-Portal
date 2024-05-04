@@ -143,6 +143,8 @@ const AdminCompanies = () => {
     const ctc = company.ctc;
     const AppliedCandidates = company.AppliedCandidates;
     const photo = company.photo;
+    const description = company.description; // Add description here
+
     // console.log(processCompleted);
     console.log(job_id);
     const logStudents = async (e, jobid) => {
@@ -266,7 +268,17 @@ const AdminCompanies = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <Typography variant="body2" align="left">
-                    CTC: {ctc} LPA
+                    <strong> CTC: </strong> {ctc} LPA
+                  </Typography>
+                  <Typography variant="body2" align="left">
+                    <strong>Description:</strong>
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    align="left"
+                    style={{ whiteSpace: "pre-wrap" }}
+                  >
+                    {description}
                   </Typography>
                   <Typography variant="body2" align="left">
                     <strong>Applied Candidates:</strong>

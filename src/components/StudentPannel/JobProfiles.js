@@ -619,6 +619,29 @@ const JobProfiles = () => {
                                   "/" +
                                   i.lastYear}
                               </Typography>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  alignItems: "flex-start",
+                                }}
+                              >
+                                <Typography
+                                  variant="body2"
+                                  align="left"
+                                  style={{ marginRight: "10px" }}
+                                >
+                                  Description:
+                                </Typography>
+                                <div>
+                                  <Typography
+                                    variant="body2"
+                                    align="left"
+                                    style={{ whiteSpace: "pre-wrap" }}
+                                  >
+                                    {i.description}
+                                  </Typography>
+                                </div>
+                              </div>
                             </CardContent>
                             <CardActions>
                               <Button variant="outlined" size="small">

@@ -69,6 +69,10 @@ const JobSchema = new Schema({
     type: String,
     default: "",
   },
+  description: {
+    type: String, // Added description property
+    default: "",
+  },
 });
 
 module.exports = mongoose.model("jobs", JobSchema);
