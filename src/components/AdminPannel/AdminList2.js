@@ -13,6 +13,7 @@ import {
   Select,
   MenuItem,
   FormControl,
+  Paper,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useNavigate } from "react-router-dom";
@@ -216,297 +217,391 @@ const AdminList2 = () => {
   // };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <Typography component="h1" variant="h5" align="center" gutterBottom>
-        CREATE A JOB PROFILE
-      </Typography>
-      <br />
+    <Container component="main" maxWidth="70%" sx={{ width: "100%" }}>
+      <Paper
+        sx={{
+          border: "0.5 px solid black",
+          boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.4)",
+          // marginLeft: "50px",
+          // marginRight: "50px",
+          padding: "50px",
+          marginBottom: "50px",
+          width: "95%",
+          margin: "auto",
+        }}
+      >
+        <Box
+          sx={{
+            // marginTop: 2,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <LockOutlinedIcon />
+          </Avatar>
+        </Box>
+        <Typography component="h1" variant="h5" align="center" gutterBottom>
+          CREATE A JOB PROFILE
+        </Typography>
+        <br />
 
-      <form onSubmit={handleSubmit}>
-        <Grid container spacing={2}>
-          {/* <Grid item xs={12}> */}
-          {/* <input type="file" accept="image/*" onChange={convertToBase64} />
+        <Grid item xs={12}>
+          <Typography
+            variant="h5"
+            align="left"
+            color="primary"
+            style={{
+              borderBottom: "0.5px solid black",
+              marginBottom: "20px",
+              marginTop: "-80px",
+            }}
+          >
+            <br />
+            <br />
+            Enter Details
+          </Typography>
+        </Grid>
+        <br />
+        <br />
+
+        <form onSubmit={handleSubmit}>
+          <Grid container spacing={2}>
+            {/* <Grid item xs={12}> */}
+            {/* <input type="file" accept="image/*" onChange={convertToBase64} />
             <button onClick={handleCheck}>Upload Image</button>
             <img height={100} width={100} alt="No Uploads" src={photo} />
             <br /> */}
 
-          <Grid item xs={12}>
-            <Grid container spacing={2}>
-              <Grid item xs={6} sm={3}>
-                <img
-                  height={100}
-                  width={100}
-                  alt="Logo"
-                  src={formData.photo}
-                  style={{ border: "0.5px solid black" }}
-                />
-              </Grid>
-              <Grid item xs={6} sm={6} align="center">
-                <Button
-                  variant="outlined"
-                  startIcon={<UploadIcon />}
-                  component="label"
-                >
-                  Upload Image
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={convertToBase64}
-                    hidden
-                    // style={{
-                    //   position: "relative",
-                    //   overflow: "hidden",
-                    //   appearance: "none",
-                    //   backgroundColor: "#1565c0",
-                    //   color: "#fff",
-                    //   borderRadius: "4px",
-                    //   padding: "6px 10px",
-                    //   cursor: "pointer",
-                    //   border: "none",
-                    //   fontSize: "inherit",
-                    //   fontFamily: "inherit",
-                    //   textAlign: "center",
-                    // }}
-                  />
-                </Button>
-                <br />
-                <br />
+            <Grid item xs={12} sm={4}>
+              <div
+                style={{
+                  width: "90%",
+                  display: "flex",
+                  justifyContent: "center",
+                  minHeight: "110px",
+                }}
+              >
+                <Grid container spacing={2}>
+                  <Grid item xs={6} sm={6}>
+                    <img
+                      height={100}
+                      width={100}
+                      alt="Logo"
+                      src={formData.photo}
+                      style={{ border: "0.5px solid black", margin: "auto" }}
+                    />
+                  </Grid>
+                  <Grid item xs={6} sm={6} align="center">
+                    <Button
+                      variant="outlined"
+                      startIcon={<UploadIcon />}
+                      component="label"
+                    >
+                      Upload Image
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={convertToBase64}
+                        hidden
+                      />
+                    </Button>
+                    <br />
+                    <br />
 
-                {/* <Button
+                    {/* <Button
                   variant="contained"
                   component="label"
                   onClick={handleCheck}
                 >
                   Upload Logo
                 </Button> */}
-              </Grid>
+                  </Grid>
+                </Grid>
+              </div>
+            </Grid>
+            {/* </Grid> */}
+
+            <Grid item xs={12} sm={4}>
+              <TextField
+                variant="outlined"
+                label="Company Name"
+                name="CompanyName"
+                value={formData.CompanyName}
+                onChange={handleChange}
+                fullWidth
+                required
+                sx={{ width: "90%" }}
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={4}>
+              <TextField
+                variant="outlined"
+                label="Job Location"
+                name="JobLocation"
+                value={formData.JobLocation}
+                onChange={handleChange}
+                fullWidth
+                required
+                sx={{ width: "90%" }}
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={4}>
+              <div style={{ width: "90%", margin: "auto" }}>
+                <FormControl fullWidth required>
+                  <InputLabel id="job-profile-label">Job Profile</InputLabel>
+                  <Select
+                    labelId="job-profile-label"
+                    id="job-profile-select"
+                    value={formData.JobProfile}
+                    onChange={(e) => {
+                      const { value } = e.target;
+                      setFormData((prevData) => ({
+                        ...prevData,
+                        JobProfile: value,
+                      }));
+                    }}
+                    renderValue={(selected) => selected}
+                  >
+                    {jobtype.map((job, index) => (
+                      <MenuItem key={index} value={job}>
+                        <Checkbox checked={formData.JobProfile.includes(job)} />
+                        {job}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
+            </Grid>
+
+            <Grid item xs={12} sm={4}>
+              <TextField
+                variant="outlined"
+                label="CTC"
+                name="ctc"
+                value={formData.ctc}
+                onChange={handleChange}
+                fullWidth
+                required
+                sx={{ width: "90%" }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={4}></Grid>
+            <Grid
+              item
+              xs={12}
+              sm={4}
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "10px",
+              }}
+            >
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DemoContainer components={["DatePicker", "DatePicker"]}>
+                  <DatePicker
+                    label="Select Date Of Visit"
+                    value={value}
+                    onChange={(newValue) => {
+                      setValue(newValue);
+                      let num = Number(newValue.$M);
+                      console.log(num + 1);
+                      let newval = "";
+                      newval =
+                        newValue.$D + "-" + (num + 1) + "-" + newValue.$y;
+                      // console.log(newval);
+                      handleDateChange(newval);
+                    }}
+                  />
+                </DemoContainer>
+              </LocalizationProvider>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              sm={4}
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "10px",
+              }}
+            >
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DemoContainer components={["DatePicker", "DatePicker"]}>
+                  <DatePicker
+                    label="Deadline to apply"
+                    value={value2}
+                    onChange={(newValue) => {
+                      setValue2(newValue);
+                      handleEnrollmentChange(
+                        newValue.$y,
+                        newValue.$M,
+                        newValue.$D
+                      );
+                    }}
+                  />
+                </DemoContainer>
+              </LocalizationProvider>
+            </Grid>
+            <Grid item xs={12} sm={4}></Grid>
+
+            <Grid item xs={12}>
+              <Typography
+                variant="h5"
+                align="left"
+                color="primary"
+                style={{
+                  borderBottom: "0.5px solid black",
+                  marginBottom: "20px",
+                  marginTop: "-50px",
+                }}
+              >
+                <br />
+                <br />
+                Eligibility
+              </Typography>
+            </Grid>
+
+            <Grid item xs={12} sm={4}>
+              <TextField
+                variant="outlined"
+                label="Minimum CPI"
+                name="mincpi"
+                value={formData.mincpi}
+                onChange={handleChange}
+                fullWidth
+                required
+                sx={{ width: "90%" }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <div style={{ width: "90%", margin: "auto" }}>
+                <FormControl fullWidth required>
+                  <InputLabel id="degree-label">
+                    Select Eligible Degrees:
+                  </InputLabel>
+                  <Select
+                    labelId="degree-label"
+                    id="degree-select"
+                    multiple
+                    value={formData.DegreeAllowed}
+                    onChange={(e) => {
+                      const { value } = e.target;
+                      setFormData((prevData) => ({
+                        ...prevData,
+                        DegreeAllowed: value,
+                      }));
+                    }}
+                    renderValue={(selected) => selected.join(", ")}
+                  >
+                    {degree.map((course, index) => (
+                      <MenuItem key={index} value={course}>
+                        <Checkbox
+                          checked={formData.DegreeAllowed.includes(course)}
+                        />
+                        {course}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
+            </Grid>
+
+            <Grid item xs={12} sm={4}>
+              <div style={{ width: "90%", margin: "auto" }}>
+                <FormControl fullWidth>
+                  <InputLabel id="branch-label">
+                    Select Eligible Branches:
+                  </InputLabel>
+                  <Select
+                    labelId="branch-label"
+                    id="branch-select"
+                    multiple
+                    value={formData.BranchAllowed}
+                    onChange={(e) => {
+                      const { value } = e.target;
+                      setFormData((prevData) => ({
+                        ...prevData,
+                        BranchAllowed: value,
+                      }));
+                    }}
+                    renderValue={(selected) => selected.join(", ")}
+                  >
+                    {course.map((branch, index) => (
+                      <MenuItem key={index} value={branch}>
+                        <Checkbox
+                          checked={formData.BranchAllowed.includes(branch)}
+                        />
+                        {branch}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
+            </Grid>
+
+            <Grid item xs={12} sm={4}>
+              <div style={{ width: "90%", margin: "auto" }}>
+                <FormControl fullWidth>
+                  <InputLabel id="mtech-branch-label">
+                    Select Eligible Branches from MTech:
+                  </InputLabel>
+                  <Select
+                    labelId="mtech-branch-label"
+                    id="mtech-branch-select"
+                    multiple
+                    value={formData.MTechBranchAllowed}
+                    onChange={(e) => {
+                      const { value } = e.target;
+                      setFormData((prevData) => ({
+                        ...prevData,
+                        MTechBranchAllowed: value,
+                      }));
+                    }}
+                    renderValue={(selected) => selected.join(", ")}
+                  >
+                    {mcourse.map((branch, index) => (
+                      <MenuItem key={index} value={branch}>
+                        <Checkbox
+                          checked={formData.MTechBranchAllowed.includes(branch)}
+                        />
+                        {branch}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <TextField
+                variant="outlined"
+                label="Description"
+                name="description"
+                value={description} // Step 2
+                onChange={(e) => setDescription(e.target.value)} // Step 3
+                multiline
+                rows={4} // Adjust rows as needed
+                fullWidth
+                sx={{ width: "90%" }}
+              />
             </Grid>
           </Grid>
-          {/* </Grid> */}
-
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              label="Company Name"
-              name="CompanyName"
-              value={formData.CompanyName}
-              onChange={handleChange}
-              fullWidth
-              required
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              label="Job Location"
-              name="JobLocation"
-              value={formData.JobLocation}
-              onChange={handleChange}
-              fullWidth
-              required
-            />
-          </Grid>
-
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              label="Minimum CPI"
-              name="mincpi"
-              value={formData.mincpi}
-              onChange={handleChange}
-              fullWidth
-              required
-            />
-          </Grid>
-
-          <Grid item xs={12}>
-            <FormControl fullWidth required>
-              <InputLabel id="job-profile-label">Job Profile</InputLabel>
-              <Select
-                labelId="job-profile-label"
-                id="job-profile-select"
-                value={formData.JobProfile}
-                onChange={(e) => {
-                  const { value } = e.target;
-                  setFormData((prevData) => ({
-                    ...prevData,
-                    JobProfile: value,
-                  }));
-                }}
-                renderValue={(selected) => selected}
-              >
-                {jobtype.map((job, index) => (
-                  <MenuItem key={index} value={job}>
-                    <Checkbox checked={formData.JobProfile.includes(job)} />
-                    {job}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              label="CTC"
-              name="ctc"
-              value={formData.ctc}
-              onChange={handleChange}
-              fullWidth
-              required
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DemoContainer components={["DatePicker", "DatePicker"]}>
-                <DatePicker
-                  label="Select Date Of Visit"
-                  value={value}
-                  onChange={(newValue) => {
-                    setValue(newValue);
-                    let num = Number(newValue.$M);
-                    console.log(num + 1);
-                    let newval = "";
-                    newval = newValue.$D + "-" + (num + 1) + "-" + newValue.$y;
-                    // console.log(newval);
-                    handleDateChange(newval);
-                  }}
-                />
-              </DemoContainer>
-            </LocalizationProvider>
-          </Grid>
-          <Grid item xs={12}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DemoContainer components={["DatePicker", "DatePicker"]}>
-                <DatePicker
-                  label="Deadline to apply"
-                  value={value2}
-                  onChange={(newValue) => {
-                    setValue2(newValue);
-                    handleEnrollmentChange(
-                      newValue.$y,
-                      newValue.$M,
-                      newValue.$D
-                    );
-                  }}
-                />
-              </DemoContainer>
-            </LocalizationProvider>
-          </Grid>
-          <Grid item xs={12}>
-            <FormControl fullWidth required>
-              <InputLabel id="degree-label">
-                Select Eligible Degrees:
-              </InputLabel>
-              <Select
-                labelId="degree-label"
-                id="degree-select"
-                multiple
-                value={formData.DegreeAllowed}
-                onChange={(e) => {
-                  const { value } = e.target;
-                  setFormData((prevData) => ({
-                    ...prevData,
-                    DegreeAllowed: value,
-                  }));
-                }}
-                renderValue={(selected) => selected.join(", ")}
-              >
-                {degree.map((course, index) => (
-                  <MenuItem key={index} value={course}>
-                    <Checkbox
-                      checked={formData.DegreeAllowed.includes(course)}
-                    />
-                    {course}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12}>
-            <FormControl fullWidth>
-              <InputLabel id="branch-label">
-                Select Eligible Branches:
-              </InputLabel>
-              <Select
-                labelId="branch-label"
-                id="branch-select"
-                multiple
-                value={formData.BranchAllowed}
-                onChange={(e) => {
-                  const { value } = e.target;
-                  setFormData((prevData) => ({
-                    ...prevData,
-                    BranchAllowed: value,
-                  }));
-                }}
-                renderValue={(selected) => selected.join(", ")}
-              >
-                {course.map((branch, index) => (
-                  <MenuItem key={index} value={branch}>
-                    <Checkbox
-                      checked={formData.BranchAllowed.includes(branch)}
-                    />
-                    {branch}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-
-          <Grid item xs={12}>
-            <FormControl fullWidth>
-              <InputLabel id="mtech-branch-label">
-                Select Eligible Branches from MTech:
-              </InputLabel>
-              <Select
-                labelId="mtech-branch-label"
-                id="mtech-branch-select"
-                multiple
-                value={formData.MTechBranchAllowed}
-                onChange={(e) => {
-                  const { value } = e.target;
-                  setFormData((prevData) => ({
-                    ...prevData,
-                    MTechBranchAllowed: value,
-                  }));
-                }}
-                renderValue={(selected) => selected.join(", ")}
-              >
-                {mcourse.map((branch, index) => (
-                  <MenuItem key={index} value={branch}>
-                    <Checkbox
-                      checked={formData.MTechBranchAllowed.includes(branch)}
-                    />
-                    {branch}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              label="Description"
-              name="description"
-              value={description} // Step 2
-              onChange={(e) => setDescription(e.target.value)} // Step 3
-              multiline
-              rows={4} // Adjust rows as needed
-              fullWidth
-            />
-          </Grid>
-        </Grid>
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          fullWidth
-          sx={{ mt: 3 }}
-        >
-          Update Profile
-        </Button>
-      </form>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            fullWidth
+            sx={{ mt: 3 }}
+          >
+            Update Profile
+          </Button>
+        </form>
+      </Paper>
+      <br />
+      <br />
     </Container>
   );
 };

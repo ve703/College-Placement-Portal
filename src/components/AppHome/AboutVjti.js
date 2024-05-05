@@ -1,5 +1,6 @@
 import React from "react";
 import { Typography, Grid, Paper, Container } from "@mui/material";
+import VJTI from "../../assets/images/VJTI.jpg";
 
 const AboutVjti = () => {
   return (
@@ -8,7 +9,8 @@ const AboutVjti = () => {
         <Grid container spacing={2} marginBottom={10}>
           <Paper elevation={6} sx={{ p: 3 }} align={"center"}>
             <img
-              src="https://vjti.ac.in/wp-content/uploads/2021/07/VJTI-LandingPageV3.jpg"
+              // src="https://vjti.ac.in/wp-content/uploads/2021/07/VJTI-LandingPageV3.jpg"
+              src={VJTI}
               alt="VJTI"
               style={{
                 width: "100%",

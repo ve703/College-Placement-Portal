@@ -27,6 +27,7 @@ function AlumniCard({ profile }) {
     email,
     userProfilePic,
     socialMediaLinks,
+    photo,
   } = profile;
 
   return (
@@ -39,7 +40,36 @@ function AlumniCard({ profile }) {
             marginTop: "20px", // Adjust top margin as needed
           }}
         >
-          <CardMedia
+          {photo ? (
+            <>
+              <CardMedia
+                component="img"
+                src={photo}
+                alt={`${name}'s profile picture`}
+                style={{
+                  width: "120px", // Adjust the size as per your requirement
+                  height: "120px", // Adjust the size as per your requirement
+                  borderRadius: "50%", // To make it a circle
+                  objectFit: "cover", // To prevent image distortion
+                }}
+              />
+            </>
+          ) : (
+            <>
+              <CardMedia
+                component="img"
+                src={userProfilePic}
+                alt={`${name}'s profile picture`}
+                style={{
+                  width: "120px", // Adjust the size as per your requirement
+                  height: "120px", // Adjust the size as per your requirement
+                  borderRadius: "50%", // To make it a circle
+                  objectFit: "cover", // To prevent image distortion
+                }}
+              />
+            </>
+          )}
+          {/* <CardMedia
             component="img"
             src={userProfilePic}
             alt={`${name}'s profile picture`}
@@ -49,7 +79,7 @@ function AlumniCard({ profile }) {
               borderRadius: "50%", // To make it a circle
               objectFit: "cover", // To prevent image distortion
             }}
-          />
+          /> */}
         </Box>
         <CardContent sx={{ textAlign: "justify" }}>
           <Typography gutterBottom variant="h5" component="div">

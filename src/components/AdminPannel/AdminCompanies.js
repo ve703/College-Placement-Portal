@@ -330,6 +330,7 @@ const AdminCompanies = () => {
                   size="small"
                   variant="outlined"
                   disabled={clicked}
+                  sx={{ marginLeft: "10px" }}
                   onClick={(e) => {
                     logStudents(e, job_id);
                   }}
@@ -346,7 +347,7 @@ const AdminCompanies = () => {
                   delJob(job_id);
                 }}
               >
-                Delete Jobs
+                Delete Job
               </Button>
               {/* <Modal
               open={open}

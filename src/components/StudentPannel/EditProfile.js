@@ -184,7 +184,7 @@ function EditProfile() {
   };
 
   return (
-    <Container component="main" maxWidth="xs" sx={{ width: "70%" }}>
+    <Container component="main" maxWidth="70%" sx={{ width: "100%" }}>
       {loading && (
         <div className="spinner">
           <Box sx={{ display: "flex" }}>
@@ -195,12 +195,13 @@ function EditProfile() {
       <Paper
         sx={{
           border: "0.5 px solid black",
-          boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.2)",
+          boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.4)",
           // marginLeft: "50px",
           // marginRight: "50px",
           padding: "50px",
           marginBottom: "50px",
-          width: "100%",
+          width: "95%",
+          margin: "auto",
         }}
       >
         <Box
@@ -237,6 +238,22 @@ function EditProfile() {
             </Button>
           </Grid> */}
             <Grid item xs={12}>
+              <Typography
+                variant="h5"
+                align="left"
+                color="primary"
+                style={{
+                  borderBottom: "0.5px solid black",
+                  marginBottom: "20px",
+                  marginTop: "-50px",
+                }}
+              >
+                <br />
+                <br />
+                Basic Details
+              </Typography>
+            </Grid>
+            <Grid item xs={12} sm={4}>
               <TextField
                 variant="outlined"
                 label="First Name"
@@ -245,9 +262,10 @@ function EditProfile() {
                 onChange={handleChange}
                 fullWidth
                 required
+                sx={{ width: "90%" }}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} sm={4}>
               <TextField
                 variant="outlined"
                 label="Last Name"
@@ -256,25 +274,20 @@ function EditProfile() {
                 onChange={handleChange}
                 fullWidth
                 required
+                sx={{ width: "90%" }}
               />
             </Grid>
 
-            <Grid item xs={12}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer components={["DatePicker", "DatePicker"]}>
-                  <DatePicker
-                    label="Select Date of Enrollment"
-                    value={value2}
-                    onChange={(newValue) => {
-                      setValue2(newValue);
-                      handleEnrollmentChange(newValue.$y);
-                    }}
-                  />
-                </DemoContainer>
-              </LocalizationProvider>
-            </Grid>
-
-            <Grid item xs={12}>
+            <Grid
+              item
+              xs={12}
+              sm={4}
+              sx={{
+                marginTop: "-8px",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={["DatePicker", "DatePicker"]}>
                   <DatePicker
@@ -294,29 +307,8 @@ function EditProfile() {
                 </DemoContainer>
               </LocalizationProvider>
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                label="Current CPI"
-                name="currcpi"
-                value={formData.currcpi}
-                onChange={handleChange}
-                fullWidth
-                required
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                label="Registration Number"
-                name="regnumber"
-                value={formData.regnumber}
-                onChange={handleChange}
-                fullWidth
-                required
-              />
-            </Grid>
-            <Grid item xs={12}>
+
+            <Grid item xs={12} sm={4}>
               <TextField
                 variant="outlined"
                 label="Phone Number"
@@ -325,113 +317,192 @@ function EditProfile() {
                 onChange={handleChange}
                 fullWidth
                 required
+                sx={{ width: "90%", marginTop: "22px" }}
               />
             </Grid>
-            <Grid item xs={12}>
-              <InputLabel
-                id="demo-simple-select-label"
-                sx={{ textAlign: "left" }}
-              >
-                Degree
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="deg"
-                value={formData.degree}
-                label="Degree"
-                name="degree"
-                onChange={onChangeDeg}
-                fullWidth
-                required
-                align={"left"}
-              >
-                {/* Assuming grades are from 1 to 12 */}
-                {degree.map((index, i) => (
-                  <MenuItem key={i + 1} value={index}>
-                    {index}
-                  </MenuItem>
-                ))}
-              </Select>
+
+            <Grid item xs={12} sm={4}>
+              <div style={{ width: "90%", margin: "auto" }}>
+                <InputLabel
+                  id="demo-simple-select-label"
+                  sx={{ textAlign: "left" }}
+                >
+                  Gender
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={formData.sex}
+                  label="Sex"
+                  name="sex"
+                  onChange={handleChange}
+                  fullWidth
+                  required
+                  align={"left"}
+                  // sx={{ width: "90%" }}
+                >
+                  {/* Assuming grades are from 1 to 12 */}
+                  {sex.map((index, i) => (
+                    <MenuItem key={i + 1} value={index}>
+                      {index}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </div>
             </Grid>
+
+            <Grid item xs={12} sm={4}></Grid>
             <Grid item xs={12}>
-              <InputLabel
-                id="demo-simple-select-label"
-                sx={{ textAlign: "left" }}
+              <Typography
+                variant="h5"
+                align="left"
+                color="primary"
+                style={{
+                  borderBottom: "0.5px solid black",
+                  marginBottom: "20px",
+                  marginTop: "-50px",
+                }}
               >
-                Gender
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={formData.sex}
-                label="Sex"
-                name="sex"
+                <br />
+                <br />
+                Educational Details
+              </Typography>
+            </Grid>
+
+            <Grid item xs={12} sm={4}>
+              <TextField
+                variant="outlined"
+                label="Current CPI"
+                name="currcpi"
+                value={formData.currcpi}
                 onChange={handleChange}
                 fullWidth
                 required
-                align={"left"}
-              >
-                {/* Assuming grades are from 1 to 12 */}
-                {sex.map((index, i) => (
-                  <MenuItem key={i + 1} value={index}>
-                    {index}
-                  </MenuItem>
-                ))}
-              </Select>
+                sx={{ width: "90%" }}
+              />
             </Grid>
-            <Grid item xs={12}>
-              <InputLabel
-                id="demo-simple-select-label"
-                sx={{ textAlign: "left" }}
-              >
-                UG Branch
-              </InputLabel>
-              <Select
-                disabled={ugval}
-                labelId="demo-simple-select-label"
-                id="ugb"
-                value={formData.branch}
-                label="Branch"
-                name="branch"
+            <Grid item xs={12} sm={4}>
+              <TextField
+                variant="outlined"
+                label="Registration Number"
+                name="regnumber"
+                value={formData.regnumber}
                 onChange={handleChange}
                 fullWidth
-                align={"left"}
                 required
-              >
-                {/* Assuming grades are from 1 to 12 */}
-                {course.map((index, i) => (
-                  <MenuItem key={i + 1} value={index} disabled={ugval}>
-                    {index}
-                  </MenuItem>
-                ))}
-              </Select>
+                sx={{ width: "90%" }}
+              />
             </Grid>
-            <Grid item xs={12}>
-              <InputLabel
-                id="demo-simple-select-label"
-                sx={{ textAlign: "left" }}
-              >
-                PG Branch
-              </InputLabel>
-              <Select
-                disabled={pgval}
-                labelId="demo-simple-select-label"
-                id="pgb"
-                value={formData.branch}
-                label="MTech Branch"
-                name="branch"
-                onChange={handleChange}
-                fullWidth
-                align={"left"}
-                required
-              >
-                {/* Assuming grades are from 1 to 12 */}
-                {mcourse.map((index, i) => (
-                  <MenuItem key={i + 1} value={index} disabled={pgval}>
-                    {index}
-                  </MenuItem>
-                ))}
-              </Select>
+            <Grid
+              item
+              xs={12}
+              sm={4}
+              sx={{
+                marginTop: "-8px",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DemoContainer components={["DatePicker", "DatePicker"]}>
+                  <DatePicker
+                    label="Select Date of Enrollment"
+                    value={value2}
+                    onChange={(newValue) => {
+                      setValue2(newValue);
+                      handleEnrollmentChange(newValue.$y);
+                    }}
+                  />
+                </DemoContainer>
+              </LocalizationProvider>
+            </Grid>
+
+            <Grid item xs={12} sm={4}>
+              <div style={{ width: "90%", margin: "auto" }}>
+                <InputLabel
+                  id="demo-simple-select-label"
+                  sx={{ textAlign: "left" }}
+                >
+                  Degree
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="deg"
+                  value={formData.degree}
+                  label="Degree"
+                  name="degree"
+                  onChange={onChangeDeg}
+                  fullWidth
+                  required
+                  align={"left"}
+                >
+                  {/* Assuming grades are from 1 to 12 */}
+                  {degree.map((index, i) => (
+                    <MenuItem key={i + 1} value={index}>
+                      {index}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </div>
+            </Grid>
+
+            <Grid item xs={12} sm={4}>
+              <div style={{ width: "90%", margin: "auto" }}>
+                <InputLabel
+                  id="demo-simple-select-label"
+                  sx={{ textAlign: "left" }}
+                >
+                  UG Branch
+                </InputLabel>
+                <Select
+                  disabled={ugval}
+                  labelId="demo-simple-select-label"
+                  id="ugb"
+                  value={formData.branch}
+                  label="Branch"
+                  name="branch"
+                  onChange={handleChange}
+                  fullWidth
+                  align={"left"}
+                  required
+                >
+                  {/* Assuming grades are from 1 to 12 */}
+                  {course.map((index, i) => (
+                    <MenuItem key={i + 1} value={index} disabled={ugval}>
+                      {index}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </div>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <div style={{ width: "90%", margin: "auto" }}>
+                <InputLabel
+                  id="demo-simple-select-label"
+                  sx={{ textAlign: "left" }}
+                >
+                  PG Branch
+                </InputLabel>
+                <Select
+                  disabled={pgval}
+                  labelId="demo-simple-select-label"
+                  id="pgb"
+                  value={formData.branch}
+                  label="MTech Branch"
+                  name="branch"
+                  onChange={handleChange}
+                  fullWidth
+                  align={"left"}
+                  required
+                >
+                  {/* Assuming grades are from 1 to 12 */}
+                  {mcourse.map((index, i) => (
+                    <MenuItem key={i + 1} value={index} disabled={pgval}>
+                      {index}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </div>
             </Grid>
           </Grid>
           <Button
@@ -445,6 +516,9 @@ function EditProfile() {
           </Button>
         </form>
       </Paper>
+      <br />
+      <br />
+      <br />
     </Container>
   );
 }

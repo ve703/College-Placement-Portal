@@ -9,6 +9,7 @@ import {
   Select,
   MenuItem,
   Box,
+  Paper,
 } from "@mui/material";
 import Link from "@mui/material/Link";
 import Avatar from "@mui/material/Avatar";
@@ -87,72 +88,82 @@ function SignUp() {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      {loading && (
-        <div className="spinner">
-          <Box sx={{ display: "flex" }}>
-            <CircularProgress />
-          </Box>
-        </div>
-      )}
-
-      <Box
+    <Container component="main" maxWidth="lg" sx={{ width: "100%" }}>
+      <Paper
         sx={{
-          // marginTop: 2,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          padding: "20px",
+          width: "100%",
+          maxWidth: "500px",
+          margin: "auto",
+
+          boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.3)",
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-          <LockOutlinedIcon />
-        </Avatar>
-      </Box>
+        {loading && (
+          <div className="spinner">
+            <Box sx={{ display: "flex" }}>
+              <CircularProgress />
+            </Box>
+          </div>
+        )}
 
-      <Typography component="h1" variant="h5" align="center" gutterBottom>
-        Sign Up
-      </Typography>
-      <form>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <InputLabel
-              id="demo-simple-select-label"
-              sx={{ textAlign: "left" }}
-            >
-              User Type
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              // value={age}
-              label="User Type"
-              name="userType"
-              onChange={handleChange}
-              sx={{ width: "100%" }}
-              align="left"
-              // autoFocus
-            >
-              <MenuItem value={0} defaultChecked>
-                Student
-              </MenuItem>
-              <MenuItem value={1}>Admin</MenuItem>
-              {/* <MenuItem value={30}>Thirty</MenuItem> */}
-            </Select>
-          </Grid>
+        <Box
+          sx={{
+            // marginTop: 2,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <LockOutlinedIcon />
+          </Avatar>
+        </Box>
 
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              label="User Name"
-              name="userName"
-              value={formData.firstName}
-              onChange={handleChange}
-              fullWidth
-              required
-              sx={{ width: "100%" }}
-            />
-          </Grid>
-          {/* <Grid item xs={12} sm={6}>
+        <Typography component="h1" variant="h5" align="center" gutterBottom>
+          Sign Up
+        </Typography>
+        <form>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <InputLabel
+                id="demo-simple-select-label"
+                sx={{ textAlign: "left" }}
+              >
+                User Type
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                // value={age}
+                label="User Type"
+                name="userType"
+                onChange={handleChange}
+                sx={{ width: "100%" }}
+                align="left"
+                // autoFocus
+              >
+                <MenuItem value={0} defaultChecked>
+                  Student
+                </MenuItem>
+                <MenuItem value={1}>Admin</MenuItem>
+                {/* <MenuItem value={30}>Thirty</MenuItem> */}
+              </Select>
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                label="User Name"
+                name="userName"
+                value={formData.firstName}
+                onChange={handleChange}
+                fullWidth
+                required
+                sx={{ width: "100%" }}
+              />
+            </Grid>
+            {/* <Grid item xs={12} sm={6}>
             <TextField
               variant="outlined"
               label="Last Name"
@@ -164,54 +175,57 @@ function SignUp() {
               sx={{ width: "100%" }}
             />
           </Grid> */}
-          <Grid item xs={12}>
-            <TextField
-              type="email"
-              variant="outlined"
-              label="College Email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              fullWidth
-              required
-              sx={{ width: "100%" }}
-            />
+            <Grid item xs={12}>
+              <TextField
+                type="email"
+                variant="outlined"
+                label="College Email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                fullWidth
+                required
+                sx={{ width: "100%" }}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                type="password"
+                variant="outlined"
+                label="Password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                fullWidth
+                required
+                sx={{ width: "100%" }}
+              />
+            </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <TextField
-              type="password"
-              variant="outlined"
-              label="Password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              fullWidth
-              required
-              sx={{ width: "100%" }}
-            />
-          </Grid>
-        </Grid>
-        <Button
-          sx={{ marginTop: 2 }}
-          type="submit"
-          variant="contained"
-          color="primary"
-          fullWidth
-          onClick={handleSubmit}
-        >
-          Sign Up
-        </Button>
+          <Button
+            sx={{ marginTop: 2 }}
+            type="submit"
+            variant="contained"
+            color="primary"
+            fullWidth
+            onClick={handleSubmit}
+          >
+            Sign Up
+          </Button>
 
-        <Grid container justifyContent="flex-end" sx={{ mt: 2 }}>
-          <Grid item>
-            <Link href="/login" variant="body2">
-              Already have an account? Login
-            </Link>
+          <Grid container justifyContent="flex-end" sx={{ mt: 2 }}>
+            <Grid item>
+              <Link href="/login" variant="body2">
+                Already have an account? Login
+              </Link>
+            </Grid>
           </Grid>
-        </Grid>
-      </form>
+        </form>
 
-      <Copyright sx={{ mt: 4, mb: 4 }} />
+        <Copyright sx={{ mt: 4 }} />
+      </Paper>
+      <br />
+      <br />
     </Container>
   );
 }
