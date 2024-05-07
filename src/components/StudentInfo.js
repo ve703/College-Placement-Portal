@@ -12,6 +12,7 @@ import {
   // List,
   // ListItemText,
   Divider,
+  Grid,
 } from "@mui/material";
 import sample_profile from "./sample_profile.jpg";
 import Table from "@mui/material/Table";
@@ -20,7 +21,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import EducationalDetails from "./EducationalDetails";
 import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
@@ -29,6 +30,29 @@ import EditProfile from "./StudentPannel/EditProfile";
 import logo from "./Profile.png";
 import UploadPhoto from "./StudentPannel/UploadPhoto";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+import { styled } from "@mui/material/styles";
+
+// Table Styling
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  "&:last-child td, &:last-child th": {
+    border: 0,
+  },
+}));
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -116,16 +140,16 @@ const StudentInfo = () => {
       imgb64: r.userData.imgb64,
     });
     setCredentials({
-      "Registration Number": r.userData.regnumber,
       "First Name": r.userData.firstName,
       "Last Name": r.userData.lastName,
+      Gender: r.userData.sex,
+      "Registration Number": r.userData.regnumber,
+      Phone: r.userData.phone,
+      Degree: r.userData.degree,
       Branch: r.userData.branch,
       CPI: r.userData.currcpi,
       "Date of Birth": r.userData.dob,
       "Enrollment year": r.userData.enrollmentyear,
-      Phone: r.userData.phone,
-      Gender: r.userData.sex,
-      Degree: r.userData.degree,
       photo: r.userData.photo,
     });
   };
@@ -174,95 +198,102 @@ const StudentInfo = () => {
         </Box>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
-          <Stack sx={{ width: "300px" }}>
-            {credential.photo ? (
-              <>
-                {credential.photo && (
-                  <>
-                    <Avatar
-                      sx={{
-                        width: 150,
-                        height: 150,
-                        border: "0.5px solid black",
-                        // alignContent: "center",
-                        marginLeft: "auto",
-                        marginRight: "auto",
-                      }}
-                      alt="Profile pic"
-                      src={credential.photo}
-                    />
-
-                    <div>Update Profile</div>
-                    <UploadPhoto />
-                  </>
-                )}
-              </>
-            ) : (
-              <>
-                <Avatar
-                  sx={{
-                    width: 150,
-                    height: 150,
-                    border: "2px solid blue",
-                    // alignContent: "center",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                  }}
-                  alt="Profile pic"
-                  src={sample_profile}
-                />
-
-                <div>Upload Profile</div>
-                <UploadPhoto />
-              </>
-            )}
-
-            {/* <Button
+        <Stack
+          direction={{ xs: "column", md: "row" }}
+          sx={{ marginLeft: "auto", marginRight: "auto" }}
+          spacing={2}
+        >
+          <Grid item xs={12} sm={4}>
+            <Stack
               sx={{
-                height: 20,
-                marginTop: "10px",
-                color: "black",
+                width: "300px",
+                margin: "auto",
               }}
-              id="basic-button"
-              aria-controls={open ? "basic-menu" : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? "true" : undefined}
-              onClick={handleClick}
             >
-              <Typography variant="h5">...</Typography>
-            </Button> */}
-          </Stack>
-          <Box sx={{ border: 1, width: "100%" }}>
-            <Typography variant="h5">
-              {credential["First Name"] === "Enter First Name"
-                ? "Update Profile in Edit profile Section"
-                : credential["First Name"] + " " + credential["Last Name"]}
-            </Typography>
-            <Divider />
-            {/* <List sx={{ height: 600, width: 980, background: "white" }}>
-                {array.map((listElem) => (
-                  <ListItem>
-                    <ListItemText primary={listElem} />
-                  </ListItem>
-                ))}
-              </List> */}
+              {credential.photo ? (
+                <>
+                  {credential.photo && (
+                    <>
+                      <Avatar
+                        sx={{
+                          width: 150,
+                          height: 150,
+                          border: "0.5px solid black",
+                          // alignContent: "center",
+                          marginLeft: "auto",
+                          marginRight: "auto",
+                        }}
+                        alt="Profile pic"
+                        src={credential.photo}
+                      />
 
-            <TableContainer component={Paper}>
+                      <div>Update Profile</div>
+                      <UploadPhoto />
+                    </>
+                  )}
+                </>
+              ) : (
+                <>
+                  <Avatar
+                    sx={{
+                      width: 150,
+                      height: 150,
+                      border: "2px solid blue",
+                      // alignContent: "center",
+                      marginLeft: "auto",
+                      marginRight: "auto",
+                    }}
+                    alt="Profile pic"
+                    src={sample_profile}
+                  />
+
+                  <div>Upload Profile</div>
+                  <UploadPhoto />
+                </>
+              )}
+            </Stack>
+          </Grid>
+
+          <Box sx={{ width: "100%" }}>
+            <TableContainer
+              component={Paper}
+              sx={{ maxWidth: "70%", margin: "auto" }}
+            >
               <Table>
                 <TableHead>
                   <TableRow>
-                    {/* <TableCell align="left">Credentials</TableCell>
-                      <TableCell align="left">Details</TableCell> */}
+                    <StyledTableCell
+                      align="center"
+                      colSpan={2}
+                      sx={{ fontSize: "25px" }}
+                    >
+                      {credential["First Name"] === "Enter First Name"
+                        ? "Update Profile"
+                        : "Student Details"}
+                    </StyledTableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {Object.entries(credential).map((i, index) => (
-                    <TableRow key={index}>
-                      <TableCell>{i[0]}</TableCell>
-                      <TableCell>{i[1]}</TableCell>
-                    </TableRow>
-                  ))}
+                  {Object.entries(credential)
+                    .filter(([key]) => key !== "photo")
+                    .map((i, index) => (
+                      <StyledTableRow key={index}>
+                        <StyledTableCell sx={{ width: "30%" }}>
+                          {i[0]}
+                        </StyledTableCell>
+                        <StyledTableCell sx={{ width: "70%" }}>
+                          {i[1]}
+                        </StyledTableCell>
+                      </StyledTableRow>
+                    ))}
+                  {/* {Object.entries(credential)
+                    .filter(([key]) => key !== "photo")
+                    .map(([key, value], index) => (
+                      <StyledTableRow key={index}>
+                        <StyledTableCell>{key}</StyledTableCell>
+                        <StyledTableCell>{value}</StyledTableCell>
+                      </StyledTableRow>
+                    ))} */}
                 </TableBody>
               </Table>
             </TableContainer>

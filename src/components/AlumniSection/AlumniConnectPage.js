@@ -52,6 +52,7 @@ const AlumniConnectPage = () => {
         passOutYear: i.enrollmentyear + 4,
         mobileNumber: i.phone,
         email: i.email,
+        photo: i.photo,
         userProfilePic: require("./profile.png"),
         socialMediaLinks: {
           linkedin: "https://pbc-webdev.com",
@@ -122,10 +123,16 @@ const AlumniConnectPage = () => {
           <Typography
             variant="h5"
             color="primary"
-            sx={{ pb: 1, pl: 3, textAlign: "left" }}
+            sx={{
+              pb: 1,
+              pl: 3,
+              textAlign: "left",
+              borderBottom: "0.5px solid black",
+            }}
           >
             Alumni Connect
           </Typography>
+          <br />
           <Grid
             container
             spacing={2}
@@ -291,7 +298,10 @@ const AlumniConnectPage = () => {
               </Grid>
             </Grid>
           </Grid>
+          <br />
         </Paper>
+        <br />
+        <br />
       </Grid>
     </Grid>
   );

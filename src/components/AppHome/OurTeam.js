@@ -22,6 +22,8 @@ import animationData3 from "../../animations/three.json";
 import animationData5 from "../../animations/five.json";
 import animationData6 from "../../animations/six.json";
 import animationData7 from "../../animations/seven.json";
+import Swapnil from "../../assets/images/swapnil.jpeg";
+import Nitin from "../../assets/images/nitin.jpg";
 
 const OurTeam = () => {
   return (
@@ -71,7 +73,8 @@ const OurTeam = () => {
                       <CardMedia
                         component="img"
                         height="200"
-                        image="https://media.licdn.com/dms/image/C5103AQHe0-DIDdpXJg/profile-displayphoto-shrink_400_400/0/1537113765976?e=1718236800&v=beta&t=w6I57wYcMPHp7KOduqko8pVGKaN8qpKJriC2yqc1jZA"
+                        // image="https://media.licdn.com/dms/image/C5103AQHe0-DIDdpXJg/profile-displayphoto-shrink_400_400/0/1537113765976?e=1718236800&v=beta&t=w6I57wYcMPHp7KOduqko8pVGKaN8qpKJriC2yqc1jZA"
+                        image={Swapnil}
                         alt="Swapnil Sir"
                         style={{ objectFit: "cover" }}
                       />
@@ -134,7 +137,8 @@ const OurTeam = () => {
                       <CardMedia
                         component="img"
                         height="200"
-                        image="https://i1.rgstatic.net/ii/profile.image/518814028374016-1500706311519_Q512/Nitin-Gulhane.jpg"
+                        // image="https://i1.rgstatic.net/ii/profile.image/518814028374016-1500706311519_Q512/Nitin-Gulhane.jpg"
+                        image={Nitin}
                         alt="Nitin Sir"
                         style={{ objectFit: "cover" }}
                       />

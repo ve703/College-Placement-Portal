@@ -11,6 +11,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Paper,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useNavigate } from "react-router-dom";
@@ -151,164 +152,175 @@ function Login() {
     p: 4,
   };
   return (
-    <Container component="main" maxWidth="xs">
-      {loading && (
-        <div className="spinner">
-          <Box sx={{ display: "flex" }}>
-            <CircularProgress />
-          </Box>
-        </div>
-      )}
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <TextField
-            type="email"
-            variant="outlined"
-            label="Enter Email"
-            name="email"
-            value={verifyData.email}
-            onChange={handleChangeForm}
-            fullWidth
-            required
-            sx={{ width: "100%" }}
-          />
-          <br />
-          <br />
-          <TextField
-            type="email"
-            variant="outlined"
-            label="Enter New Password"
-            name="newpass"
-            value={verifyData.newpass}
-            onChange={handleChangeForm}
-            fullWidth
-            required
-            sx={{ width: "100%" }}
-          />
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            <Button type="small" variant="outlined" onClick={handleOnClick}>
-              Send OTP
-            </Button>
-          </Typography>
-          <br />
-
-          <TextField
-            type="email"
-            variant="outlined"
-            label="Enter OTP"
-            name="otp"
-            value={verifyData.otp}
-            onChange={handleChangeForm}
-            fullWidth
-            required
-            sx={{ width: "100%" }}
-          />
-
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            <Button type="small" variant="outlined" onClick={handleClose}>
-              Verify
-            </Button>
-          </Typography>
-        </Box>
-      </Modal>
-      <Box
+    <Container component="main" maxWidth="lg" sx={{ width: "100%" }}>
+      <Paper
         sx={{
-          // marginTop: 2,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          padding: "20px",
+          width: "100%",
+          maxWidth: "500px",
+          margin: "auto",
+
+          boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.3)",
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-          <LockOutlinedIcon />
-        </Avatar>
-      </Box>
-
-      <Typography component="h1" variant="h5" align="center" gutterBottom>
-        Login
-      </Typography>
-      <form>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <InputLabel
-              id="demo-simple-select-label"
-              sx={{ textAlign: "left" }}
-            >
-              User Type
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={formData.userType}
-              label="User Type"
-              name="userType"
-              onChange={handleChange}
-              sx={{ width: "100%" }}
-              align="left"
-            >
-              <MenuItem value={0} defaultChecked>
-                Student
-              </MenuItem>
-              <MenuItem value={1}>Admin</MenuItem>
-            </Select>
-          </Grid>
-          <Grid item xs={12}>
+        {loading && (
+          <div className="spinner">
+            <Box sx={{ display: "flex" }}>
+              <CircularProgress />
+            </Box>
+          </div>
+        )}
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
             <TextField
               type="email"
               variant="outlined"
-              label="College Email"
+              label="Enter Email"
               name="email"
-              value={formData.email}
-              onChange={handleChange}
+              value={verifyData.email}
+              onChange={handleChangeForm}
               fullWidth
               required
               sx={{ width: "100%" }}
             />
-          </Grid>
-          <Grid item xs={12}>
+            <br />
+            <br />
             <TextField
-              type="password"
+              type="email"
               variant="outlined"
-              label="Password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
+              label="Enter New Password"
+              name="newpass"
+              value={verifyData.newpass}
+              onChange={handleChangeForm}
               fullWidth
               required
               sx={{ width: "100%" }}
             />
-          </Grid>
-        </Grid>
-        <Button
-          sx={{ marginTop: 2 }}
-          type="submit"
-          variant="contained"
-          color="primary"
-          fullWidth
-          onClick={handleSubmit}
-        >
-          Login
-        </Button>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              <Button type="small" variant="outlined" onClick={handleOnClick}>
+                Send OTP
+              </Button>
+            </Typography>
+            <br />
 
-        <Grid container justifyContent="flex-end" sx={{ mt: 2 }}>
-          <Grid item xs>
-            <Link onClick={handleOpen} variant="body2" id="fp">
-              Forgot password?
-            </Link>
+            <TextField
+              type="email"
+              variant="outlined"
+              label="Enter OTP"
+              name="otp"
+              value={verifyData.otp}
+              onChange={handleChangeForm}
+              fullWidth
+              required
+              sx={{ width: "100%" }}
+            />
+
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              <Button type="small" variant="outlined" onClick={handleClose}>
+                Verify
+              </Button>
+            </Typography>
+          </Box>
+        </Modal>
+        <Box
+          sx={{
+            // marginTop: 2,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <LockOutlinedIcon />
+          </Avatar>
+        </Box>
+
+        <Typography component="h1" variant="h5" align="center" gutterBottom>
+          Login
+        </Typography>
+        <form>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <InputLabel
+                id="demo-simple-select-label"
+                sx={{ textAlign: "left" }}
+              >
+                User Type
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={formData.userType}
+                label="User Type"
+                name="userType"
+                onChange={handleChange}
+                sx={{ width: "100%" }}
+                align="left"
+              >
+                <MenuItem value={0} defaultChecked>
+                  Student
+                </MenuItem>
+                <MenuItem value={1}>Admin</MenuItem>
+              </Select>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                type="email"
+                variant="outlined"
+                label="College Email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                fullWidth
+                required
+                sx={{ width: "100%" }}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                type="password"
+                variant="outlined"
+                label="Password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                fullWidth
+                required
+                sx={{ width: "100%" }}
+              />
+            </Grid>
           </Grid>
-          <Grid item>
-            <Link href="/signup" variant="body2">
-              Don't have an account? Sign Up
-            </Link>
+          <Button
+            sx={{ marginTop: 2 }}
+            type="submit"
+            variant="contained"
+            color="primary"
+            fullWidth
+            onClick={handleSubmit}
+          >
+            Login
+          </Button>
+
+          <Grid container justifyContent="flex-end" sx={{ mt: 2 }}>
+            <Grid item xs>
+              <Link onClick={handleOpen} variant="body2" id="fp">
+                Forgot password?
+              </Link>
+            </Grid>
+            <Grid item>
+              <Link href="/signup" variant="body2">
+                Don't have an account? Sign Up
+              </Link>
+            </Grid>
           </Grid>
-        </Grid>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
-      </form>
+          <Copyright sx={{ mt: 4 }} />
+        </form>
+      </Paper>
     </Container>
   );
 }

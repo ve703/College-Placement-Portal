@@ -69,14 +69,27 @@ const Contact = () => {
   return (
     <Grid container justifyContent="center" spacing={2}>
       <Grid item xs={12} sm={10}>
-        <Paper elevation={3} style={{ padding: "20px", textAlign: "justify" }}>
+        <Paper
+          elevation={3}
+          style={{
+            padding: "20px",
+            textAlign: "justify",
+            marginBottom: "50px",
+          }}
+        >
           <Typography
             variant="h5"
             color="primary"
-            sx={{ pb: 1, pl: 3, textAlign: "left" }}
+            sx={{
+              pb: 1,
+              pl: 3,
+              textAlign: "left",
+              borderBottom: "0.5px solid black",
+            }}
           >
             Contact Us
           </Typography>
+          <br />
           <Grid container spacing={2} p={2}>
             <Grid item sm={2}></Grid>
             <Grid item sm={4}>
@@ -207,10 +220,17 @@ const Contact = () => {
             </Grid>
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="h6" align="left" color="primary" sx={{ p: 2 }}>
+            <Typography
+              variant="h6"
+              align="left"
+              color="primary"
+              sx={{ p: 2, borderBottom: "0.5px solid black" }}
+            >
               Staff – T & P Office
             </Typography>
           </Grid>
+          <br />
+          <br />
           <TableContainer
             component={Paper}
             style={{ width: "90%", margin: "auto" }}

@@ -20,7 +20,12 @@ const RecruitersPage = () => {
           <Typography
             variant="h5"
             color="primary"
-            sx={{ pb: 1, pl: 3, textAlign: "left" }}
+            sx={{
+              pb: 1,
+              pl: 3,
+              textAlign: "left",
+              borderBottom: "0.5px solid black",
+            }}
           >
             Our Recruiters
           </Typography>
