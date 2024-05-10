@@ -33,14 +33,15 @@ router.post("/addjob", async (req, res) => {
     subject: "New Job Application Open!",
     text: `New Job Application open by ${req.body.CompanyName}. CTC: ${req.body.ctc} LPA. minimum CPI: ${req.body.mincpi}. Last Date to Apply: ${ldta}`,
   };
-
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log("Email sent: " + info.response);
-    }
-  });
+  if (senderArray.length !== 0) {
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
+  }
   await Job.create({
     CompanyName: req.body.CompanyName,
     JobLocation: req.body.JobLocation,

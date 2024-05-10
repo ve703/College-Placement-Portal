@@ -596,7 +596,7 @@ const AdminList2 = () => {
             fullWidth
             sx={{ mt: 3 }}
           >
-            Update Profile
+            Add Job
           </Button>
         </form>
       </Paper>

@@ -123,6 +123,10 @@ const StudentInfo = () => {
     "Enrollment year": 2020,
     "Date of Birth": "Enter Date of Birth",
     Degree: "Enter Degree",
+    "10th Marks": "Enter 10th Marks",
+    "10th School": "Enter 10th School",
+    "12th Marks": "Enter 12th Marks",
+    "12th School": "Enter 12th School",
   };
   const [credential, setCredentials] = useState(data);
   const [image, setImage] = useState(imgdata);
@@ -151,6 +155,10 @@ const StudentInfo = () => {
       "Date of Birth": r.userData.dob,
       "Enrollment year": r.userData.enrollmentyear,
       photo: r.userData.photo,
+      "10th Marks": r.userData.tenth,
+      "10th School": r.userData.tenthschool,
+      "12th Marks": r.userData.twelth,
+      "12th School": r.userData.twelthschool,
     });
   };
   useEffect(() => {
