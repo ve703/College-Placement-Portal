@@ -88,9 +88,9 @@ function AlumniCard({ profile }) {
           <Typography variant="body2" color="text.secondary">
             <strong>Degree:</strong> {degree}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          {/* <Typography variant="body2" color="text.secondary">
             <strong>Job Type:</strong> {jobTitle}
-          </Typography>
+          </Typography> */}
           <Typography variant="body2" color="text.secondary">
             <strong>Company:</strong> {company}
           </Typography>

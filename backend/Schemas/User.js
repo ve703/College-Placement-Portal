@@ -17,6 +17,26 @@ const UserSchema = new Schema({
     type: String,
     default: "Not Placed",
   },
+  tenth: {
+    type: String,
+    default: "",
+  },
+  twelth: {
+    type: String,
+    default: "",
+  },
+  tenthschool: {
+    type: String,
+    default: "",
+  },
+  twelthschool: {
+    type: String,
+    default: "",
+  },
+  hobbies: {
+    type: String,
+    default: "",
+  },
   jobOffers: {
     type: Number,
     default: 0,

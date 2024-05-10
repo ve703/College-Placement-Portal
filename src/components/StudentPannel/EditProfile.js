@@ -43,6 +43,12 @@ function EditProfile() {
     dob: "",
     enrollmentyear: "",
     degree: "",
+    tenth: "",
+    twelth: "",
+    backlog: 0,
+    tenthschool: "",
+    twelthschool: "",
+    hobbies: "",
   });
   const [value, setValue] = useState(dayjs("2022-04-17"));
   const [value2, setValue2] = useState(dayjs("2022-04-17"));
@@ -162,6 +168,13 @@ function EditProfile() {
       message.warning(
         "Incorrect Phone Number. Phone number must be 10 digit long"
       );
+    } else if (
+      formData.tenth > 100 ||
+      formData.twelth > 100 ||
+      formData.tenth < 0 ||
+      formData.twelth < 0
+    ) {
+      message.warning("School percentage must be between 0 to 100");
     } else {
       const response = await fetch("http://localhost:5000/api/v1/update", {
         method: "PUT",
@@ -503,6 +516,77 @@ function EditProfile() {
                   ))}
                 </Select>
               </div>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <TextField
+                variant="outlined"
+                label="10th Marks"
+                name="tenth"
+                value={formData.tenth}
+                onChange={handleChange}
+                fullWidth
+                required
+                sx={{ width: "90%" }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <TextField
+                variant="outlined"
+                label="12th Marks"
+                name="twelth"
+                value={formData.twelth}
+                onChange={handleChange}
+                fullWidth
+                required
+                sx={{ width: "90%" }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <TextField
+                variant="outlined"
+                label="Current Backlogs"
+                name="backlog"
+                value={formData.backlog}
+                onChange={handleChange}
+                fullWidth
+                required
+                sx={{ width: "90%" }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <TextField
+                variant="outlined"
+                label="10th School"
+                name="tenthschool"
+                value={formData.tenthschool}
+                onChange={handleChange}
+                fullWidth
+                required
+                sx={{ width: "90%" }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <TextField
+                variant="outlined"
+                label="12th School"
+                name="twelthschool"
+                value={formData.twelthschool}
+                onChange={handleChange}
+                fullWidth
+                required
+                sx={{ width: "90%" }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <TextField
+                variant="outlined"
+                label="Hobbies"
+                name="hobbies"
+                value={formData.hobbies}
+                onChange={handleChange}
+                fullWidth
+                sx={{ width: "90%" }}
+              />
             </Grid>
           </Grid>
           <Button

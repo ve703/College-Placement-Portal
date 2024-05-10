@@ -89,6 +89,11 @@ const JobProfiles = () => {
     jobOffers: 0,
     eligibleArr: [],
     currbatch: true,
+    Tenth: "Enter 10th Marks",
+    Twelth: "Enter 12th Marks",
+    "Tenth School": "Enter Tenth School",
+    "Twelth School": "Enter Twelth School",
+    hobbies: "",
   };
   const [credential, setCredentials] = useState(data);
   const fetchData = async () => {
@@ -119,6 +124,11 @@ const JobProfiles = () => {
       eligibleArr: r.userData.eligibleArr,
       jobOffers: r.userData.jobOffers,
       currbatch: r.userData.currbatch,
+      Tenth: r.userData.tenth,
+      Twelth: r.userData.twelth,
+      "Tenth School": r.userData.tenthschool,
+      "Twelth School": r.userData.twelthschool,
+      hobbies: r.userData.hobbies,
     });
   };
   const [jobs, setJobs] = useState([{}]);
@@ -607,21 +617,34 @@ const JobProfiles = () => {
                                 <br />
                                 CTC: {i.ctc} LPA
                                 <br />
-                                Eligible Branches:
-                                {/* {i.BranchAllowed.map((x) => {
-                                return <>x</>;
-                              })} */}
-                                <br />
                                 Last Date to Apply:{" "}
                                 {i.lastDay +
                                   "/" +
                                   i.lastMonth +
                                   "/" +
                                   i.lastYear}
+                                <br />
+                                Eligible Branches:
+                                <div className="overfloweddiv">
+                                  UG Branches Allowed:
+                                  {i.BranchAllowed &&
+                                    i.BranchAllowed.map((i) => {
+                                      return <li>{i}</li>;
+                                    })}
+                                  PG Branches Allowed:
+                                  {i.MTechBranchAllowed &&
+                                    i.MTechBranchAllowed.map((i) => {
+                                      return <li>{i}</li>;
+                                    })}
+                                </div>
+                                {/* {i.BranchAllowed.map((x) => {
+                                return <>x</>;
+                              })} */}
+                                <br />
                               </Typography>
                               <div
                                 style={{
-                                  display: "flex",
+                                  // display: "flex",
                                   alignItems: "flex-start",
                                 }}
                               >
@@ -632,7 +655,7 @@ const JobProfiles = () => {
                                 >
                                   Description:
                                 </Typography>
-                                <div>
+                                <div className="overfloweddiv">
                                   <Typography
                                     variant="body2"
                                     align="left"

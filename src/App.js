@@ -48,8 +48,22 @@ function App() {
         <Route path="/" element={<Home />}></Route>
         <Route path="/ourTeam" element={<OurTeam />}></Route>
         <Route path="/contact" element={<Contact />}></Route>
-        <Route path="/admin-list" element={<AdminList />}></Route>
-        <Route path="/candidate" element={<StudentInfo />}></Route>
+        <Route
+          path="/admin-list"
+          element={
+            <ProtectedRouteAdmin>
+              <AdminList />
+            </ProtectedRouteAdmin>
+          }
+        ></Route>
+        <Route
+          path="/candidate"
+          element={
+            <ProtectedRouteStudent>
+              <StudentInfo />
+            </ProtectedRouteStudent>
+          }
+        ></Route>
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/placement" element={<PlacementStat />}></Route>
@@ -143,21 +157,23 @@ function App() {
 export default App;
 
 export function ProtectedRouteStudent(props) {
-  if (
-    localStorage.getItem("AuthToken") &&
-    localStorage.getItem("userType") == 0
-  ) {
-    return props.children;
+  if (localStorage.getItem("AuthToken")) {
+    if (localStorage.getItem("userType") == 0) {
+      return props.children;
+    } else {
+      <Navigate to="/admin-dashboard" replace={true} />;
+    }
   } else {
     return <Navigate to="/login" />;
   }
 }
 export function ProtectedRouteAdmin(props) {
-  if (
-    localStorage.getItem("AuthToken") &&
-    localStorage.getItem("userType") == 1
-  ) {
-    return props.children;
+  if (localStorage.getItem("AuthToken")) {
+    if (localStorage.getItem("userType") == 1) {
+      return props.children;
+    } else {
+      return <Navigate to="/candidate" replace={true} />;
+    }
   } else {
     return <Navigate to="/login" />;
   }

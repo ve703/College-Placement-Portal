@@ -48,6 +48,11 @@ router.put("/update", async (req, res) => {
     dob: req.body.dob,
     enrollmentyear: req.body.enrollmentyear,
     degree: req.body.degree,
+    twelth: req.body.twelth,
+    tenth: req.body.tenth,
+    tenthschool: req.body.tenthschool,
+    twelthschool: req.body.twelthschool,
+    hobbies: req.body.hobbies,
   };
   await User.findByIdAndUpdate(userid, { $set: newdata }, { new: true });
   console.log(data.user.id);

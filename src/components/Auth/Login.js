@@ -119,6 +119,12 @@ function Login() {
   };
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
+  const handleCloseWithout = () => {
+    setOpen(false);
+    if (localStorage.getItem("otp")) {
+      localStorage.removeItem("otp");
+    }
+  };
   const handleClose = async () => {
     if (verifyData.otp == "") {
       message.warning("Enter OTP");
@@ -223,6 +229,13 @@ function Login() {
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               <Button type="small" variant="outlined" onClick={handleClose}>
                 Verify
+              </Button>
+              <Button
+                type="small"
+                variant="outlined"
+                onClick={handleCloseWithout}
+              >
+                Cancel
               </Button>
             </Typography>
           </Box>

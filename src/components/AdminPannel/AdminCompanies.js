@@ -11,16 +11,12 @@ import {
   Box,
   Avatar,
 } from "@mui/material";
-import CsvDownloadButton from "react-json-to-csv";
-import PropTypes from "prop-types";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
+
 import { useNavigate } from "react-router-dom";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { ExportJsonCsv } from "react-export-json-csv";
-import Modal from "@mui/material/Modal";
 import WorkIcon from "@mui/icons-material/Work";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import logo from "./jobdefault.png";
@@ -31,7 +27,7 @@ import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 const AdminCompanies = () => {
   const navigate = useNavigate();
   const [companies, setCompanies] = useState([]);
-  const [refresh, setRefresh] = useState(false);
+  // const [refresh, setRefresh] = useState(false);
   const fetchCompanies = async () => {
     const response = await fetch("http://localhost:5000/api/v1/fetchjobdata", {
       method: "GET",
@@ -70,17 +66,17 @@ const AdminCompanies = () => {
   //     )
 
   //   );
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-  };
+  // const style = {
+  //   position: "absolute",
+  //   top: "50%",
+  //   left: "50%",
+  //   transform: "translate(-50%, -50%)",
+  //   width: 400,
+  //   bgcolor: "background.paper",
+  //   border: "2px solid #000",
+  //   boxShadow: 24,
+  //   p: 4,
+  // };
   const headers2 = [
     {
       key: "CompanyName",
@@ -117,6 +113,14 @@ const AdminCompanies = () => {
       name: "CPI",
     },
     {
+      key: "Tenth",
+      name: "Tenth marks",
+    },
+    {
+      key: "Twelth",
+      name: "Twelth Marks",
+    },
+    {
       key: "Gender",
       name: "Gender",
     },
@@ -127,6 +131,10 @@ const AdminCompanies = () => {
     {
       key: "regnumber",
       name: "regnumber",
+    },
+    {
+      key: "hobbies",
+      name: "Hobbies",
     },
   ];
   const [clicked, setClicked] = useState(false);
@@ -278,23 +286,25 @@ const AdminCompanies = () => {
                     align="left"
                     style={{ whiteSpace: "pre-wrap" }}
                   >
-                    {description}
+                    <div className="overfloweddiv">{description}</div>
                   </Typography>
                   <Typography variant="body2" align="left">
                     <strong>Applied Candidates:</strong>
-                    <FormGroup>
-                      {AppliedCandidates.map((candidate, idx) => (
-                        <FormControlLabel
-                          key={idx}
-                          control={<Checkbox key={idx} />}
-                          label={`${candidate["FirstName"]} ${candidate["LastName"]}`}
-                          onChange={(e) => {
-                            handleonClick(e, candidate.id);
-                            console.log(candidate);
-                          }}
-                        />
-                      ))}
-                    </FormGroup>
+                    <div className="overfloweddiv">
+                      <FormGroup>
+                        {AppliedCandidates.map((candidate, idx) => (
+                          <FormControlLabel
+                            key={idx}
+                            control={<Checkbox key={idx} />}
+                            label={`${candidate["FirstName"]} ${candidate["LastName"]}`}
+                            onChange={(e) => {
+                              handleonClick(e, candidate.id);
+                              console.log(candidate);
+                            }}
+                          />
+                        ))}
+                      </FormGroup>
+                    </div>
                   </Typography>
                 </Grid>
               </Grid>
